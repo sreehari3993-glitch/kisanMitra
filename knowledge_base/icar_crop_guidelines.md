@@ -121,10 +121,24 @@ This reference guide documents recommended agro-climatic envelopes, optimal soil
 - **Agronomic Key**: Sensitive to soil salinity and waterlogging; demands good subsoil drainage.
 
 ### Papaya (*Carica papaya*)
-- **Optimal Soil NPK**: 50 kg/ha N, 59 kg/ha P₂O₅, 50 kg/ha K₂O
-- **Soil pH**: 6.0 – 7.2
-- **Temperature & Climate**: 25°C – 35°C; humidity >70%; rainfall 120 – 160 mm.
-- **Agronomic Key**: Continuous feeder throughout the vegetative and fruit-bearing period.
+- **Optimal Soil NPK**: 50 kg/ha N, 59 kg/ha P₂O₅, 50 kg/ha K₂O (Per-plant dosage: 200–250 g N, 200–250 g P₂O₅, 400–500 g K₂O per year applied in 6 bimonthly splits).
+- **Soil pH & Reaction**: 6.0 – 7.2 (Loamy, alluvial or well-drained red/black soils). Highly sensitive to acidic soils (pH < 6.0); requires 1.2–1.5 t/ha agricultural lime (CaCO₃) to neutralize toxic aluminum/iron ions and prevent damping-off.
+- **Hydrological & Drainage Needs**: Extremely intolerant to water stagnation or waterlogging. Standing water for even 24–48 hours induces fatal collar rot / foot rot (*Pythium / Phytophthora*). Must be cultivated on raised beds (30–45 cm height) or ridge-and-furrow systems with active drainage channels.
+- **Temperature & Climate**: 25°C – 35°C; relative humidity >70%; rainfall 120 – 160 mm. Fruit setting drops below 16°C or above 38°C.
+- **Irrigation & Water Balance (FAO-56)**: $K_{c\text{, ini}} = 0.50$, $K_{c\text{, mid}} = 1.00$, $K_{c\text{, end}} = 0.85$. Rooting depth $Z_r = 0.6 - 1.0\text{ m}$, depletion fraction $p = 0.40$. Drip irrigation with ring emitters is strongly recommended to keep water away from direct contact with the stem collar.
+- **Spacing & Planting Density**: 1.8 m x 1.8 m (1,200 plants/acre) or 2.1 m x 2.1 m (900 plants/acre) in pits of 60 x 60 x 60 cm filled with topsoil, 20 kg FYM, 1 kg neem cake, and 250 g SSP.
+- **Commercial Varieties**: Red Lady 786 (gynodioecious, uniform fruit size, sweet aroma), Taiwan 786, Pusa Delicious, Pusa Dwarf, Coorg Honey Dew.
+- **Key Diseases & Management**:
+  - *Collar Rot / Stem Rot (Pythium aphanidermatum, Phytophthora nicotianae)*: Soil drenching around collar with Metalaxyl-Mancozeb (Ridomil MZ @ 2 g/L) or Copper Oxychloride (@ 3 g/L). Maintain elevated soil mounds around trunk base.
+  - *Papaya Ring Spot Virus (PRSV)*: Vector-transmitted by aphids (*Aphis gossypii*). Plant 2–3 rows of barrier crops (maize or sorghum) around field borders; spray Imidacloprid (0.3 ml/L) or Neem oil (3 ml/L) at first aphid sightings.
+  - *Root Knot Nematode (Meloidogyne incognita)*: Incorporate 25 g *Trichoderma viride* / *Paecilomyces lilacinus* per pit at planting.
+- **Commercial Economics & Yield**:
+  - Yield: 25 – 35 tonnes / acre (60 – 80 kg per plant).
+  - Wholesale Mandi Price: ₹1,500 – ₹2,800 / Quintal.
+  - Estimated Gross Revenue: ₹1,80,000 – ₹2,80,000 / acre.
+  - Cultivation Time: 9 – 12 months for initial fruit maturity; economic orchard lifespan 2 – 3 years.
+- **Agronomic Key**: Continuous feeder throughout the vegetative and fruit-bearing period. Ensure continuous organic matter (FYM) and potash top-dressing to maintain high fruit Brix (>12° Brix sweetness).
+
 
 ### Coconut (*Cocos nucifera*)
 - **Optimal Soil NPK**: 22 kg/ha N, 17 kg/ha P₂O₅, 31 kg/ha K₂O

@@ -1243,5 +1243,113 @@
     },
     "answer": "🌾 **Kisan AI Agronomic Advisory**\n\nIn response to your query *\"why papaya\"* and your live soil state (N: 35.0 kg/ha, P: 60.0 kg/ha, K: 32.0 kg/ha, pH: 5.4, Moisture: 28.0%):\n\n**Verified Agronomic Reference Context:**\n[Knowledge Base / Research Document: icar_crop_guidelines.md]\n### Papaya (*Carica papaya*)\n- **Optimal Soil NPK**: 50 kg/ha N, 59 kg/ha P₂O₅, 50 kg/ha K₂O\n- **Soil pH**: 6.0 - 7.2\n- **Temperature & Climate**: 25°C - 35°C; humidity >70%; rainfall 120 - 160 mm.\n- **Agronomic Key**: Continuous feeder throughout the vegetative and fruit-bearing period.\n\n[Knowledge Base / Research Document: fao56_irrigation_tables.md]\n| Crop Category | Crop Name | $K_{c\\text{, initial}}$ | $K_{c\\text{, mid-season}}$ | $K_{c\\text{, late/end}}$ | Typical Root Depth ($Z_r$, m) | Depletion Fraction ($p$) |\n| :--- | :--- | :---: | :---: | :---: | :---: | :---: |\n| **Cereals** | Rice (Paddy) | 1.05 | 1.20 | 0.90 | 0.5 - \n\n📚 *Grounded in: ICAR Guidelines & KrishiMitra Research Library*",
     "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-26 00:44:15",
+    "query": "why papaya",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 150.0
+    },
+    "answer": "🌾 **Kisan AI Crop Feasibility Assessment: PAPAYA (*Carica papaya*)**\n\n### ⚠️ Feasibility Verdict: **CONDITIONAL -- Soil Amendment Required Before Planting**\n\n### ❓ Why Papaya? (Agronomic & Commercial Rationale)\n- **High Economic Returns**: Papaya is a high-demand commercial crop with lucrative market value (e.g. ₹1,500--₹2,800/Qtl, potential revenue ₹1.8--2.8 Lakhs/acre).\n- **Climate Alignment**: Your ambient temperature (31.0°C) and relative humidity (80.0%) match Papaya's tropical vegetative growth window (25--35°C).\n- **Soil Friction & Necessary Amendments**: Current soil pH (5.4) is acidic, requiring liming (1.0--1.5 t/ha CaCO₃). Additionally, drainage mounds (30--45 cm) are mandatory to avoid fatal collar/root rot under high moisture.\n\nBased on your live IoT sensor readings and ICAR/Caricaceae agronomic standards:\n\n**1. Soil & Climate Telemetry vs. Papaya Benchmarks:**\n- 🔴 **Soil pH**: **5.4** (Benchmark: 6.0 -- 7.2) ➔ *Acidic*\n  - Soil is too acidic (pH 5.4 vs required 6.0--7.2). Apply **1.0--2.0 t/ha agricultural lime (CaCO₃)** 2--3 weeks before planting.\n- 🟢 **Nitrogen ($N$)**: **35.0 kg/ha** (Target: 50 kg/ha) ➔ *Adequate*\n  - Nitrogen levels are sufficient.\n- 🟢 **Phosphorus ($P$)**: **60.0 kg/ha** (Target: 59 kg/ha) ➔ *Adequate*\n  - Phosphorus is sufficient.\n- 🟢 **Potassium ($K$)**: **32.0 kg/ha** (Target: 50 kg/ha) ➔ *Adequate*\n  - Potassium is sufficient.\n- 🔴 **Soil Moisture**: **28.0%** (Minimum: 30%) ➔ *Insufficient*\n  - Soil moisture (28.0%) is below minimum (30%). **Pre-planting irrigation** of 40--60 mm is required.\n- 🟢 **Temperature**: **31.0°C** (Optimal: 25 -- 35°C) ➔ *Optimal*\n  - Temperature is ideal for Papaya (25--35°C).\n\n**2. Recommended Season:** Year-round (monsoon planting June-Sep preferred)\n**3. Plant Spacing:** 1.8 x 1.8 m (1,200 plants/acre) or 2.1 x 2.1 m\n**4. Fertilizer Schedule:** 200g N + 200g P2O5 + 400g K2O per plant/year divided into 6 bimonthly applications. Basal: 20 kg FYM + 250g SSP/pit.\n**5. Key Pests & Diseases:** Papaya Ring Spot Virus (PRSV), collar rot (Pythium/Phytophthora), root knot nematodes\n**6. Important Notes:** Extremely intolerant to waterlogging. Raised beds or mounds (30-45 cm) mandatory. In acidic soils (pH < 6.0), broadcast 1.2-1.5 t/ha lime.\n\n**Scientific Research Citations:**\n[Crop Benchmarks: CROP_FEASIBILITY_BENCHMARKS.txt]\n[Agronomic Table: TABLE.txt | Page 1]\n\n📚 *Grounded in: ICAR Crop Production Package & FAO-56 Irrigation Paper No. 56*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-26 00:44:22",
+    "query": "why papaya",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 150.0
+    },
+    "answer": "🌾 **Kisan AI Crop Feasibility Assessment: PAPAYA (*Carica papaya*)**\n\n### ⚠️ Feasibility Verdict: **CONDITIONAL -- Soil Amendment Required Before Planting**\n\n### ❓ Why Papaya? (Agronomic & Commercial Rationale)\n- **High Economic Returns**: Papaya is a high-demand commercial crop with lucrative market value (e.g. ₹1,500--₹2,800/Qtl, potential revenue ₹1.8--2.8 Lakhs/acre).\n- **Climate Alignment**: Your ambient temperature (31.0°C) and relative humidity (80.0%) match Papaya's tropical vegetative growth window (25--35°C).\n- **Soil Friction & Necessary Amendments**: Current soil pH (5.4) is acidic, requiring liming (1.0--1.5 t/ha CaCO₃). Additionally, drainage mounds (30--45 cm) are mandatory to avoid fatal collar/root rot under high moisture.\n\nBased on your live IoT sensor readings and ICAR/Caricaceae agronomic standards:\n\n**1. Soil & Climate Telemetry vs. Papaya Benchmarks:**\n- 🔴 **Soil pH**: **5.4** (Benchmark: 6.0 -- 7.2) ➔ *Acidic*\n  - Soil is too acidic (pH 5.4 vs required 6.0--7.2). Apply **1.0--2.0 t/ha agricultural lime (CaCO₃)** 2--3 weeks before planting.\n- 🟢 **Nitrogen ($N$)**: **35.0 kg/ha** (Target: 50 kg/ha) ➔ *Adequate*\n  - Nitrogen levels are sufficient.\n- 🟢 **Phosphorus ($P$)**: **60.0 kg/ha** (Target: 59 kg/ha) ➔ *Adequate*\n  - Phosphorus is sufficient.\n- 🟢 **Potassium ($K$)**: **32.0 kg/ha** (Target: 50 kg/ha) ➔ *Adequate*\n  - Potassium is sufficient.\n- 🔴 **Soil Moisture**: **28.0%** (Minimum: 30%) ➔ *Insufficient*\n  - Soil moisture (28.0%) is below minimum (30%). **Pre-planting irrigation** of 40--60 mm is required.\n- 🟢 **Temperature**: **31.0°C** (Optimal: 25 -- 35°C) ➔ *Optimal*\n  - Temperature is ideal for Papaya (25--35°C).\n\n**2. Recommended Season:** Year-round (monsoon planting June-Sep preferred)\n**3. Plant Spacing:** 1.8 x 1.8 m (1,200 plants/acre) or 2.1 x 2.1 m\n**4. Fertilizer Schedule:** 200g N + 200g P2O5 + 400g K2O per plant/year divided into 6 bimonthly applications. Basal: 20 kg FYM + 250g SSP/pit.\n**5. Key Pests & Diseases:** Papaya Ring Spot Virus (PRSV), collar rot (Pythium/Phytophthora), root knot nematodes\n**6. Important Notes:** Extremely intolerant to waterlogging. Raised beds or mounds (30-45 cm) mandatory. In acidic soils (pH < 6.0), broadcast 1.2-1.5 t/ha lime.\n\n**Scientific Research Citations:**\n[Crop Benchmarks: CROP_FEASIBILITY_BENCHMARKS.txt]\n[Agronomic Table: TABLE.txt | Page 1]\n\n📚 *Grounded in: ICAR Crop Production Package & FAO-56 Irrigation Paper No. 56*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-26 00:44:34",
+    "query": "can I grow papaya",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 150.0
+    },
+    "answer": "🌾 **Kisan AI Crop Feasibility Assessment: PAPAYA (*Carica papaya*)**\n\n### ⚠️ Feasibility Verdict: **CONDITIONAL -- Soil Amendment Required Before Planting**\n\nBased on your live IoT sensor readings and ICAR/Caricaceae agronomic standards:\n\n**1. Soil & Climate Telemetry vs. Papaya Benchmarks:**\n- 🔴 **Soil pH**: **5.4** (Benchmark: 6.0 -- 7.2) ➔ *Acidic*\n  - Soil is too acidic (pH 5.4 vs required 6.0--7.2). Apply **1.0--2.0 t/ha agricultural lime (CaCO₃)** 2--3 weeks before planting.\n- 🟢 **Nitrogen ($N$)**: **35.0 kg/ha** (Target: 50 kg/ha) ➔ *Adequate*\n  - Nitrogen levels are sufficient.\n- 🟢 **Phosphorus ($P$)**: **60.0 kg/ha** (Target: 59 kg/ha) ➔ *Adequate*\n  - Phosphorus is sufficient.\n- 🟢 **Potassium ($K$)**: **32.0 kg/ha** (Target: 50 kg/ha) ➔ *Adequate*\n  - Potassium is sufficient.\n- 🔴 **Soil Moisture**: **28.0%** (Minimum: 30%) ➔ *Insufficient*\n  - Soil moisture (28.0%) is below minimum (30%). **Pre-planting irrigation** of 40--60 mm is required.\n- 🟢 **Temperature**: **31.0°C** (Optimal: 25 -- 35°C) ➔ *Optimal*\n  - Temperature is ideal for Papaya (25--35°C).\n\n**2. Recommended Season:** Year-round (monsoon planting June-Sep preferred)\n**3. Plant Spacing:** 1.8 x 1.8 m (1,200 plants/acre) or 2.1 x 2.1 m\n**4. Fertilizer Schedule:** 200g N + 200g P2O5 + 400g K2O per plant/year divided into 6 bimonthly applications. Basal: 20 kg FYM + 250g SSP/pit.\n**5. Key Pests & Diseases:** Papaya Ring Spot Virus (PRSV), collar rot (Pythium/Phytophthora), root knot nematodes\n**6. Important Notes:** Extremely intolerant to waterlogging. Raised beds or mounds (30-45 cm) mandatory. In acidic soils (pH < 6.0), broadcast 1.2-1.5 t/ha lime.\n\n**Scientific Research Citations:**\n[Crop Benchmarks: CROP_FEASIBILITY_BENCHMARKS.txt]\n[Agronomic Table: TABLE.txt | Page 1]\n\n📚 *Grounded in: ICAR Crop Production Package & FAO-56 Irrigation Paper No. 56*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-26 00:44:34",
+    "query": "എന്തുകൊണ്ട് പപ്പായ",
+    "language": "Malayalam",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 150.0
+    },
+    "answer": "🌾 **കിസാൻ എഐ വിള യോഗ്യതാ വിശകലനം: Papaya (*Carica papaya*)**\n\n### ⚠️ നിർദ്ദേശം: **CONDITIONAL -- Soil Amendment Required Before Planting**\n\n### ❓ എന്തുകൊണ്ട് Papaya? (കാർഷിക വിശകലനം)\n- **സാമ്പത്തിക നേട്ടം**: Papaya മികച്ച വിപണി മൂല്യമുള്ള ലാഭകരമായ ഒരു വാണിജ്യ വിളയാണ്.\n- **കാലാവസ്ഥാ അനുയോജ്യത**: നിലവിലെ താപനിലയും (31.0°C) അന്തരീക്ഷ ഈർപ്പവും (80.0%) Papaya-ന്റെ വളർച്ചയ്ക്ക് ഏറ്റവും യോജിച്ചതാണ്.\n- **മണ്ണ് പരിപാലനം**: മണ്ണിന്റെ അമ്ലതയും (pH 5.4) വേരുചീയൽ സാധ്യതയും ഒഴിവാക്കാൻ കുമ്മായ പ്രയോഗവും ഡ്രെയിനേജും നിർബന്ധമാണ്.\n\nനിങ്ങളുടെ പാടത്തെ സെൻസർ വിവരങ്ങൾ Papaya-ന്റെ ICAR മാനദണ്ഡങ്ങളുമായി താരതമ്യം ചെയ്ത ഫലം:\n\n**1. മണ്ണിന്റെ ഘടകങ്ങൾ vs Papaya ആവശ്യകത:**\n- 🔴 **pH**: **5.4** (ആവശ്യം: 6.0--7.2) ➔ *Acidic*\n- 🟢 **നൈട്രജൻ ($N$)**: **35.0 kg/ha** (ലക്ഷ്യം: 50 kg/ha) ➔ *Adequate*\n- 🟢 **ഫോസ്ഫറസ് ($P$)**: **60.0 kg/ha** (ലക്ഷ്യം: 59 kg/ha) ➔ *Adequate*\n- 🟢 **പൊട്ടാസ്യം ($K$)**: **32.0 kg/ha** (ലക്ഷ്യം: 50 kg/ha) ➔ *Adequate*\n- 🔴 **ഈർപ്പം**: **28.0%** (കുറഞ്ഞത്: 30%) ➔ *Insufficient*\n- 🟢 **താപനില**: **31.0°C** (ആവശ്യം: 25--35°C) ➔ *Optimal*\n\n**2. വിതക്കൽ / നടീൽ കാലം:** Year-round (monsoon planting June-Sep preferred)\n**3. അകലം:** 1.8 x 1.8 m (1,200 plants/acre) or 2.1 x 2.1 m\n**4. വളപ്രയോഗ ഷെഡ്യൂൾ:** 200g N + 200g P2O5 + 400g K2O per plant/year divided into 6 bimonthly applications. Basal: 20 kg FYM + 250g SSP/pit.\n**5. പ്രധാന കീടങ്ങൾ / രോഗങ്ങൾ:** Papaya Ring Spot Virus (PRSV), collar rot (Pythium/Phytophthora), root knot nematodes\n**6. പ്രത്യേക കുറിപ്പുകൾ:** Extremely intolerant to waterlogging. Raised beds or mounds (30-45 cm) mandatory. In acidic soils (pH < 6.0), broadcast 1.2-1.5 t/ha lime.\n\n**ശാസ്ത്രീയ റഫറൻസ്:**\n[Crop Benchmarks: CROP_FEASIBILITY_BENCHMARKS.txt]\n[Agronomic Table: TABLE.txt | Page 1]\n\n📚 *അവലംബം: ICAR & FAO-56 & KAU Guidelines*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-26 00:44:34",
+    "query": "पपीता क्यों",
+    "language": "Hindi",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 150.0
+    },
+    "answer": "🌾 **किसान एआई फसल उपयुक्तता विश्लेषण: Papaya (*Carica papaya*)**\n\n### ⚠️ निर्णय: **CONDITIONAL -- Soil Amendment Required Before Planting**\n\n### ❓ Papaya क्यों? (कृषि वैज्ञानिक व आर्थिक विश्लेषण)\n- **उच्च आर्थिक लाभ**: Papaya एक उच्च मूल्य वाली व्यावसायिक नकदी फसल है।\n- **जलवायु अनुकूलता**: आपके खेत का तापमान (31.0°C) और आर्द्रता (80.0%) Papaya के विकास के लिए पूर्णतः अनुकूल हैं।\n- **मृदा सुधार आवश्यकता**: मिट्टी की अम्लता (pH 5.4) को सुधारने के लिए चूना और जलभराव से बचाव हेतु ऊंचे बेड (Raised Beds) अनिवार्य हैं।\n\nआपके खेत के सेंसर आंकड़ों और ICAR मानकों के अनुसार Papaya की खेती का विश्लेषण:\n\n**1. मिट्टी के तत्व vs Papaya मानक:**\n- 🔴 **मृदा pH**: **5.4** (मानक: 6.0--7.2) ➔ *Acidic*\n  - Soil is too acidic (pH 5.4 vs required 6.0--7.2). Apply **1.0--2.0 t/ha agricultural lime (CaCO₃)** 2--3 weeks before planting.\n- 🟢 **नाइट्रोजन ($N$)**: **35.0 kg/ha** (लक्ष्य: 50 kg/ha) ➔ *Adequate*\n  - Nitrogen levels are sufficient.\n- 🟢 **फास्फोरस ($P$)**: **60.0 kg/ha** (लक्ष्य: 59 kg/ha) ➔ *Adequate*\n- 🟢 **पोटाश ($K$)**: **32.0 kg/ha** (लक्ष्य: 50 kg/ha) ➔ *Adequate*\n- 🔴 **नमी**: **28.0%** (न्यूनतम: 30%) ➔ *Insufficient*\n- 🟢 **तापमान**: **31.0°C** (मानक: 25--35°C) ➔ *Optimal*\n\n**2. बुवाई का मौसम:** Year-round (monsoon planting June-Sep preferred)\n**3. पौधों का अंतर:** 1.8 x 1.8 m (1,200 plants/acre) or 2.1 x 2.1 m\n**4. उर्वरक कार्यक्रम:** 200g N + 200g P2O5 + 400g K2O per plant/year divided into 6 bimonthly applications. Basal: 20 kg FYM + 250g SSP/pit.\n**5. प्रमुख कीट/रोग:** Papaya Ring Spot Virus (PRSV), collar rot (Pythium/Phytophthora), root knot nematodes\n**6. विशेष सुझाव:** Extremely intolerant to waterlogging. Raised beds or mounds (30-45 cm) mandatory. In acidic soils (pH < 6.0), broadcast 1.2-1.5 t/ha lime.\n\n**वैज्ञानिक संदर्भ:**\n[Crop Benchmarks: CROP_FEASIBILITY_BENCHMARKS.txt]\n[Agronomic Table: TABLE.txt | Page 1]\n\n📚 *स्रोत: ICAR & FAO-56 Agronomy Standards*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-26 00:46:30",
+    "query": "why papaya",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 180.0
+    },
+    "answer": "🌾 **Kisan AI Crop Feasibility Assessment: PAPAYA (*Carica papaya*)**\n\n### ⚠️ Feasibility Verdict: **CONDITIONAL -- Soil Amendment Required Before Planting**\n\n### ❓ Why Papaya? (Agronomic & Commercial Rationale)\n- **High Economic Returns**: Papaya is a high-demand commercial crop with lucrative market value (e.g. ₹1,500--₹2,800/Qtl, potential revenue ₹1.8--2.8 Lakhs/acre).\n- **Climate Alignment**: Your ambient temperature (31.0°C) and relative humidity (80.0%) match Papaya's tropical vegetative growth window (25--35°C).\n- **Soil Friction & Necessary Amendments**: Current soil pH (5.4) is acidic, requiring liming (1.0--1.5 t/ha CaCO₃). Additionally, drainage mounds (30--45 cm) are mandatory to avoid fatal collar/root rot under high moisture.\n\nBased on your live IoT sensor readings and ICAR/Caricaceae agronomic standards:\n\n**1. Soil & Climate Telemetry vs. Papaya Benchmarks:**\n- 🔴 **Soil pH**: **5.4** (Benchmark: 6.0 -- 7.2) ➔ *Acidic*\n  - Soil is too acidic (pH 5.4 vs required 6.0--7.2). Apply **1.0--2.0 t/ha agricultural lime (CaCO₃)** 2--3 weeks before planting.\n- 🟢 **Nitrogen ($N$)**: **35.0 kg/ha** (Target: 50 kg/ha) ➔ *Adequate*\n  - Nitrogen levels are sufficient.\n- 🟢 **Phosphorus ($P$)**: **60.0 kg/ha** (Target: 59 kg/ha) ➔ *Adequate*\n  - Phosphorus is sufficient.\n- 🟢 **Potassium ($K$)**: **32.0 kg/ha** (Target: 50 kg/ha) ➔ *Adequate*\n  - Potassium is sufficient.\n- 🔴 **Soil Moisture**: **28.0%** (Minimum: 30%) ➔ *Insufficient*\n  - Soil moisture (28.0%) is below minimum (30%). **Pre-planting irrigation** of 40--60 mm is required.\n- 🟢 **Temperature**: **31.0°C** (Optimal: 25 -- 35°C) ➔ *Optimal*\n  - Temperature is ideal for Papaya (25--35°C).\n\n**2. Recommended Season:** Year-round (monsoon planting June-Sep preferred)\n**3. Plant Spacing:** 1.8 x 1.8 m (1,200 plants/acre) or 2.1 x 2.1 m\n**4. Fertilizer Schedule:** 200g N + 200g P2O5 + 400g K2O per plant/year divided into 6 bimonthly applications. Basal: 20 kg FYM + 250g SSP/pit.\n**5. Key Pests & Diseases:** Papaya Ring Spot Virus (PRSV), collar rot (Pythium/Phytophthora), root knot nematodes\n**6. Important Notes:** Extremely intolerant to waterlogging. Raised beds or mounds (30-45 cm) mandatory. In acidic soils (pH < 6.0), broadcast 1.2-1.5 t/ha lime.\n\n**Scientific Research Citations:**\n[Crop Benchmarks: CROP_FEASIBILITY_BENCHMARKS.txt]\n[Agronomic Table: TABLE.txt | Page 1]\n\n📚 *Grounded in: ICAR Crop Production Package & FAO-56 Irrigation Paper No. 56*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
   }
 ]

@@ -387,6 +387,37 @@ CROP_BENCHMARKS: Dict[str, Dict[str, Any]] = {
         "fert_schedule": "50% N basal + 25% at squaring + 25% at boll development. 100% P + K basal.",
         "notes": "Deep black soils preferred. Potassium critical for fiber quality.",
     },
+    # ---------- FRUITS & PLANTATION ----------
+    "Papaya": {
+        "scientific": "Carica papaya",
+        "family": "Caricaceae",
+        "season": "Year-round (monsoon planting June-Sep preferred)",
+        "ph_min": 6.0, "ph_max": 7.2,
+        "n_target": 50, "p_target": 59, "k_target": 50,
+        "n_min": 35, "p_min": 30, "k_min": 30,
+        "temp_min": 25, "temp_max": 35, "temp_abs_max": 38,
+        "moist_min": 30, "moist_opt_min": 40, "moist_opt_max": 65,
+        "kc_mid": 1.00,
+        "pests": "Papaya Ring Spot Virus (PRSV), collar rot (Pythium/Phytophthora), root knot nematodes",
+        "spacing": "1.8 x 1.8 m (1,200 plants/acre) or 2.1 x 2.1 m",
+        "fert_schedule": "200g N + 200g P2O5 + 400g K2O per plant/year divided into 6 bimonthly applications. Basal: 20 kg FYM + 250g SSP/pit.",
+        "notes": "Extremely intolerant to waterlogging. Raised beds or mounds (30-45 cm) mandatory. In acidic soils (pH < 6.0), broadcast 1.2-1.5 t/ha lime.",
+    },
+    "Banana": {
+        "scientific": "Musa acuminata",
+        "family": "Musaceae",
+        "season": "Year-round (tropical)",
+        "ph_min": 6.0, "ph_max": 7.5,
+        "n_target": 110, "p_target": 75, "k_target": 120,
+        "n_min": 70, "p_min": 40, "k_min": 60,
+        "temp_min": 22, "temp_max": 32, "temp_abs_max": 38,
+        "moist_min": 45, "moist_opt_min": 55, "moist_opt_max": 80,
+        "kc_mid": 1.20,
+        "pests": "Panama wilt (Fusarium), Sigatoka leaf spot, pseudostem weevil",
+        "spacing": "1.8 x 1.8 m",
+        "fert_schedule": "200g N + 60g P2O5 + 300g K2O per plant in 4 splits. Basal FYM 10 kg/pit.",
+        "notes": "High water and potassium feeder. Sensitive to wind damage and severe acidity.",
+    },
 }
 
 # ========================================================================================
@@ -422,6 +453,9 @@ CROP_KEYWORDS: Dict[str, List[str]] = {
     "Maize":        ["maize", "corn", "मक्का", "ചോളം", "சோளம்", "మొక్కజొన్న", "ಮೆಕ್ಕೆಜೋಳ"],
     # Commercial
     "Cotton":       ["cotton", "कपास", "പരുത്തി", "பருத்தி", "పత్తి", "ಹತ್ತಿ"],
+    # Fruits & Plantation
+    "Papaya":       ["papaya", "papayas", "पपीता", "പപ്പായ", "பப்பாளி", "బొప్పాయి", "ಪಪ್ಪಾಯಿ", "carica papaya"],
+    "Banana":       ["banana", "bananas", "plantain", "केला", "വാഴ", "വാഴപ്പഴം", "வாழை", "అరటి", "ಬಾಳೆ"],
 }
 
 
@@ -520,6 +554,10 @@ def extract_retrieval_query(query: str, language: str) -> str:
         tokens.extend(["cotton", "gossypium"])
     if any(k in query for k in ["मक्का", "ചോളം", "சோளம்"]) or "maize" in q_lower or "corn" in q_lower:
         tokens.extend(["maize", "corn"])
+    if any(k in query for k in ["पपीता", "പപ്പായ", "பப்பாளி", "బొప్పాయి", "ಪಪ್ಪಾಯಿ"]) or "papaya" in q_lower:
+        tokens.extend(["papaya", "carica", "collar rot", "drainage", "lime", "fao-56"])
+    if any(k in query for k in ["केला", "വാഴ", "வாழை", "అరటి", "ಬಾಳೆ"]) or "banana" in q_lower:
+        tokens.extend(["banana", "musa", "potassium", "fao-56"])
 
     # Symptom mapping
     if any(k in query for k in ["पील", "മഞ്ഞ", "மஞ்சள்"]) or "yellow" in q_lower or "chlorosis" in q_lower:
@@ -773,15 +811,20 @@ def generate_expert_agronomic_response(
         "should i grow", "should i farm", "possible to grow", "possible to farm",
         "will it grow", "suitable for", "is it possible", "soil condition",
         "this soil", "my soil", "my field",
+        "why", "why not", "why is", "why can", "how about", "tell me about",
+        "is it good", "explain", "about", "pros and cons", "recommend", "profit",
     ]
-    feasibility_words = ["can", "grow", "farm", "plant", "suitable", "feasib", "possible", "cultivate"]
+    feasibility_words = [
+        "can", "grow", "farm", "plant", "suitable", "feasib", "possible",
+        "cultivate", "why", "suit", "good", "pros", "cons", "recommend", "opinion",
+    ]
 
     # Multilingual farming phrases
     farming_phrases_indic = [
-        "खेती", "की खेती", "उगा सकते", "उगाना", "कर सकते",
-        "കൃഷി", "കൃഷി ചെയ്യാമോ", "കർഷിക്കാൻ", "വളർത്താൻ",
-        "விவசாயம்", "வளர்க்க", "பயிரிட",
-        "సాగు", "పండించ", "ಬೆಳೆ", "ಬೆಳೆಯ",
+        "खेती", "की खेती", "उगा सकते", "उगाना", "कर सकते", "क्यों", "कैसा", "कैसी",
+        "കൃഷി", "കൃഷി ചെയ്യാമോ", "കർഷിക്കാൻ", "വളർത്താൻ", "എന്തുകൊണ്ട്", "നല്ലതാണോ", "ഗുണം",
+        "விவசாயம்", "வளர்க்க", "பயிரிட", "ஏன்",
+        "సాగు", "పండించ", "ఎందుకు", "ಬೆಳೆ", "ಬೆಳೆಯ", "ಏಕೆ",
     ]
 
     is_feasibility_query = (
@@ -789,6 +832,7 @@ def generate_expert_agronomic_response(
         or (detected_crop is not None and any(w in q_lower for w in feasibility_words))
         or (detected_crop is not None and any(k in query for k in farming_phrases_indic))
         or (detected_crop is not None and ("soil" in q_lower or "condition" in q_lower or "this" in q_lower))
+        or (detected_crop is not None and len(query.strip().split()) <= 4)
     )
 
     if is_feasibility_query and detected_crop and detected_crop in CROP_BENCHMARKS:
@@ -876,11 +920,40 @@ def generate_expert_agronomic_response(
             verdict = "NOT RECOMMENDED -- Multiple Critical Deficits Detected"
             verdict_badge = "🔴"
 
+        # Explicit Why Crop Rationale Section
+        is_why_query = any(w in q_lower for w in ["why", "reason", "recommend", "pros", "explain", "opinion", "worth"]) or any(k in query for k in ["क्यों", "എന്തുകൊണ്ട്", "ഏൻ", "ఎందుకు", "ಏಕೆ"])
+        
+        why_sec_en = ""
+        why_sec_hi = ""
+        why_sec_ml = ""
+
+        if is_why_query:
+            drainage_note = "drainage mounds (30--45 cm) are mandatory to avoid fatal collar/root rot under high moisture" if detected_crop == "Papaya" else "adequate drainage and moisture regulation are needed"
+            why_sec_en = (
+                f"### ❓ Why {detected_crop}? (Agronomic & Commercial Rationale)\n"
+                f"- **High Economic Returns**: {detected_crop} is a high-demand commercial crop with lucrative market value (e.g. ₹1,500--₹2,800/Qtl, potential revenue ₹1.8--2.8 Lakhs/acre).\n"
+                f"- **Climate Alignment**: Your ambient temperature ({temp_val:.1f}°C) and relative humidity ({hum_val:.1f}%) match {detected_crop}'s tropical vegetative growth window ({cb['temp_min']}--{cb['temp_max']}°C).\n"
+                f"- **Soil Friction & Necessary Amendments**: Current soil pH ({ph_val:.1f}) is {'acidic' if ph_val < cb['ph_min'] else 'alkaline' if ph_val > cb['ph_max'] else 'optimal'}, requiring {'liming (1.0--1.5 t/ha CaCO₃)' if ph_val < cb['ph_min'] else 'gypsum' if ph_val > cb['ph_max'] else 'no chemical pH correction'}. Additionally, {drainage_note}.\n\n"
+            )
+            why_sec_hi = (
+                f"### ❓ {detected_crop} क्यों? (कृषि वैज्ञानिक व आर्थिक विश्लेषण)\n"
+                f"- **उच्च आर्थिक लाभ**: {detected_crop} एक उच्च मूल्य वाली व्यावसायिक नकदी फसल है।\n"
+                f"- **जलवायु अनुकूलता**: आपके खेत का तापमान ({temp_val:.1f}°C) और आर्द्रता ({hum_val:.1f}%) {detected_crop} के विकास के लिए पूर्णतः अनुकूल हैं।\n"
+                f"- **मृदा सुधार आवश्यकता**: मिट्टी की अम्लता (pH {ph_val:.1f}) को सुधारने के लिए चूना और जलभराव से बचाव हेतु ऊंचे बेड (Raised Beds) अनिवार्य हैं।\n\n"
+            )
+            why_sec_ml = (
+                f"### ❓ എന്തുകൊണ്ട് {detected_crop}? (കാർഷിക വിശകലനം)\n"
+                f"- **സാമ്പത്തിക നേട്ടം**: {detected_crop} മികച്ച വിപണി മൂല്യമുള്ള ലാഭകരമായ ഒരു വാണിജ്യ വിളയാണ്.\n"
+                f"- **കാലാവസ്ഥാ അനുയോജ്യത**: നിലവിലെ താപനിലയും ({temp_val:.1f}°C) അന്തരീക്ഷ ഈർപ്പവും ({hum_val:.1f}%) {detected_crop}-ന്റെ വളർച്ചയ്ക്ക് ഏറ്റവും യോജിച്ചതാണ്.\n"
+                f"- **മണ്ണ് പരിപാലനം**: മണ്ണിന്റെ അമ്ലതയും (pH {ph_val:.1f}) വേരുചീയൽ സാധ്യതയും ഒഴിവാക്കാൻ കുമ്മായ പ്രയോഗവും ഡ്രെയിനേജും നിർബന്ധമാണ്.\n\n"
+            )
+
         # --- Generate trilingual response ---
         if language == "Malayalam":
             return (
                 f"🌾 **കിസാൻ എഐ വിള യോഗ്യതാ വിശകലനം: {detected_crop} (*{cb['scientific']}*)**\n\n"
                 f"### {verdict_badge} നിർദ്ദേശം: **{verdict}**\n\n"
+                f"{why_sec_ml}"
                 f"നിങ്ങളുടെ പാടത്തെ സെൻസർ വിവരങ്ങൾ {detected_crop}-ന്റെ ICAR മാനദണ്ഡങ്ങളുമായി താരതമ്യം ചെയ്ത ഫലം:\n\n"
                 f"**1. മണ്ണിന്റെ ഘടകങ്ങൾ vs {detected_crop} ആവശ്യകത:**\n"
                 f"- {ph_badge} **pH**: **{ph_val:.1f}** (ആവശ്യം: {cb['ph_min']}--{cb['ph_max']}) ➔ *{ph_status}*\n"
@@ -903,6 +976,7 @@ def generate_expert_agronomic_response(
             return (
                 f"🌾 **किसान एआई फसल उपयुक्तता विश्लेषण: {detected_crop} (*{cb['scientific']}*)**\n\n"
                 f"### {verdict_badge} निर्णय: **{verdict}**\n\n"
+                f"{why_sec_hi}"
                 f"आपके खेत के सेंसर आंकड़ों और ICAR मानकों के अनुसार {detected_crop} की खेती का विश्लेषण:\n\n"
                 f"**1. मिट्टी के तत्व vs {detected_crop} मानक:**\n"
                 f"- {ph_badge} **मृदा pH**: **{ph_val:.1f}** (मानक: {cb['ph_min']}--{cb['ph_max']}) ➔ *{ph_status}*\n"
@@ -927,6 +1001,7 @@ def generate_expert_agronomic_response(
             return (
                 f"🌾 **Kisan AI Crop Feasibility Assessment: {detected_crop.upper()} (*{cb['scientific']}*)**\n\n"
                 f"### {verdict_badge} Feasibility Verdict: **{verdict}**\n\n"
+                f"{why_sec_en}"
                 f"Based on your live IoT sensor readings and ICAR/{cb['family']} agronomic standards:\n\n"
                 f"**1. Soil & Climate Telemetry vs. {detected_crop} Benchmarks:**\n"
                 f"- {ph_badge} **Soil pH**: **{ph_val:.1f}** (Benchmark: {cb['ph_min']} -- {cb['ph_max']}) ➔ *{ph_status}*\n"
@@ -1313,8 +1388,22 @@ def generate_expert_agronomic_response(
     # ---------------- INTENT 9: RAG Context Synthesis Fallback ----------------
     context_snippet = ""
     if retrieved_chunks:
-        cleaned_chunks = [sanitize_text(c[:350]) for c in retrieved_chunks[:2]]
-        context_snippet = "\n\n".join(cleaned_chunks)
+        formatted_chunks = []
+        for c in retrieved_chunks[:2]:
+            clean_c = sanitize_text(c).strip()
+            lines = [l for l in clean_c.split("\n") if l.strip()]
+            valid_lines = []
+            char_accum = 0
+            for line in lines:
+                if line.strip().startswith("|") and not line.strip().endswith("|"):
+                    continue
+                valid_lines.append(line)
+                char_accum += len(line)
+                if char_accum > 500:
+                    break
+            if valid_lines:
+                formatted_chunks.append("\n".join(valid_lines))
+        context_snippet = "\n\n".join(formatted_chunks)
 
     if language == "Hindi":
         return (

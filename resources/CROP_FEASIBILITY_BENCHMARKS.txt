@@ -604,6 +604,34 @@ Max Temp Tolerance:38 °C
 Moisture:          35 - 55%
 Min Moisture:      25%
 
+--- PAPAYA (Carica papaya) ---
+Scientific Name:   Carica papaya
+Family:            Caricaceae
+Season:            Year-round (monsoon planting June-Sep preferred)
+Optimal pH:        6.0 - 7.2
+Optimal N (kg/ha): 50
+Optimal P (kg/ha): 59
+Optimal K (kg/ha): 50
+Min N Threshold:   35
+Min P Threshold:   30
+Min K Threshold:   30
+Temperature:       25 - 35 °C (Optimal fruit development: 28-32°C)
+Max Temp Tolerance:38 °C (Fruit setting impaired above 38°C or below 16°C)
+Moisture:          40 - 65% (Drip ring irrigation; zero standing water)
+Min Moisture:      30%
+Kc_mid:            1.00
+Kc_end:            0.85
+Max Height:        2.5 - 4.0 m
+Root Depth:        0.6 - 1.0 m (Shallow, fleshy root system)
+Spacing:           180x180 cm (1,200 plants/acre) or 210x210 cm
+Key Pests:         Papaya Ring Spot Virus (PRSV), collar rot (Pythium/Phytophthora), nematodes
+Soil Amendment:    Acidic soils (<6.0): Broadcast 1.2-1.5 t/ha agricultural lime (CaCO3)
+                   Waterlogging sensitive: Construct 30-45 cm raised beds/ridges with drainage channels
+Fertilizer Split:  200g N + 200g P2O5 + 400g K2O per plant/year divided into 6 bimonthly applications
+                   Apply 20 kg FYM + 250g SSP basal in planting pit
+Yield / Economics: 25 - 35 tonnes/acre (60-80 kg/plant); Mandi rate: Rs 1,500 - 2,800/Qtl; Gross: Rs 1.8-2.8 L/acre
+
+
 ================================================================================
   END OF FILE — KrishiMitra Crop Feasibility Benchmarks Database v2.0
 ================================================================================
