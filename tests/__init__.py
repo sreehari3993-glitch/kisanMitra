@@ -1,0 +1,1 @@
+"""KrishiMitra test suite."""

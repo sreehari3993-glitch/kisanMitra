@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farmer Login — KrishiMitra Precision Agriculture</title>
+  
+  <!-- Modern Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.22), transparent 45%),
+                  radial-gradient(circle at 20% 80%, rgba(5, 150, 105, 0.18), transparent 45%),
+                  #050d09;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-body);
+      color: #ffffff;
+      padding: 1.5rem;
+      box-sizing: border-box;
+    }
+
+    .login-page-container {
+      width: 100%;
+      max-width: 480px;
+    }
+
+    .auth-modal-card {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    .page-auth-title {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .page-auth-subtitle {
+      margin: 0.25rem 0 0 0;
+    }
+
+    .page-guest-link {
+      display: inline-block;
+      text-decoration: underline;
+      color: #a7f3d0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-page-container">
+    <div class="auth-modal-card">
+      <div class="auth-brand-row">
+        <div class="auth-logo">🌱</div>
+        <div>
+          <h1 class="auth-title page-auth-title">Farmer Login</h1>
+          <p class="auth-subtitle page-auth-subtitle">KrishiMitra Precision Agriculture Advisory</p>
+        </div>
+      </div>
+
+      <!-- Quick 1-Click Demo Login Banner -->
+      <div class="demo-farmer-banner">
+        <div class="demo-banner-top">
+          <span class="demo-sparkle">⚡</span>
+          <div>
+            <strong>Quick Demo Access</strong>
+            <p>1-Click instant login with verified lead farmer credentials</p>
+          </div>
+        </div>
+        <div class="demo-creds-preview">
+          <div class="demo-chip"><span>Name:</span> <code>Ramesh Patel (kisan_demo)</code></div>
+          <div class="demo-chip"><span>Password:</span> <code>kisan2025</code></div>
+        </div>
+        <button type="button" class="btn-demo-login-fast" id="btn-quick-demo">
+          <span>⚡ Auto-fill &amp; Login as Ramesh Patel</span>
+        </button>
+      </div>
+
+      <div class="auth-divider">
+        <span>OR SIGN IN WITH YOUR NAME &amp; PASSWORD</span>
+      </div>
+
+      <!-- Login Form -->
+      <form class="auth-form" id="page-login-form">
+        <div id="page-error-banner" class="auth-error-banner hidden"></div>
+
+        <div class="form-group">
+          <label for="page-name-input">Name</label>
+          <div class="input-with-icon">
+            <span class="input-icon">👤</span>
+            <input 
+              type="text" 
+              id="page-name-input" 
+              class="auth-input" 
+              placeholder="Enter your Name (e.g. Ramesh Patel or your name)" 
+              required 
+              autocomplete="name"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="page-password-input">Password</label>
+          <div class="input-with-icon">
+            <span class="input-icon">🔒</span>
+            <input 
+              type="password" 
+              id="page-password-input" 
+              class="auth-input" 
+              placeholder="Enter your Password (e.g. kisan2025)" 
+              required 
+              autocomplete="current-password"
+            />
+            <button type="button" class="btn-toggle-pwd" id="btn-page-toggle-pwd" title="Toggle password visibility">👁️</button>
+          </div>
+        </div>
+
+        <div class="form-options-row">
+          <label class="remember-label">
+            <input type="checkbox" id="page-remember-me" checked />
+            <span>Remember login</span>
+          </label>
+          <a href="#" class="auth-help-link" id="page-link-fill-demo">Use Demo Creds</a>
+        </div>
+
+        <button type="submit" class="btn-auth-submit" id="btn-page-submit">
+          <span>Sign In to KrishiMitra</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        </button>
+      </form>
+
+      <div class="auth-modal-footer">
+        <a href="/" class="btn-guest-continue page-guest-link">
+          Continue to Dashboard as Guest Viewer →
+        </a>
+        <span class="security-note">🔒 ICAR &amp; Ministry of Agriculture Precision Farming Gateway</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Password toggle
+    const toggleBtn = document.getElementById('btn-page-toggle-pwd');
+    const pwdInput = document.getElementById('page-password-input');
+    const nameInput = document.getElementById('page-name-input');
+    const errorBanner = document.getElementById('page-error-banner');
+    const submitBtn = document.getElementById('btn-page-submit');
+
+    toggleBtn.addEventListener('click', () => {
+      const isPwd = pwdInput.type === 'password';
+      pwdInput.type = isPwd ? 'text' : 'password';
+      toggleBtn.textContent = isPwd ? '🙈' : '👁️';
+    });
+
+    document.getElementById('page-link-fill-demo').addEventListener('click', (e) => {
+      e.preventDefault();
+      nameInput.value = 'Ramesh Patel';
+      pwdInput.value = 'kisan2025';
+      pwdInput.focus();
+    });
+
+    async function executeLogin(name, password, remember = true) {
+      errorBanner.classList.add('hidden');
+      errorBanner.textContent = '';
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>Signing In...</span>';
+
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: name, username_or_email: name, password: password })
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          errorBanner.textContent = data.detail || 'Login failed. Please verify credentials.';
+          errorBanner.classList.remove('hidden');
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<span>Sign In to KrishiMitra</span>';
+          return;
+        }
+
+        const storage = remember ? localStorage : sessionStorage;
+        storage.setItem('krishimitra_user', JSON.stringify(data.user));
+        storage.setItem('krishimitra_token', data.token);
+
+        // Redirect to dashboard
+        window.location.href = '/';
+      } catch (err) {
+        errorBanner.textContent = 'Connection error: ' + err.message;
+        errorBanner.classList.remove('hidden');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span>Sign In to KrishiMitra</span>';
+      }
+    }
+
+    document.getElementById('btn-quick-demo').addEventListener('click', () => {
+      nameInput.value = 'Ramesh Patel';
+      pwdInput.value = 'kisan2025';
+      executeLogin('kisan_demo', 'kisan2025', true);
+    });
+
+    document.getElementById('page-login-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = nameInput.value.trim();
+      const pwd = pwdInput.value.trim();
+      const remember = document.getElementById('page-remember-me').checked;
+      if (!name || !pwd) {
+        errorBanner.textContent = 'Please enter both your name and password.';
+        errorBanner.classList.remove('hidden');
+        return;
+      }
+      executeLogin(name, pwd, remember);
+    });
+  </script>
+</body>
+</html>

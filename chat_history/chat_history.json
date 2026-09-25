@@ -1,0 +1,1229 @@
+[
+  {
+    "timestamp": "2026-09-25 18:18:02",
+    "query": "What is the optimal pH for Cotton?",
+    "language": "English",
+    "source": "gemini",
+    "telemetry_snapshot": {
+      "n": 55.0,
+      "p": 35.0,
+      "k": 40.0,
+      "ph": 5.5,
+      "moisture": 22.0
+    },
+    "answer": "Cotton requires a soil pH between 6.0 and 7.5. For acidic soils below 6.0, apply agricultural lime.",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 18:18:22",
+    "query": "What is the optimal pH for Cotton?",
+    "language": "English",
+    "source": "gemini",
+    "telemetry_snapshot": {
+      "n": 55.0,
+      "p": 35.0,
+      "k": 40.0,
+      "ph": 5.5,
+      "moisture": 22.0
+    },
+    "answer": "Cotton requires a soil pH between 6.0 and 7.5. For acidic soils below 6.0, apply agricultural lime.",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 18:18:56",
+    "query": "What is the optimal pH for Cotton?",
+    "language": "English",
+    "source": "gemini",
+    "telemetry_snapshot": {
+      "n": 55.0,
+      "p": 35.0,
+      "k": 40.0,
+      "ph": 5.5,
+      "moisture": 22.0
+    },
+    "answer": "Cotton requires a soil pH between 6.0 and 7.5. For acidic soils below 6.0, apply agricultural lime.",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 18:47:47",
+    "query": "What is the optimal pH for Cotton?",
+    "language": "English",
+    "source": "gemini",
+    "telemetry_snapshot": {
+      "n": 55.0,
+      "p": 35.0,
+      "k": 40.0,
+      "ph": 5.5,
+      "moisture": 22.0
+    },
+    "answer": "Cotton requires a soil pH between 6.0 and 7.5. For acidic soils below 6.0, apply agricultural lime.",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 18:58:35",
+    "query": "What is the optimal pH for Cotton?",
+    "language": "English",
+    "source": "gemini",
+    "telemetry_snapshot": {
+      "n": 55.0,
+      "p": 35.0,
+      "k": 40.0,
+      "ph": 5.5,
+      "moisture": 22.0
+    },
+    "answer": "Cotton requires a soil pH between 6.0 and 7.5. For acidic soils below 6.0, apply agricultural lime.",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:02:02",
+    "query": "HEY",
+    "language": "English",
+    "source": "offline-kb",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 180.0
+    },
+    "answer": "Kisan AI (Offline Mode): Based on your live telemetry (Nitrogen (N): 35.0 kg/ha, Phosphorus (P): 60.0 kg/ha, Potassium (K): 32.0 kg/ha, Soil pH: 5.4, Moisture: 28.0%, Temperature: 31.0°C, Humidity: 80.0%, Rainfall: 180.0 mm), and verified ICAR/FAO-56 reference guidelines:\n\n[Research Resource: s41598-025-26910-4.pdf | Page 4]\nfertilizer recommendations. Through this system farms gain higher production levels while using resources \nmore efficiently and achieving data-based agricultural choices 15. Jeon et al. used MIR spectroscopy to forecast \nsoil properties essential for fertilizer recommendations in South Korea. Their research showed that GLMs \noutperformed XGBoost in both insurance applications and predictive domains. Additionally, multilayer TabNet \narchitectures generated precise predictions in soil analysis while providing clear explanations, even though th\n\nPlease ensure nitrogen and phosphorus are balanced according to stoichiometric ratios, and verify soil moisture before irrigation.",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:06:49",
+    "query": "धान की पत्तियों में पीलापन आ रहा है, क्या खाद डालें?",
+    "language": "Hindi",
+    "source": "offline-kb",
+    "telemetry_snapshot": {
+      "n": 80.0,
+      "p": 45.0,
+      "k": 40.0,
+      "ph": 6.5,
+      "moisture": 24.0,
+      "temperature": 26.0,
+      "humidity": 75.0,
+      "rainfall": 120.0
+    },
+    "answer": "Kisan AI (Offline Mode): Based on your live telemetry (Nitrogen (N): 80.0 kg/ha, Phosphorus (P): 45.0 kg/ha, Potassium (K): 40.0 kg/ha, Soil pH: 6.5, Moisture: 24.0%, Temperature: 26.0°C, Humidity: 75.0%, Rainfall: 120.0 mm), and verified ICAR/FAO-56 reference guidelines:\n\n[Research Resource: vtse2078+(1)_compressed.pdf | Page 3]\nVFAST Transactions on Software Engineering Volume 13, Issue 3, 2025\nwhen nutrient additions exceeded the soil’s uptake ca-\npacity. For instance, the indigenous nutrient balances\nfor nitrogen, phosphorus, and potassium were 132\nha¹, 35.03 ha ¹, and 213.15 ha ¹, respectively. The study\nemphasized the importance of balancing nutrient\ninputs with soil absorption capacities, underscoring\nthe need for precision nutrient management to en-\nhance fertilizer use eﬃciency. However, implementing\nthese ﬁndings in diverse agricultural settings remain\n\nPlease ensure nitrogen and phosphorus are balanced according to stoichiometric ratios, and verify soil moisture before irrigation.",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:08:58",
+    "query": "धान की फसल में पत्ते पीले हो रहे हैं क्या करें?",
+    "language": "Hindi",
+    "source": "offline-kb",
+    "telemetry_snapshot": {
+      "n": 80.0,
+      "p": 45.0,
+      "k": 40.0,
+      "ph": 6.5,
+      "moisture": 24.0,
+      "temperature": 26.0,
+      "humidity": 75.0,
+      "rainfall": 120.0
+    },
+    "answer": "Kisan AI (Offline Mode): Based on your live telemetry (Nitrogen (N): 80.0 kg/ha, Phosphorus (P): 45.0 kg/ha, Potassium (K): 40.0 kg/ha, Soil pH: 6.5, Moisture: 24.0%, Temperature: 26.0°C, Humidity: 75.0%, Rainfall: 120.0 mm), and verified ICAR/FAO-56 reference guidelines:\n\n[Research Resource: s41598-025-26910-4.pdf | Page 19]\nrelevant to nutrient availability and soil characteristics. Overall, the SHAP analysis confirms the model’s reliance \non key agronomic features, demonstrating that both soil nutrients and environmental factors are crucial for \neffective crop recommendations.\nSHAP summary plots provide an interpretive framework for the TabNet model by highlighting the impact \nof individual features on predictions for specific crop classes. Each dot represents an instance, with the x-axis \nindicating the SHAP value that reflects a feature’s influence on model\n\nPlease ensure nitrogen and phosphorus are balanced according to stoichiometric ratios, and verify soil moisture before irrigation.",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:16:47",
+    "query": "धान की पत्तियों में पीलापन आ रहा है, क्या खाद डालें?",
+    "language": "Hindi",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.8,
+      "moisture": 22.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 140.0
+    },
+    "answer": "🌾 **किसान एआई (ICAR एवं मृदा विज्ञान परामर्श)**\n\nधान की पत्तियों में पीलापन आना मुख्य रूप से **नाइट्रोजन ($N$) की कमी** या **जिंक ($Zn$) की कमी (खैरा रोग)** का लक्षण है:\n\n**1. आपके खेत के लाइव सेंसर आंकड़े:**\n- वर्तमान नाइट्रोजन स्तर: **35.0 kg/ha** (धान के लिए अनुशंसित स्तर: 280-350 kg/ha)\n- मिट्टी की नमी: **22.0%** | मृदा pH: **5.8**\n\n**2. तुरंत उपचार (Immediate Foliar Spray):**\n- **यूरिया पर्णीय छिड़काव**: यदि निचली पुरानी पत्तियां पीली हो रही हैं, तो **1%-2% यूरिया घोल** (10-20 ग्राम यूरिया प्रति लीटर पानी) का शाम के समय छिड़काव करें।\n- **जिंक सल्फेट छिड़काव**: यदि पत्तियों पर कत्थई या लाल-भूरे धब्बे हैं, तो **0.5% जिंक सल्फेट ($ZnSO_4$) + 0.25% बुझा हुआ चूना** मिलाकर प्रति एकड़ 200 लीटर पानी में छिड़कें।\n\n**3. मृदा अनुप्रयोग (Soil Top-dressing):**\n- खेत में पर्याप्त नमी सुनिश्चित करने के बाद **25-35 kg/एकड़ यूरिया** की टॉप-ड्रेसिंग करें।\n\n📚 *संदर्भ: ICAR Visual Diagnostic Guide & VTSE IoT Nutrient Management Protocol*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:17:00",
+    "query": "धान की पत्तियों में पीलापन आ रहा है, क्या खाद डालें?",
+    "language": "Hindi",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.8,
+      "moisture": 22.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 140.0
+    },
+    "answer": "🌾 **किसान एआई (ICAR एवं मृदा विज्ञान परामर्श)**\n\nधान की पत्तियों में पीलापन आना मुख्य रूप से **नाइट्रोजन ($N$) की कमी** या **जिंक ($Zn$) की कमी (खैरा रोग)** का लक्षण है:\n\n**1. आपके खेत के लाइव सेंसर आंकड़े:**\n- वर्तमान नाइट्रोजन स्तर: **35.0 kg/ha** (धान के लिए अनुशंसित स्तर: 280-350 kg/ha)\n- मिट्टी की नमी: **22.0%** | मृदा pH: **5.8**\n\n**2. तुरंत उपचार (Immediate Foliar Spray):**\n- **यूरिया पर्णीय छिड़काव**: यदि निचली पुरानी पत्तियां पीली हो रही हैं, तो **1%-2% यूरिया घोल** (10-20 ग्राम यूरिया प्रति लीटर पानी) का शाम के समय छिड़काव करें।\n- **जिंक सल्फेट छिड़काव**: यदि पत्तियों पर कत्थई या लाल-भूरे धब्बे हैं, तो **0.5% जिंक सल्फेट ($ZnSO_4$) + 0.25% बुझा हुआ चूना** मिलाकर प्रति एकड़ 200 लीटर पानी में छिड़कें।\n\n**3. मृदा अनुप्रयोग (Soil Top-dressing):**\n- खेत में पर्याप्त नमी सुनिश्चित करने के बाद **25-35 kg/एकड़ यूरिया** की टॉप-ड्रेसिंग करें।\n\n📚 *संदर्भ: ICAR Visual Diagnostic Guide & VTSE IoT Nutrient Management Protocol*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:17:00",
+    "query": "നെല്ലിന്റെ ഇലകൾ മഞ്ഞളിക്കുന്നു, എന്ത് ചെയ്യണം?",
+    "language": "Malayalam",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.8,
+      "moisture": 22.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 140.0
+    },
+    "answer": "🌾 **കിസാൻ എഐ കാർഷിക ഉപദേശം**\n\nനിങ്ങളുടെ ചോദ്യത്തിനുള്ള ഉത്തരം (*\"നെല്ലിന്റെ ഇലകൾ മഞ്ഞളിക്കുന്നു, എന്ത് ചെയ്യണം?\"*):\nനിലവിലെ മണ്ണിലെ സ്ഥിതി: നൈട്രജൻ 35.0, ഫോസ്ഫറസ് 60.0, പൊട്ടാസ്യം 32.0, ഈർപ്പം 22.0%.\n\n**ശാസ്ത്രീയ നിർദ്ദേശം:**\n[Knowledge Base / Research Document: icar_crop_guidelines.md]\n### Rice (*Oryza sativa*)\n- **Optimal Soil NPK**: 80 kg/ha N, 48 kg/ha P₂O₅, 40 kg/ha K₂O\n- **Soil pH**: 5.5 - 6.8 (tolerant to slightly acidic submerged soils)\n- **Temperature & Climate**: 22°C - 32°C; requires high relative humidity (>80%) and 150 - 300 mm monthly rainfall during veget\n\n[Research Resource: s41598-025-26910-4.pdf | Page 19]\nrelevant to nutrient availability and soil characteristics. Overall, the SHAP analysis confirms the model's reliance \non key agronomic features, demonstrating that both soil nutrients and environmental factors are crucial for \neffective crop recommendations.\nSHAP summary plots provide an interpr\n\nകൂടുതൽ വിവരങ്ങൾക്ക് വിളയുടെ പേരോ ലക്ഷണങ്ങളോ വ്യക്തമാക്കുക.",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:17:42",
+    "query": "धान की पत्तियों में पीलापन आ रहा है, क्या खाद डालें?",
+    "language": "Hindi",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.8,
+      "moisture": 22.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 140.0
+    },
+    "answer": "🌾 **किसान एआई (ICAR एवं मृदा विज्ञान परामर्श)**\n\nधान की पत्तियों में पीलापन आना मुख्य रूप से **नाइट्रोजन ($N$) की कमी** या **जिंक ($Zn$) की कमी (खैरा रोग)** का लक्षण है:\n\n**1. आपके खेत के लाइव सेंसर आंकड़े:**\n- वर्तमान नाइट्रोजन स्तर: **35.0 kg/ha** (धान के लिए अनुशंसित स्तर: 280-350 kg/ha)\n- मिट्टी की नमी: **22.0%** | मृदा pH: **5.8**\n\n**2. तुरंत उपचार (Immediate Foliar Spray):**\n- **यूरिया पर्णीय छिड़काव**: यदि निचली पुरानी पत्तियां पीली हो रही हैं, तो **1%-2% यूरिया घोल** (10-20 ग्राम यूरिया प्रति लीटर पानी) का शाम के समय छिड़काव करें।\n- **जिंक सल्फेट छिड़काव**: यदि पत्तियों पर कत्थई या लाल-भूरे धब्बे हैं, तो **0.5% जिंक सल्फेट ($ZnSO_4$) + 0.25% बुझा हुआ चूना** मिलाकर प्रति एकड़ 200 लीटर पानी में छिड़कें।\n\n**3. मृदा अनुप्रयोग (Soil Top-dressing):**\n- खेत में पर्याप्त नमी सुनिश्चित करने के बाद **25-35 kg/एकड़ यूरिया** की टॉप-ड्रेसिंग करें।\n\n📚 *संदर्भ: ICAR Visual Diagnostic Guide & VTSE IoT Nutrient Management Protocol*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:17:42",
+    "query": "നെല്ലിന്റെ ഇലകൾ മഞ്ഞളിക്കുന്നു, എന്ത് ചെയ്യണം?",
+    "language": "Malayalam",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.8,
+      "moisture": 22.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 140.0
+    },
+    "answer": "🌾 **കിസാൻ എഐ (ICAR & മണ്ണുപരിശോധനാ ഉപദേശം)**\n\nനെൽച്ചെടിയുടെ ഇലകൾ മഞ്ഞളിക്കുന്നത് പ്രധാനമായും **നൈട്രജന്റെ ($N$) കുറവ്** അല്ലെങ്കിൽ **സിങ്കിന്റെ കുറവ് (ഖൈറ രോഗം)** കാരണമാണ്:\n\n**1. നിങ്ങളുടെ പാടത്തെ തത്സമയ സെൻസർ അളവുകൾ:**\n- നൈട്രജൻ അളവ്: **35.0 kg/ha** (സാധാരണയായി 280-350 kg/ha ആവശ്യമാണ്)\n- മണ്ണിന്റെ ഈർപ്പം: **22.0%** | പി.എച്ച് (pH): **5.8**\n\n**2. ഉടനടി ചെയ്യേണ്ട പ്രതിവിധി (Foliar Spray):**\n- **യൂറിയ ലായനി തളിക്കൽ**: താഴത്തെ ഇലകളാണ് ആദ്യം മഞ്ഞളിക്കുന്നതെങ്കിൽ, **1%-2% യൂറിയ ലായനി** (ഒരു ലിറ്റർ വെള്ളത്തിൽ 10-20 ഗ്രാം യൂറിയ) വൈകുന്നേരങ്ങളിൽ തളിക്കുക.\n- **സിങ്ക് സൾഫേറ്റ് സ്പ്രേ**: ഇലകളിൽ തവിട്ടുനിറത്തിലുള്ള പാടുകൾ ഉണ്ടെങ്കിൽ, **0.5% സിങ്ക് സൾഫേറ്റും 0.25% കുമ്മായ ലായനിയും** ചേർത്ത് തളിക്കുക.\n\n**3. മണ്ണിൽ ചേർക്കേണ്ട വളം (Top-dressing):**\n- വയലിൽ ആവശ്യത്തിന് ഈർപ്പമുള്ളപ്പോൾ ഏക്കറിന് **25-35 കിലോഗ്രാം യൂറിയ** മേൽവളമായി നൽകുക.\n\n📚 *അവലംബം: ICAR Visual Agronomic Guide & Kerala Agricultural University Guidelines*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:17:42",
+    "query": "What is the FAO-56 root zone depletion formula (Dr,i) from the water balance manual?",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.8,
+      "moisture": 22.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 140.0
+    },
+    "answer": "📘 **FAO-56 Irrigation Water Balance Model (Equation 85)**\n\nAccording to the **FAO Irrigation and Drainage Paper No. 56**, root zone depletion ($D_{r,i}$) at the end of day $i$ is calculated via the daily soil water balance:\n\n$$\\mathbf{D_{r,i} = D_{r,i-1} - (P - RO)_i - I_i - CR_i + ET_{c,i} + DP_i}$$\n\n**Parameter Definitions:**\n- **$D_{r,i}$**: Root zone depletion at the end of day $i$ [mm]\n- **$D_{r,i-1}$**: Depletion at the end of the previous day $i-1$ [mm]\n- **$P_i$**: Total rainfall / precipitation on day $i$ [mm]\n- **$RO_i$**: Runoff loss from the soil surface on day $i$ [mm]\n- **$I_i$**: Net irrigation depth that infiltrates the root zone [mm]\n- **$CR_i$**: Capillary rise from shallow groundwater [mm]\n- **$ET_{c,i}$**: Daily crop evapotranspiration ($ET_o \\times K_c$) [mm/day]\n- **$DP_i$**: Deep percolation water loss past root zone boundary [mm]\n\n**Irrigation Decision Rule:**\nIrrigation is triggered when $D_{r,i} \\ge RAW$, where **Readily Available Water** $RAW = p \\times TAW$.\n\n**Live Field Telemetry Context:**\n- Current Moisture: **22.0%** | Temperature: **31.0°C** | Humidity: **80.0%**\n- Status: 🔴 Critical Depletion -- Pump Run Needed\n\n📚 *Grounded in: FAO-56 Chapter 8 Water Balance Manual & resources/WATER BALANCE.txt*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:17:42",
+    "query": "What does the 2025 Nature paper say about TabNet vs Random Forest for crop recommendation?",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.8,
+      "moisture": 22.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 140.0
+    },
+    "answer": "📄 **Nature Scientific Reports (2025) Study Findings**\n*Citation: Nature Sci Rep (2025) 15:26910 | s41598-025-26910-4.pdf*\n\n**1. Comparative Model Performance:**\n- **TabNet (Deep Learning)** achieved the highest overall accuracy of **99.32%**, outperforming standard classifiers.\n- **Random Forest** demonstrated exceptional ensemble performance at **96.80%**, with superior computational efficiency and zero-latency inference on edge IoT controllers.\n- **XGBoost**: 95.40% | **Decision Tree**: 90.20%.\n\n**2. SHAP (Shapley Additive exPlanations) Feature Importance:**\n- The study's SHAP summary plots confirmed that **Nitrogen ($N$), Phosphorus ($P$), Potassium ($K$), and Rainfall** are the four dominant predictive features determining crop viability.\n- Soil pH and Temperature form critical secondary constraining boundaries.\n\n**3. Practical Deployment in KrishiMitra:**\nKrishiMitra deploys the calibrated Random Forest model on live soil telemetry to guarantee sub-millisecond edge predictions without GPU requirements.\n\n📚 *Grounded in: resources/s41598-025-26910-4.pdf (Indexed in RAG Library)*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:17:42",
+    "query": "According to the FAO table, what are the Kc values and max height for Tomato?",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.8,
+      "moisture": 22.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 140.0
+    },
+    "answer": "📘 **FAO-56 Irrigation Water Balance Model (Equation 85)**\n\nAccording to the **FAO Irrigation and Drainage Paper No. 56**, root zone depletion ($D_{r,i}$) at the end of day $i$ is calculated via the daily soil water balance:\n\n$$\\mathbf{D_{r,i} = D_{r,i-1} - (P - RO)_i - I_i - CR_i + ET_{c,i} + DP_i}$$\n\n**Parameter Definitions:**\n- **$D_{r,i}$**: Root zone depletion at the end of day $i$ [mm]\n- **$D_{r,i-1}$**: Depletion at the end of the previous day $i-1$ [mm]\n- **$P_i$**: Total rainfall / precipitation on day $i$ [mm]\n- **$RO_i$**: Runoff loss from the soil surface on day $i$ [mm]\n- **$I_i$**: Net irrigation depth that infiltrates the root zone [mm]\n- **$CR_i$**: Capillary rise from shallow groundwater [mm]\n- **$ET_{c,i}$**: Daily crop evapotranspiration ($ET_o \\times K_c$) [mm/day]\n- **$DP_i$**: Deep percolation water loss past root zone boundary [mm]\n\n**Irrigation Decision Rule:**\nIrrigation is triggered when $D_{r,i} \\ge RAW$, where **Readily Available Water** $RAW = p \\times TAW$.\n\n**Live Field Telemetry Context:**\n- Current Moisture: **22.0%** | Temperature: **31.0°C** | Humidity: **80.0%**\n- Status: 🔴 Critical Depletion -- Pump Run Needed\n\n📚 *Grounded in: FAO-56 Chapter 8 Water Balance Manual & resources/WATER BALANCE.txt*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:17:42",
+    "query": "According to the VFAST paper, how many bags of Urea and DAP are recommended for wheat?",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.8,
+      "moisture": 22.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 140.0
+    },
+    "answer": "🧪 **VFAST IoT Precision Fertilizing Research Findings**\n*Citation: VFAST Transactions on Software Engineering | vtse2078+(1)_compressed.pdf*\n\n**1. Recommended Fertilizer Dosages for Wheat:**\n- Standard Recommended Dose of Fertilizer (RDF): **120 kg N : 60 kg P₂O₅ : 40 kg K₂O per hectare**.\n- **Commercial Bag Calculations (50 kg standard bags):**\n  - **DAP (18-46-0)**: Supplies 46% P₂O₅ and 18% N. Dosage: ~130 kg DAP/ha ≈ **2.6 bags/hectare (~1 bag/acre)** at sowing.\n  - **Urea (46% N)**: Supplies balance Nitrogen after deducting DAP's N contribution. Dosage: ~217 kg Urea/ha ≈ **4.3 bags/hectare (~1.7 bags/acre)** split across 3 vegetative stages.\n  - **MOP (60% K₂O)**: Supplies Potash. Dosage: ~67 kg MOP/ha ≈ **1.3 bags/hectare (~0.5 bag/acre)**.\n\n**2. IoT Sensor Closed-Loop Advantage:**\nThe paper demonstrates that dynamically adjusting fertilizer based on real-time soil NPK sensor readings saves **22%-35% in input costs** and prevents nitrate leaching into rural groundwater.\n\n📚 *Grounded in: resources/vtse2078+(1)_compressed.pdf (Indexed in RAG Library)*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:17:42",
+    "query": "Hey",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.8,
+      "moisture": 22.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 140.0
+    },
+    "answer": "🌾 **Hello! I am your Kisan AI Agronomic Copilot.**\n\n**Your Live Soil Telemetry Snapshot:**\n- Nitrogen: **35.0 kg/ha** | Phosphorus: **60.0 kg/ha** | Potassium: **32.0 kg/ha**\n- Soil pH: **5.8** | Soil Moisture: **22.0%** | Temperature: **31.0°C**\n\nYou can ask me about **crop nutrient deficiencies**, **fertilizer prescriptions (Urea/DAP/MOP)**, **FAO-56 irrigation scheduling**, or specific findings from our **indexed research papers**!",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:18:03",
+    "query": "धान की पत्तियों में पीलापन आ रहा है, क्या खाद डालें?",
+    "language": "Hindi",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.8,
+      "moisture": 22.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 140.0
+    },
+    "answer": "🌾 **किसान एआई (ICAR एवं मृदा विज्ञान परामर्श)**\n\nधान की पत्तियों में पीलापन आना मुख्य रूप से **नाइट्रोजन ($N$) की कमी** या **जिंक ($Zn$) की कमी (खैरा रोग)** का लक्षण है:\n\n**1. आपके खेत के लाइव सेंसर आंकड़े:**\n- वर्तमान नाइट्रोजन स्तर: **35.0 kg/ha** (धान के लिए अनुशंसित स्तर: 280-350 kg/ha)\n- मिट्टी की नमी: **22.0%** | मृदा pH: **5.8**\n\n**2. तुरंत उपचार (Immediate Foliar Spray):**\n- **यूरिया पर्णीय छिड़काव**: यदि निचली पुरानी पत्तियां पीली हो रही हैं, तो **1%-2% यूरिया घोल** (10-20 ग्राम यूरिया प्रति लीटर पानी) का शाम के समय छिड़काव करें।\n- **जिंक सल्फेट छिड़काव**: यदि पत्तियों पर कत्थई या लाल-भूरे धब्बे हैं, तो **0.5% जिंक सल्फेट ($ZnSO_4$) + 0.25% बुझा हुआ चूना** मिलाकर प्रति एकड़ 200 लीटर पानी में छिड़कें।\n\n**3. मृदा अनुप्रयोग (Soil Top-dressing):**\n- खेत में पर्याप्त नमी सुनिश्चित करने के बाद **25-35 kg/एकड़ यूरिया** की टॉप-ड्रेसिंग करें।\n\n📚 *संदर्भ: ICAR Visual Diagnostic Guide & VTSE IoT Nutrient Management Protocol*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:18:03",
+    "query": "നെല്ലിന്റെ ഇലകൾ മഞ്ഞളിക്കുന്നു, എന്ത് ചെയ്യണം?",
+    "language": "Malayalam",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.8,
+      "moisture": 22.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 140.0
+    },
+    "answer": "🌾 **കിസാൻ എഐ (ICAR & മണ്ണുപരിശോധനാ ഉപദേശം)**\n\nനെൽച്ചെടിയുടെ ഇലകൾ മഞ്ഞളിക്കുന്നത് പ്രധാനമായും **നൈട്രജന്റെ ($N$) കുറവ്** അല്ലെങ്കിൽ **സിങ്കിന്റെ കുറവ് (ഖൈറ രോഗം)** കാരണമാണ്:\n\n**1. നിങ്ങളുടെ പാടത്തെ തത്സമയ സെൻസർ അളവുകൾ:**\n- നൈട്രജൻ അളവ്: **35.0 kg/ha** (സാധാരണയായി 280-350 kg/ha ആവശ്യമാണ്)\n- മണ്ണിന്റെ ഈർപ്പം: **22.0%** | പി.എച്ച് (pH): **5.8**\n\n**2. ഉടനടി ചെയ്യേണ്ട പ്രതിവിധി (Foliar Spray):**\n- **യൂറിയ ലായനി തളിക്കൽ**: താഴത്തെ ഇലകളാണ് ആദ്യം മഞ്ഞളിക്കുന്നതെങ്കിൽ, **1%-2% യൂറിയ ലായനി** (ഒരു ലിറ്റർ വെള്ളത്തിൽ 10-20 ഗ്രാം യൂറിയ) വൈകുന്നേരങ്ങളിൽ തളിക്കുക.\n- **സിങ്ക് സൾഫേറ്റ് സ്പ്രേ**: ഇലകളിൽ തവിട്ടുനിറത്തിലുള്ള പാടുകൾ ഉണ്ടെങ്കിൽ, **0.5% സിങ്ക് സൾഫേറ്റും 0.25% കുമ്മായ ലായനിയും** ചേർത്ത് തളിക്കുക.\n\n**3. മണ്ണിൽ ചേർക്കേണ്ട വളം (Top-dressing):**\n- വയലിൽ ആവശ്യത്തിന് ഈർപ്പമുള്ളപ്പോൾ ഏക്കറിന് **25-35 കിലോഗ്രാം യൂറിയ** മേൽവളമായി നൽകുക.\n\n📚 *അവലംബം: ICAR Visual Agronomic Guide & Kerala Agricultural University Guidelines*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:18:03",
+    "query": "What is the FAO-56 root zone depletion formula (Dr,i) from the water balance manual?",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.8,
+      "moisture": 22.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 140.0
+    },
+    "answer": "📘 **FAO-56 Irrigation Water Balance Model (Equation 85)**\n\nAccording to the **FAO Irrigation and Drainage Paper No. 56**, root zone depletion ($D_{r,i}$) at the end of day $i$ is calculated via the daily soil water balance:\n\n$$\\mathbf{D_{r,i} = D_{r,i-1} - (P - RO)_i - I_i - CR_i + ET_{c,i} + DP_i}$$\n\n**Parameter Definitions:**\n- **$D_{r,i}$**: Root zone depletion at the end of day $i$ [mm]\n- **$D_{r,i-1}$**: Depletion at the end of the previous day $i-1$ [mm]\n- **$P_i$**: Total rainfall / precipitation on day $i$ [mm]\n- **$RO_i$**: Runoff loss from the soil surface on day $i$ [mm]\n- **$I_i$**: Net irrigation depth that infiltrates the root zone [mm]\n- **$CR_i$**: Capillary rise from shallow groundwater [mm]\n- **$ET_{c,i}$**: Daily crop evapotranspiration ($ET_o \\times K_c$) [mm/day]\n- **$DP_i$**: Deep percolation water loss past root zone boundary [mm]\n\n**Irrigation Decision Rule:**\nIrrigation is triggered when $D_{r,i} \\ge RAW$, where **Readily Available Water** $RAW = p \\times TAW$.\n\n**Live Field Telemetry Context:**\n- Current Moisture: **22.0%** | Temperature: **31.0°C** | Humidity: **80.0%**\n- Status: 🔴 Critical Depletion -- Pump Run Needed\n\n📚 *Grounded in: FAO-56 Chapter 8 Water Balance Manual & resources/WATER BALANCE.txt*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:18:03",
+    "query": "What does the 2025 Nature paper say about TabNet vs Random Forest for crop recommendation?",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.8,
+      "moisture": 22.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 140.0
+    },
+    "answer": "📄 **Nature Scientific Reports (2025) Study Findings**\n*Citation: Nature Sci Rep (2025) 15:26910 | s41598-025-26910-4.pdf*\n\n**1. Comparative Model Performance:**\n- **TabNet (Deep Learning)** achieved the highest overall accuracy of **99.32%**, outperforming standard classifiers.\n- **Random Forest** demonstrated exceptional ensemble performance at **96.80%**, with superior computational efficiency and zero-latency inference on edge IoT controllers.\n- **XGBoost**: 95.40% | **Decision Tree**: 90.20%.\n\n**2. SHAP (Shapley Additive exPlanations) Feature Importance:**\n- The study's SHAP summary plots confirmed that **Nitrogen ($N$), Phosphorus ($P$), Potassium ($K$), and Rainfall** are the four dominant predictive features determining crop viability.\n- Soil pH and Temperature form critical secondary constraining boundaries.\n\n**3. Practical Deployment in KrishiMitra:**\nKrishiMitra deploys the calibrated Random Forest model on live soil telemetry to guarantee sub-millisecond edge predictions without GPU requirements.\n\n📚 *Grounded in: resources/s41598-025-26910-4.pdf (Indexed in RAG Library)*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:18:03",
+    "query": "According to the FAO table, what are the Kc values and max height for Tomato?",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.8,
+      "moisture": 22.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 140.0
+    },
+    "answer": "📊 **FAO-56 Crop Coefficients & Agronomic Table Specifications**\n*Source: resources/TABLE.txt & FAO-56 Paper No. 56 (Table 12)*\n\n**Tomato (*Lycopersicon esculentum*) Parameters:**\n- **Initial Stage Coefficient ($K_{c\\text{ ini}}$)**: **0.60**\n- **Mid-Season Coefficient ($K_{c\\text{ mid}}$)**: **1.15**\n- **End-Season Coefficient ($K_{c\\text{ end}}$)**: **0.70 - 0.80**\n- **Maximum Crop Height ($h$)**: **0.70 - 1.50 meters**\n- **Effective Rooting Depth ($Z_r$)**: **0.70 - 1.50 meters**\n- **Soil Water Depletion Fraction ($p$)**: **0.40**\n\n**Application in Irrigation Scheduling:**\nDuring the mid-season peak flowering/fruiting phase, Tomato consumes water at 115% of reference evapotranspiration ($ET_c = 1.15 \\times ET_o$). High moisture stress during this stage triggers blossom end rot.\n\n📚 *Grounded in: resources/TABLE.txt (Indexed in RAG Library)*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:18:03",
+    "query": "According to the VFAST paper, how many bags of Urea and DAP are recommended for wheat?",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.8,
+      "moisture": 22.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 140.0
+    },
+    "answer": "🧪 **VFAST IoT Precision Fertilizing Research Findings**\n*Citation: VFAST Transactions on Software Engineering | vtse2078+(1)_compressed.pdf*\n\n**1. Recommended Fertilizer Dosages for Wheat:**\n- Standard Recommended Dose of Fertilizer (RDF): **120 kg N : 60 kg P₂O₅ : 40 kg K₂O per hectare**.\n- **Commercial Bag Calculations (50 kg standard bags):**\n  - **DAP (18-46-0)**: Supplies 46% P₂O₅ and 18% N. Dosage: ~130 kg DAP/ha ≈ **2.6 bags/hectare (~1 bag/acre)** at sowing.\n  - **Urea (46% N)**: Supplies balance Nitrogen after deducting DAP's N contribution. Dosage: ~217 kg Urea/ha ≈ **4.3 bags/hectare (~1.7 bags/acre)** split across 3 vegetative stages.\n  - **MOP (60% K₂O)**: Supplies Potash. Dosage: ~67 kg MOP/ha ≈ **1.3 bags/hectare (~0.5 bag/acre)**.\n\n**2. IoT Sensor Closed-Loop Advantage:**\nThe paper demonstrates that dynamically adjusting fertilizer based on real-time soil NPK sensor readings saves **22%-35% in input costs** and prevents nitrate leaching into rural groundwater.\n\n📚 *Grounded in: resources/vtse2078+(1)_compressed.pdf (Indexed in RAG Library)*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:18:03",
+    "query": "Hey",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.8,
+      "moisture": 22.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 140.0
+    },
+    "answer": "🌾 **Hello! I am your Kisan AI Agronomic Copilot.**\n\n**Your Live Soil Telemetry Snapshot:**\n- Nitrogen: **35.0 kg/ha** | Phosphorus: **60.0 kg/ha** | Potassium: **32.0 kg/ha**\n- Soil pH: **5.8** | Soil Moisture: **22.0%** | Temperature: **31.0°C**\n\nYou can ask me about **crop nutrient deficiencies**, **fertilizer prescriptions (Urea/DAP/MOP)**, **FAO-56 irrigation scheduling**, or specific findings from our **indexed research papers**!",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:18:25",
+    "query": "धान की पत्तियों में पीलापन आ रहा है, क्या खाद डालें?",
+    "language": "Hindi",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 80.0,
+      "p": 45.0,
+      "k": 40.0,
+      "ph": 6.5,
+      "moisture": 24.0,
+      "temperature": 26.0,
+      "humidity": 75.0,
+      "rainfall": 120.0
+    },
+    "answer": "🌾 **किसान एआई (ICAR एवं मृदा विज्ञान परामर्श)**\n\nधान की पत्तियों में पीलापन आना मुख्य रूप से **नाइट्रोजन ($N$) की कमी** या **जिंक ($Zn$) की कमी (खैरा रोग)** का लक्षण है:\n\n**1. आपके खेत के लाइव सेंसर आंकड़े:**\n- वर्तमान नाइट्रोजन स्तर: **80.0 kg/ha** (धान के लिए अनुशंसित स्तर: 280-350 kg/ha)\n- मिट्टी की नमी: **24.0%** | मृदा pH: **6.5**\n\n**2. तुरंत उपचार (Immediate Foliar Spray):**\n- **यूरिया पर्णीय छिड़काव**: यदि निचली पुरानी पत्तियां पीली हो रही हैं, तो **1%-2% यूरिया घोल** (10-20 ग्राम यूरिया प्रति लीटर पानी) का शाम के समय छिड़काव करें।\n- **जिंक सल्फेट छिड़काव**: यदि पत्तियों पर कत्थई या लाल-भूरे धब्बे हैं, तो **0.5% जिंक सल्फेट ($ZnSO_4$) + 0.25% बुझा हुआ चूना** मिलाकर प्रति एकड़ 200 लीटर पानी में छिड़कें।\n\n**3. मृदा अनुप्रयोग (Soil Top-dressing):**\n- खेत में पर्याप्त नमी सुनिश्चित करने के बाद **25-35 kg/एकड़ यूरिया** की टॉप-ड्रेसिंग करें।\n\n📚 *संदर्भ: ICAR Visual Diagnostic Guide & VTSE IoT Nutrient Management Protocol*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:18:31",
+    "query": "धान की पत्तियों में पीलापन आ रहा है, क्या खाद डालें?",
+    "language": "Hindi",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 80.0,
+      "p": 45.0,
+      "k": 40.0,
+      "ph": 6.5,
+      "moisture": 24.0,
+      "temperature": 26.0,
+      "humidity": 75.0,
+      "rainfall": 120.0
+    },
+    "answer": "🌾 **किसान एआई (ICAR एवं मृदा विज्ञान परामर्श)**\n\nधान की पत्तियों में पीलापन आना मुख्य रूप से **नाइट्रोजन ($N$) की कमी** या **जिंक ($Zn$) की कमी (खैरा रोग)** का लक्षण है:\n\n**1. आपके खेत के लाइव सेंसर आंकड़े:**\n- वर्तमान नाइट्रोजन स्तर: **80.0 kg/ha** (धान के लिए अनुशंसित स्तर: 280-350 kg/ha)\n- मिट्टी की नमी: **24.0%** | मृदा pH: **6.5**\n\n**2. तुरंत उपचार (Immediate Foliar Spray):**\n- **यूरिया पर्णीय छिड़काव**: यदि निचली पुरानी पत्तियां पीली हो रही हैं, तो **1%-2% यूरिया घोल** (10-20 ग्राम यूरिया प्रति लीटर पानी) का शाम के समय छिड़काव करें।\n- **जिंक सल्फेट छिड़काव**: यदि पत्तियों पर कत्थई या लाल-भूरे धब्बे हैं, तो **0.5% जिंक सल्फेट ($ZnSO_4$) + 0.25% बुझा हुआ चूना** मिलाकर प्रति एकड़ 200 लीटर पानी में छिड़कें।\n\n**3. मृदा अनुप्रयोग (Soil Top-dressing):**\n- खेत में पर्याप्त नमी सुनिश्चित करने के बाद **25-35 kg/एकड़ यूरिया** की टॉप-ड्रेसिंग करें।\n\n📚 *संदर्भ: ICAR Visual Diagnostic Guide & VTSE IoT Nutrient Management Protocol*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:18:36",
+    "query": "धान की पत्तियों में पीलापन आ रहा है, क्या खाद डालें?",
+    "language": "Hindi",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 80.0,
+      "p": 45.0,
+      "k": 40.0,
+      "ph": 6.5,
+      "moisture": 24.0,
+      "temperature": 26.0,
+      "humidity": 75.0,
+      "rainfall": 120.0
+    },
+    "answer": "🌾 **किसान एआई (ICAR एवं मृदा विज्ञान परामर्श)**\n\nधान की पत्तियों में पीलापन आना मुख्य रूप से **नाइट्रोजन ($N$) की कमी** या **जिंक ($Zn$) की कमी (खैरा रोग)** का लक्षण है:\n\n**1. आपके खेत के लाइव सेंसर आंकड़े:**\n- वर्तमान नाइट्रोजन स्तर: **80.0 kg/ha** (धान के लिए अनुशंसित स्तर: 280-350 kg/ha)\n- मिट्टी की नमी: **24.0%** | मृदा pH: **6.5**\n\n**2. तुरंत उपचार (Immediate Foliar Spray):**\n- **यूरिया पर्णीय छिड़काव**: यदि निचली पुरानी पत्तियां पीली हो रही हैं, तो **1%-2% यूरिया घोल** (10-20 ग्राम यूरिया प्रति लीटर पानी) का शाम के समय छिड़काव करें।\n- **जिंक सल्फेट छिड़काव**: यदि पत्तियों पर कत्थई या लाल-भूरे धब्बे हैं, तो **0.5% जिंक सल्फेट ($ZnSO_4$) + 0.25% बुझा हुआ चूना** मिलाकर प्रति एकड़ 200 लीटर पानी में छिड़कें।\n\n**3. मृदा अनुप्रयोग (Soil Top-dressing):**\n- खेत में पर्याप्त नमी सुनिश्चित करने के बाद **25-35 kg/एकड़ यूरिया** की टॉप-ड्रेसिंग करें।\n\n📚 *संदर्भ: ICAR Visual Diagnostic Guide & VTSE IoT Nutrient Management Protocol*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:18:41",
+    "query": "നെല്ലിന്റെ ഇലകൾ മഞ്ഞളിക്കുന്നു, എന്ത് ചെയ്യണം?",
+    "language": "Malayalam",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 80.0,
+      "p": 45.0,
+      "k": 40.0,
+      "ph": 6.5,
+      "moisture": 24.0,
+      "temperature": 26.0,
+      "humidity": 75.0,
+      "rainfall": 120.0
+    },
+    "answer": "🌾 **കിസാൻ എഐ (ICAR & മണ്ണുപരിശോധനാ ഉപദേശം)**\n\nനെൽച്ചെടിയുടെ ഇലകൾ മഞ്ഞളിക്കുന്നത് പ്രധാനമായും **നൈട്രജന്റെ ($N$) കുറവ്** അല്ലെങ്കിൽ **സിങ്കിന്റെ കുറവ് (ഖൈറ രോഗം)** കാരണമാണ്:\n\n**1. നിങ്ങളുടെ പാടത്തെ തത്സമയ സെൻസർ അളവുകൾ:**\n- നൈട്രജൻ അളവ്: **80.0 kg/ha** (സാധാരണയായി 280-350 kg/ha ആവശ്യമാണ്)\n- മണ്ണിന്റെ ഈർപ്പം: **24.0%** | പി.എച്ച് (pH): **6.5**\n\n**2. ഉടനടി ചെയ്യേണ്ട പ്രതിവിധി (Foliar Spray):**\n- **യൂറിയ ലായനി തളിക്കൽ**: താഴത്തെ ഇലകളാണ് ആദ്യം മഞ്ഞളിക്കുന്നതെങ്കിൽ, **1%-2% യൂറിയ ലായനി** (ഒരു ലിറ്റർ വെള്ളത്തിൽ 10-20 ഗ്രാം യൂറിയ) വൈകുന്നേരങ്ങളിൽ തളിക്കുക.\n- **സിങ്ക് സൾഫേറ്റ് സ്പ്രേ**: ഇലകളിൽ തവിട്ടുനിറത്തിലുള്ള പാടുകൾ ഉണ്ടെങ്കിൽ, **0.5% സിങ്ക് സൾഫേറ്റും 0.25% കുമ്മായ ലായനിയും** ചേർത്ത് തളിക്കുക.\n\n**3. മണ്ണിൽ ചേർക്കേണ്ട വളം (Top-dressing):**\n- വയലിൽ ആവശ്യത്തിന് ഈർപ്പമുള്ളപ്പോൾ ഏക്കറിന് **25-35 കിലോഗ്രാം യൂറിയ** മേൽവളമായി നൽകുക.\n\n📚 *അവലംബം: ICAR Visual Agronomic Guide & Kerala Agricultural University Guidelines*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:18:41",
+    "query": "What is the FAO-56 root zone depletion formula (Dr,i) from the water balance manual?",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 80.0,
+      "p": 45.0,
+      "k": 40.0,
+      "ph": 6.5,
+      "moisture": 24.0,
+      "temperature": 26.0,
+      "humidity": 75.0,
+      "rainfall": 120.0
+    },
+    "answer": "📘 **FAO-56 Irrigation Water Balance Model (Equation 85)**\n\nAccording to the **FAO Irrigation and Drainage Paper No. 56**, root zone depletion ($D_{r,i}$) at the end of day $i$ is calculated via the daily soil water balance:\n\n$$\\mathbf{D_{r,i} = D_{r,i-1} - (P - RO)_i - I_i - CR_i + ET_{c,i} + DP_i}$$\n\n**Parameter Definitions:**\n- **$D_{r,i}$**: Root zone depletion at the end of day $i$ [mm]\n- **$D_{r,i-1}$**: Depletion at the end of the previous day $i-1$ [mm]\n- **$P_i$**: Total rainfall / precipitation on day $i$ [mm]\n- **$RO_i$**: Runoff loss from the soil surface on day $i$ [mm]\n- **$I_i$**: Net irrigation depth that infiltrates the root zone [mm]\n- **$CR_i$**: Capillary rise from shallow groundwater [mm]\n- **$ET_{c,i}$**: Daily crop evapotranspiration ($ET_o \\times K_c$) [mm/day]\n- **$DP_i$**: Deep percolation water loss past root zone boundary [mm]\n\n**Irrigation Decision Rule:**\nIrrigation is triggered when $D_{r,i} \\ge RAW$, where **Readily Available Water** $RAW = p \\times TAW$.\n\n**Live Field Telemetry Context:**\n- Current Moisture: **24.0%** | Temperature: **26.0°C** | Humidity: **75.0%**\n- Status: 🔴 Critical Depletion -- Pump Run Needed\n\n📚 *Grounded in: FAO-56 Chapter 8 Water Balance Manual & resources/WATER BALANCE.txt*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:18:41",
+    "query": "What does the 2025 Nature paper say about TabNet vs Random Forest for crop recommendation?",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 80.0,
+      "p": 45.0,
+      "k": 40.0,
+      "ph": 6.5,
+      "moisture": 24.0,
+      "temperature": 26.0,
+      "humidity": 75.0,
+      "rainfall": 120.0
+    },
+    "answer": "📄 **Nature Scientific Reports (2025) Study Findings**\n*Citation: Nature Sci Rep (2025) 15:26910 | s41598-025-26910-4.pdf*\n\n**1. Comparative Model Performance:**\n- **TabNet (Deep Learning)** achieved the highest overall accuracy of **99.32%**, outperforming standard classifiers.\n- **Random Forest** demonstrated exceptional ensemble performance at **96.80%**, with superior computational efficiency and zero-latency inference on edge IoT controllers.\n- **XGBoost**: 95.40% | **Decision Tree**: 90.20%.\n\n**2. SHAP (Shapley Additive exPlanations) Feature Importance:**\n- The study's SHAP summary plots confirmed that **Nitrogen ($N$), Phosphorus ($P$), Potassium ($K$), and Rainfall** are the four dominant predictive features determining crop viability.\n- Soil pH and Temperature form critical secondary constraining boundaries.\n\n**3. Practical Deployment in KrishiMitra:**\nKrishiMitra deploys the calibrated Random Forest model on live soil telemetry to guarantee sub-millisecond edge predictions without GPU requirements.\n\n📚 *Grounded in: resources/s41598-025-26910-4.pdf (Indexed in RAG Library)*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:18:41",
+    "query": "According to the FAO table, what are the Kc values and max height for Tomato?",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 80.0,
+      "p": 45.0,
+      "k": 40.0,
+      "ph": 6.5,
+      "moisture": 24.0,
+      "temperature": 26.0,
+      "humidity": 75.0,
+      "rainfall": 120.0
+    },
+    "answer": "📊 **FAO-56 Crop Coefficients & Agronomic Table Specifications**\n*Source: resources/TABLE.txt & FAO-56 Paper No. 56 (Table 12)*\n\n**Tomato (*Lycopersicon esculentum*) Parameters:**\n- **Initial Stage Coefficient ($K_{c\\text{ ini}}$)**: **0.60**\n- **Mid-Season Coefficient ($K_{c\\text{ mid}}$)**: **1.15**\n- **End-Season Coefficient ($K_{c\\text{ end}}$)**: **0.70 - 0.80**\n- **Maximum Crop Height ($h$)**: **0.70 - 1.50 meters**\n- **Effective Rooting Depth ($Z_r$)**: **0.70 - 1.50 meters**\n- **Soil Water Depletion Fraction ($p$)**: **0.40**\n\n**Application in Irrigation Scheduling:**\nDuring the mid-season peak flowering/fruiting phase, Tomato consumes water at 115% of reference evapotranspiration ($ET_c = 1.15 \\times ET_o$). High moisture stress during this stage triggers blossom end rot.\n\n📚 *Grounded in: resources/TABLE.txt (Indexed in RAG Library)*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:22:10",
+    "query": "धान की पत्तियों में पीलापन आ रहा है, क्या खाद डालें?",
+    "language": "Hindi",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 80.0,
+      "p": 45.0,
+      "k": 40.0,
+      "ph": 6.5,
+      "moisture": 24.0,
+      "temperature": 26.0,
+      "humidity": 75.0,
+      "rainfall": 120.0
+    },
+    "answer": "🌾 **किसान एआई (ICAR एवं मृदा विज्ञान परामर्श)**\n\nधान की पत्तियों में पीलापन आना मुख्य रूप से **नाइट्रोजन ($N$) की कमी** या **जिंक ($Zn$) की कमी (खैरा रोग)** का लक्षण है:\n\n**1. आपके खेत के लाइव सेंसर आंकड़े:**\n- वर्तमान नाइट्रोजन स्तर: **80.0 kg/ha** (धान के लिए अनुशंसित स्तर: 280-350 kg/ha)\n- मिट्टी की नमी: **24.0%** | मृदा pH: **6.5**\n\n**2. तुरंत उपचार (Immediate Foliar Spray):**\n- **यूरिया पर्णीय छिड़काव**: यदि निचली पुरानी पत्तियां पीली हो रही हैं, तो **1%-2% यूरिया घोल** (10-20 ग्राम यूरिया प्रति लीटर पानी) का शाम के समय छिड़काव करें।\n- **जिंक सल्फेट छिड़काव**: यदि पत्तियों पर कत्थई या लाल-भूरे धब्बे हैं, तो **0.5% जिंक सल्फेट ($ZnSO_4$) + 0.25% बुझा हुआ चूना** मिलाकर प्रति एकड़ 200 लीटर पानी में छिड़कें।\n\n**3. मृदा अनुप्रयोग (Soil Top-dressing):**\n- खेत में पर्याप्त नमी सुनिश्चित करने के बाद **25-35 kg/एकड़ यूरिया** की टॉप-ड्रेसिंग करें।\n\n📚 *संदर्भ: ICAR Visual Diagnostic Guide & VTSE IoT Nutrient Management Protocol*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:22:10",
+    "query": "നെല്ലിന്റെ ഇലകൾ മഞ്ഞളിക്കുന്നു, എന്ത് ചെയ്യണം?",
+    "language": "Malayalam",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 80.0,
+      "p": 45.0,
+      "k": 40.0,
+      "ph": 6.5,
+      "moisture": 24.0,
+      "temperature": 26.0,
+      "humidity": 75.0,
+      "rainfall": 120.0
+    },
+    "answer": "🌾 **കിസാൻ എഐ (ICAR & മണ്ണുപരിശോധനാ ഉപദേശം)**\n\nനെൽച്ചെടിയുടെ ഇലകൾ മഞ്ഞളിക്കുന്നത് പ്രധാനമായും **നൈട്രജന്റെ ($N$) കുറവ്** അല്ലെങ്കിൽ **സിങ്കിന്റെ കുറവ് (ഖൈറ രോഗം)** കാരണമാണ്:\n\n**1. നിങ്ങളുടെ പാടത്തെ തത്സമയ സെൻസർ അളവുകൾ:**\n- നൈട്രജൻ അളവ്: **80.0 kg/ha** (സാധാരണയായി 280-350 kg/ha ആവശ്യമാണ്)\n- മണ്ണിന്റെ ഈർപ്പം: **24.0%** | പി.എച്ച് (pH): **6.5**\n\n**2. ഉടനടി ചെയ്യേണ്ട പ്രതിവിധി (Foliar Spray):**\n- **യൂറിയ ലായനി തളിക്കൽ**: താഴത്തെ ഇലകളാണ് ആദ്യം മഞ്ഞളിക്കുന്നതെങ്കിൽ, **1%-2% യൂറിയ ലായനി** (ഒരു ലിറ്റർ വെള്ളത്തിൽ 10-20 ഗ്രാം യൂറിയ) വൈകുന്നേരങ്ങളിൽ തളിക്കുക.\n- **സിങ്ക് സൾഫേറ്റ് സ്പ്രേ**: ഇലകളിൽ തവിട്ടുനിറത്തിലുള്ള പാടുകൾ ഉണ്ടെങ്കിൽ, **0.5% സിങ്ക് സൾഫേറ്റും 0.25% കുമ്മായ ലായനിയും** ചേർത്ത് തളിക്കുക.\n\n**3. മണ്ണിൽ ചേർക്കേണ്ട വളം (Top-dressing):**\n- വയലിൽ ആവശ്യത്തിന് ഈർപ്പമുള്ളപ്പോൾ ഏക്കറിന് **25-35 കിലോഗ്രാം യൂറിയ** മേൽവളമായി നൽകുക.\n\n📚 *അവലംബം: ICAR Visual Agronomic Guide & Kerala Agricultural University Guidelines*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:22:10",
+    "query": "What is the FAO-56 root zone depletion formula (Dr,i) from the water balance manual?",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 80.0,
+      "p": 45.0,
+      "k": 40.0,
+      "ph": 6.5,
+      "moisture": 24.0,
+      "temperature": 26.0,
+      "humidity": 75.0,
+      "rainfall": 120.0
+    },
+    "answer": "📘 **FAO-56 Irrigation Water Balance Model (Equation 85)**\n\nAccording to the **FAO Irrigation and Drainage Paper No. 56**, root zone depletion ($D_{r,i}$) at the end of day $i$ is calculated via the daily soil water balance:\n\n$$\\mathbf{D_{r,i} = D_{r,i-1} - (P - RO)_i - I_i - CR_i + ET_{c,i} + DP_i}$$\n\n**Parameter Definitions:**\n- **$D_{r,i}$**: Root zone depletion at the end of day $i$ [mm]\n- **$D_{r,i-1}$**: Depletion at the end of the previous day $i-1$ [mm]\n- **$P_i$**: Total rainfall / precipitation on day $i$ [mm]\n- **$RO_i$**: Runoff loss from the soil surface on day $i$ [mm]\n- **$I_i$**: Net irrigation depth that infiltrates the root zone [mm]\n- **$CR_i$**: Capillary rise from shallow groundwater [mm]\n- **$ET_{c,i}$**: Daily crop evapotranspiration ($ET_o \\times K_c$) [mm/day]\n- **$DP_i$**: Deep percolation water loss past root zone boundary [mm]\n\n**Irrigation Decision Rule:**\nIrrigation is triggered when $D_{r,i} \\ge RAW$, where **Readily Available Water** $RAW = p \\times TAW$.\n\n**Live Field Telemetry Context:**\n- Current Moisture: **24.0%** | Temperature: **26.0°C** | Humidity: **75.0%**\n- Status: 🔴 Critical Depletion -- Pump Run Needed\n\n📚 *Grounded in: FAO-56 Chapter 8 Water Balance Manual & resources/WATER BALANCE.txt*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:22:10",
+    "query": "What does the 2025 Nature paper say about TabNet vs Random Forest for crop recommendation?",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 80.0,
+      "p": 45.0,
+      "k": 40.0,
+      "ph": 6.5,
+      "moisture": 24.0,
+      "temperature": 26.0,
+      "humidity": 75.0,
+      "rainfall": 120.0
+    },
+    "answer": "📄 **Nature Scientific Reports (2025) Study Findings**\n*Citation: Nature Sci Rep (2025) 15:26910 | s41598-025-26910-4.pdf*\n\n**1. Comparative Model Performance:**\n- **TabNet (Deep Learning)** achieved the highest overall accuracy of **99.32%**, outperforming standard classifiers.\n- **Random Forest** demonstrated exceptional ensemble performance at **96.80%**, with superior computational efficiency and zero-latency inference on edge IoT controllers.\n- **XGBoost**: 95.40% | **Decision Tree**: 90.20%.\n\n**2. SHAP (Shapley Additive exPlanations) Feature Importance:**\n- The study's SHAP summary plots confirmed that **Nitrogen ($N$), Phosphorus ($P$), Potassium ($K$), and Rainfall** are the four dominant predictive features determining crop viability.\n- Soil pH and Temperature form critical secondary constraining boundaries.\n\n**3. Practical Deployment in KrishiMitra:**\nKrishiMitra deploys the calibrated Random Forest model on live soil telemetry to guarantee sub-millisecond edge predictions without GPU requirements.\n\n📚 *Grounded in: resources/s41598-025-26910-4.pdf (Indexed in RAG Library)*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:22:10",
+    "query": "According to the FAO table, what are the Kc values and max height for Tomato?",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 80.0,
+      "p": 45.0,
+      "k": 40.0,
+      "ph": 6.5,
+      "moisture": 24.0,
+      "temperature": 26.0,
+      "humidity": 75.0,
+      "rainfall": 120.0
+    },
+    "answer": "📊 **FAO-56 Crop Coefficients & Agronomic Table Specifications**\n*Source: resources/TABLE.txt & FAO-56 Paper No. 56 (Table 12)*\n\n**Tomato (*Lycopersicon esculentum*) Parameters:**\n- **Initial Stage Coefficient ($K_{c\\text{ ini}}$)**: **0.60**\n- **Mid-Season Coefficient ($K_{c\\text{ mid}}$)**: **1.15**\n- **End-Season Coefficient ($K_{c\\text{ end}}$)**: **0.70 - 0.80**\n- **Maximum Crop Height ($h$)**: **0.70 - 1.50 meters**\n- **Effective Rooting Depth ($Z_r$)**: **0.70 - 1.50 meters**\n- **Soil Water Depletion Fraction ($p$)**: **0.40**\n\n**Application in Irrigation Scheduling:**\nDuring the mid-season peak flowering/fruiting phase, Tomato consumes water at 115% of reference evapotranspiration ($ET_c = 1.15 \\times ET_o$). High moisture stress during this stage triggers blossom end rot.\n\n📚 *Grounded in: resources/TABLE.txt (Indexed in RAG Library)*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:22:10",
+    "query": "According to the VFAST paper, how many bags of Urea and DAP are recommended for wheat?",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 80.0,
+      "p": 45.0,
+      "k": 40.0,
+      "ph": 6.5,
+      "moisture": 24.0,
+      "temperature": 26.0,
+      "humidity": 75.0,
+      "rainfall": 120.0
+    },
+    "answer": "🧪 **VFAST IoT Precision Fertilizing Research Findings**\n*Citation: VFAST Transactions on Software Engineering | vtse2078+(1)_compressed.pdf*\n\n**1. Recommended Fertilizer Dosages for Wheat:**\n- Standard Recommended Dose of Fertilizer (RDF): **120 kg N : 60 kg P₂O₅ : 40 kg K₂O per hectare**.\n- **Commercial Bag Calculations (50 kg standard bags):**\n  - **DAP (18-46-0)**: Supplies 46% P₂O₅ and 18% N. Dosage: ~130 kg DAP/ha ≈ **2.6 bags/hectare (~1 bag/acre)** at sowing.\n  - **Urea (46% N)**: Supplies balance Nitrogen after deducting DAP's N contribution. Dosage: ~217 kg Urea/ha ≈ **4.3 bags/hectare (~1.7 bags/acre)** split across 3 vegetative stages.\n  - **MOP (60% K₂O)**: Supplies Potash. Dosage: ~67 kg MOP/ha ≈ **1.3 bags/hectare (~0.5 bag/acre)**.\n\n**2. IoT Sensor Closed-Loop Advantage:**\nThe paper demonstrates that dynamically adjusting fertilizer based on real-time soil NPK sensor readings saves **22%-35% in input costs** and prevents nitrate leaching into rural groundwater.\n\n📚 *Grounded in: resources/vtse2078+(1)_compressed.pdf (Indexed in RAG Library)*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:22:10",
+    "query": "Hey",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 80.0,
+      "p": 45.0,
+      "k": 40.0,
+      "ph": 6.5,
+      "moisture": 24.0,
+      "temperature": 26.0,
+      "humidity": 75.0,
+      "rainfall": 120.0
+    },
+    "answer": "🌾 **Hello! I am your Kisan AI Agronomic Copilot.**\n\n**Your Live Soil Telemetry Snapshot:**\n- Nitrogen: **80.0 kg/ha** | Phosphorus: **45.0 kg/ha** | Potassium: **40.0 kg/ha**\n- Soil pH: **6.5** | Soil Moisture: **24.0%** | Temperature: **26.0°C**\n\nYou can ask me about **crop nutrient deficiencies**, **fertilizer prescriptions (Urea/DAP/MOP)**, **FAO-56 irrigation scheduling**, or specific findings from our **indexed research papers**!",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:27:20",
+    "query": "Hello",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 80.0,
+      "p": 45.0,
+      "k": 40.0,
+      "ph": 6.5,
+      "moisture": 24.0,
+      "temperature": 26.0,
+      "humidity": 75.0,
+      "rainfall": 120.0
+    },
+    "answer": "🌾 **Hello! I am your Kisan AI Agronomic Copilot.**\n\n**Your Live Soil Telemetry Snapshot:**\n- Nitrogen: **80.0 kg/ha** | Phosphorus: **45.0 kg/ha** | Potassium: **40.0 kg/ha**\n- Soil pH: **6.5** | Soil Moisture: **24.0%** | Temperature: **26.0°C**\n\nYou can ask me about **crop nutrient deficiencies**, **fertilizer prescriptions (Urea/DAP/MOP)**, **FAO-56 irrigation scheduling**, or specific findings from our **indexed research papers**!",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:27:43",
+    "query": "HII",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 180.0
+    },
+    "answer": "🌾 **Hello! I am your Kisan AI Agronomic Copilot.**\n\n**Your Live Soil Telemetry Snapshot:**\n- Nitrogen: **35.0 kg/ha** | Phosphorus: **60.0 kg/ha** | Potassium: **32.0 kg/ha**\n- Soil pH: **5.4** | Soil Moisture: **28.0%** | Temperature: **31.0°C**\n\nYou can ask me about **crop nutrient deficiencies**, **fertilizer prescriptions (Urea/DAP/MOP)**, **FAO-56 irrigation scheduling**, or specific findings from our **indexed research papers**!",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:27:53",
+    "query": "धान की पत्तियों में पीलापन आ रहा है, क्या खाद डालें?",
+    "language": "Hindi",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 180.0
+    },
+    "answer": "🌾 **किसान एआई (ICAR एवं मृदा विज्ञान परामर्श)**\n\nधान की पत्तियों में पीलापन आना मुख्य रूप से **नाइट्रोजन ($N$) की कमी** या **जिंक ($Zn$) की कमी (खैरा रोग)** का लक्षण है:\n\n**1. आपके खेत के लाइव सेंसर आंकड़े:**\n- वर्तमान नाइट्रोजन स्तर: **35.0 kg/ha** (धान के लिए अनुशंसित स्तर: 280-350 kg/ha)\n- मिट्टी की नमी: **28.0%** | मृदा pH: **5.4**\n\n**2. तुरंत उपचार (Immediate Foliar Spray):**\n- **यूरिया पर्णीय छिड़काव**: यदि निचली पुरानी पत्तियां पीली हो रही हैं, तो **1%-2% यूरिया घोल** (10-20 ग्राम यूरिया प्रति लीटर पानी) का शाम के समय छिड़काव करें।\n- **जिंक सल्फेट छिड़काव**: यदि पत्तियों पर कत्थई या लाल-भूरे धब्बे हैं, तो **0.5% जिंक सल्फेट ($ZnSO_4$) + 0.25% बुझा हुआ चूना** मिलाकर प्रति एकड़ 200 लीटर पानी में छिड़कें।\n\n**3. मृदा अनुप्रयोग (Soil Top-dressing):**\n- खेत में पर्याप्त नमी सुनिश्चित करने के बाद **25-35 kg/एकड़ यूरिया** की टॉप-ड्रेसिंग करें।\n\n📚 *संदर्भ: ICAR Visual Diagnostic Guide & VTSE IoT Nutrient Management Protocol*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:28:03",
+    "query": "നെല്ലിന്റെ ഇലകൾ മഞ്ഞളിക്കുന്നു, എന്ത് ചെയ്യണം?",
+    "language": "Malayalam",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 180.0
+    },
+    "answer": "🌾 **കിസാൻ എഐ (ICAR & മണ്ണുപരിശോധനാ ഉപദേശം)**\n\nനെൽച്ചെടിയുടെ ഇലകൾ മഞ്ഞളിക്കുന്നത് പ്രധാനമായും **നൈട്രജന്റെ ($N$) കുറവ്** അല്ലെങ്കിൽ **സിങ്കിന്റെ കുറവ് (ഖൈറ രോഗം)** കാരണമാണ്:\n\n**1. നിങ്ങളുടെ പാടത്തെ തത്സമയ സെൻസർ അളവുകൾ:**\n- നൈട്രജൻ അളവ്: **35.0 kg/ha** (സാധാരണയായി 280-350 kg/ha ആവശ്യമാണ്)\n- മണ്ണിന്റെ ഈർപ്പം: **28.0%** | പി.എച്ച് (pH): **5.4**\n\n**2. ഉടനടി ചെയ്യേണ്ട പ്രതിവിധി (Foliar Spray):**\n- **യൂറിയ ലായനി തളിക്കൽ**: താഴത്തെ ഇലകളാണ് ആദ്യം മഞ്ഞളിക്കുന്നതെങ്കിൽ, **1%-2% യൂറിയ ലായനി** (ഒരു ലിറ്റർ വെള്ളത്തിൽ 10-20 ഗ്രാം യൂറിയ) വൈകുന്നേരങ്ങളിൽ തളിക്കുക.\n- **സിങ്ക് സൾഫേറ്റ് സ്പ്രേ**: ഇലകളിൽ തവിട്ടുനിറത്തിലുള്ള പാടുകൾ ഉണ്ടെങ്കിൽ, **0.5% സിങ്ക് സൾഫേറ്റും 0.25% കുമ്മായ ലായനിയും** ചേർത്ത് തളിക്കുക.\n\n**3. മണ്ണിൽ ചേർക്കേണ്ട വളം (Top-dressing):**\n- വയലിൽ ആവശ്യത്തിന് ഈർപ്പമുള്ളപ്പോൾ ഏക്കറിന് **25-35 കിലോഗ്രാം യൂറിയ** മേൽവളമായി നൽകുക.\n\n📚 *അവലംബം: ICAR Visual Agronomic Guide & Kerala Agricultural University Guidelines*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:37:51",
+    "query": "According to the FAO table, what are the Kc values and max height for Tomato?",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 80.0,
+      "p": 45.0,
+      "k": 40.0,
+      "ph": 6.5,
+      "moisture": 24.0,
+      "temperature": 26.0,
+      "humidity": 75.0,
+      "rainfall": 120.0
+    },
+    "answer": "📊 **FAO-56 Crop Coefficients & Agronomic Table Specifications**\n*Source: resources/TABLE.txt & FAO-56 Paper No. 56 (Table 12)*\n\n**Tomato (*Lycopersicon esculentum*) Parameters:**\n- **Initial Stage Coefficient ($K_{c\\text{ ini}}$)**: **0.60**\n- **Mid-Season Coefficient ($K_{c\\text{ mid}}$)**: **1.15**\n- **End-Season Coefficient ($K_{c\\text{ end}}$)**: **0.70 - 0.80**\n- **Maximum Crop Height ($h$)**: **0.70 - 1.50 meters**\n- **Effective Rooting Depth ($Z_r$)**: **0.70 - 1.50 meters**\n- **Soil Water Depletion Fraction ($p$)**: **0.40**\n\n**Application in Irrigation Scheduling:**\nDuring the mid-season peak flowering/fruiting phase, Tomato consumes water at 115% of reference evapotranspiration ($ET_c = 1.15 \\times ET_o$). High moisture stress during this stage triggers blossom end rot.\n\n📚 *Grounded in: resources/TABLE.txt (Indexed in RAG Library)*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:37:56",
+    "query": "According to the FAO table, what are the Kc values and max height for Tomato?",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 80.0,
+      "p": 45.0,
+      "k": 40.0,
+      "ph": 6.5,
+      "moisture": 24.0,
+      "temperature": 26.0,
+      "humidity": 75.0,
+      "rainfall": 120.0
+    },
+    "answer": "📊 **FAO-56 Crop Coefficients & Agronomic Table Specifications**\n*Source: resources/TABLE.txt & FAO-56 Paper No. 56 (Table 12)*\n\n**Tomato (*Lycopersicon esculentum*) Parameters:**\n- **Initial Stage Coefficient ($K_{c\\text{ ini}}$)**: **0.60**\n- **Mid-Season Coefficient ($K_{c\\text{ mid}}$)**: **1.15**\n- **End-Season Coefficient ($K_{c\\text{ end}}$)**: **0.70 - 0.80**\n- **Maximum Crop Height ($h$)**: **0.70 - 1.50 meters**\n- **Effective Rooting Depth ($Z_r$)**: **0.70 - 1.50 meters**\n- **Soil Water Depletion Fraction ($p$)**: **0.40**\n\n**Application in Irrigation Scheduling:**\nDuring the mid-season peak flowering/fruiting phase, Tomato consumes water at 115% of reference evapotranspiration ($ET_c = 1.15 \\times ET_o$). High moisture stress during this stage triggers blossom end rot.\n\n📚 *Grounded in: resources/TABLE.txt (Indexed in RAG Library)*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:38:01",
+    "query": "धान की पत्तियों में पीलापन आ रहा है, क्या खाद डालें?",
+    "language": "Hindi",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 80.0,
+      "p": 45.0,
+      "k": 40.0,
+      "ph": 6.5,
+      "moisture": 24.0,
+      "temperature": 26.0,
+      "humidity": 75.0,
+      "rainfall": 120.0
+    },
+    "answer": "🌾 **किसान एआई (ICAR एवं मृदा विज्ञान परामर्श)**\n\nधान की पत्तियों में पीलापन आना मुख्य रूप से **नाइट्रोजन ($N$) की कमी** या **जिंक ($Zn$) की कमी (खैरा रोग)** का लक्षण है:\n\n**1. आपके खेत के लाइव सेंसर आंकड़े:**\n- वर्तमान नाइट्रोजन स्तर: **80.0 kg/ha** (धान के लिए अनुशंसित स्तर: 280-350 kg/ha)\n- मिट्टी की नमी: **24.0%** | मृदा pH: **6.5**\n\n**2. तुरंत उपचार (Immediate Foliar Spray):**\n- **यूरिया पर्णीय छिड़काव**: यदि निचली पुरानी पत्तियां पीली हो रही हैं, तो **1%-2% यूरिया घोल** (10-20 ग्राम यूरिया प्रति लीटर पानी) का शाम के समय छिड़काव करें।\n- **जिंक सल्फेट छिड़काव**: यदि पत्तियों पर कत्थई या लाल-भूरे धब्बे हैं, तो **0.5% जिंक सल्फेट ($ZnSO_4$) + 0.25% बुझा हुआ चूना** मिलाकर प्रति एकड़ 200 लीटर पानी में छिड़कें।\n\n**3. मृदा अनुप्रयोग (Soil Top-dressing):**\n- खेत में पर्याप्त नमी सुनिश्चित करने के बाद **25-35 kg/एकड़ यूरिया** की टॉप-ड्रेसिंग करें।\n\n📚 *संदर्भ: ICAR Visual Diagnostic Guide & VTSE IoT Nutrient Management Protocol*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:38:06",
+    "query": "നെല്ലിന്റെ ഇലകൾ മഞ്ഞളിക്കുന്നു, എന്ത് ചെയ്യണം?",
+    "language": "Malayalam",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 80.0,
+      "p": 45.0,
+      "k": 40.0,
+      "ph": 6.5,
+      "moisture": 24.0,
+      "temperature": 26.0,
+      "humidity": 75.0,
+      "rainfall": 120.0
+    },
+    "answer": "🌾 **കിസാൻ എഐ (ICAR & മണ്ണുപരിശോധനാ ഉപദേശം)**\n\nനെൽച്ചെടിയുടെ ഇലകൾ മഞ്ഞളിക്കുന്നത് പ്രധാനമായും **നൈട്രജന്റെ ($N$) കുറവ്** അല്ലെങ്കിൽ **സിങ്കിന്റെ കുറവ് (ഖൈറ രോഗം)** കാരണമാണ്:\n\n**1. നിങ്ങളുടെ പാടത്തെ തത്സമയ സെൻസർ അളവുകൾ:**\n- നൈട്രജൻ അളവ്: **80.0 kg/ha** (സാധാരണയായി 280-350 kg/ha ആവശ്യമാണ്)\n- മണ്ണിന്റെ ഈർപ്പം: **24.0%** | പി.എച്ച് (pH): **6.5**\n\n**2. ഉടനടി ചെയ്യേണ്ട പ്രതിവിധി (Foliar Spray):**\n- **യൂറിയ ലായനി തളിക്കൽ**: താഴത്തെ ഇലകളാണ് ആദ്യം മഞ്ഞളിക്കുന്നതെങ്കിൽ, **1%-2% യൂറിയ ലായനി** (ഒരു ലിറ്റർ വെള്ളത്തിൽ 10-20 ഗ്രാം യൂറിയ) വൈകുന്നേരങ്ങളിൽ തളിക്കുക.\n- **സിങ്ക് സൾഫേറ്റ് സ്പ്രേ**: ഇലകളിൽ തവിട്ടുനിറത്തിലുള്ള പാടുകൾ ഉണ്ടെങ്കിൽ, **0.5% സിങ്ക് സൾഫേറ്റും 0.25% കുമ്മായ ലായനിയും** ചേർത്ത് തളിക്കുക.\n\n**3. മണ്ണിൽ ചേർക്കേണ്ട വളം (Top-dressing):**\n- വയലിൽ ആവശ്യത്തിന് ഈർപ്പമുള്ളപ്പോൾ ഏക്കറിന് **25-35 കിലോഗ്രാം യൂറിയ** മേൽവളമായി നൽകുക.\n\n📚 *അവലംബം: ICAR Visual Agronomic Guide & Kerala Agricultural University Guidelines*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:38:11",
+    "query": "HII",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 80.0,
+      "p": 45.0,
+      "k": 40.0,
+      "ph": 6.5,
+      "moisture": 24.0,
+      "temperature": 26.0,
+      "humidity": 75.0,
+      "rainfall": 120.0
+    },
+    "answer": "🌾 **Hello! I am your Kisan AI Agronomic Copilot.**\n\n**Your Live Soil Telemetry Snapshot:**\n- Nitrogen: **80.0 kg/ha** | Phosphorus: **45.0 kg/ha** | Potassium: **40.0 kg/ha**\n- Soil pH: **6.5** | Soil Moisture: **24.0%** | Temperature: **26.0°C**\n\nYou can ask me about **crop nutrient deficiencies**, **fertilizer prescriptions (Urea/DAP/MOP)**, **FAO-56 irrigation scheduling**, or specific findings from our **indexed research papers**!",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:39:33",
+    "query": "HELLO",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 180.0
+    },
+    "answer": "🌾 **Hello! I am your Kisan AI Agronomic Copilot.**\n\n**Your Live Soil Telemetry Snapshot:**\n- Nitrogen: **35.0 kg/ha** | Phosphorus: **60.0 kg/ha** | Potassium: **32.0 kg/ha**\n- Soil pH: **5.4** | Soil Moisture: **28.0%** | Temperature: **31.0°C**\n\nYou can ask me about **crop nutrient deficiencies**, **fertilizer prescriptions (Urea/DAP/MOP)**, **FAO-56 irrigation scheduling**, or specific findings from our **indexed research papers**!",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:44:25",
+    "query": "CAN I FARM WHEAT",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 180.0
+    },
+    "answer": "🌾 **Kisan AI Agronomic Advisory**\n\nIn response to your query *\"CAN I FARM WHEAT\"* and your live soil state (N: 35.0 kg/ha, P: 60.0 kg/ha, K: 32.0 kg/ha, pH: 5.4, Moisture: 28.0%):\n\n**Verified Agronomic Reference Context:**\n[Research Resource: s41598-025-26910-4.pdf | Page 4]\nfertilizer recommendations. Through this system farms gain higher production levels while using resources \nmore efficiently and achieving data-based agricultural choices 15. Jeon et al. used MIR spectroscopy to forecast \nsoil properties essential for fertilizer recommendations in South Korea. The\n\n[Research Resource: s41598-025-26910-4.pdf | Page 2]\nfarming technologies, especially Internet of Things (IoT) in AI based fertilizer/crop recommendation systems \ncan lead advanced revolution in this direction. IoT sensors continuously monitor the soil health by collecting \ndata in real time on the soil moisture, pH, temperature, and nutrient level\n\n📚 *Grounded in: ICAR Guidelines & KrishiMitra Research Library*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 19:59:44",
+    "query": "CAN I FARM WHEAT",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 80.0,
+      "p": 45.0,
+      "k": 40.0,
+      "ph": 6.5,
+      "moisture": 24.0,
+      "temperature": 26.0,
+      "humidity": 75.0,
+      "rainfall": 120.0
+    },
+    "answer": "🌾 **Kisan AI Precision Crop Feasibility Assessment: WHEAT (*Triticum aestivum*)**\n\n### ⚠️ Feasibility Verdict: **CONDITIONAL -- Soil Amendment Required Before Sowing**\n\nBased on your live IoT sensor readings and ICAR scientific standards, here is the agronomic breakdown for wheat cultivation on your field:\n\n**1. Soil & Climate Telemetry vs. Wheat Benchmarks:**\n- 🟢 **Soil pH**: **6.5** (Benchmark: 6.0 -- 7.5) ➔ *Optimal*\n  - Soil pH is favorable for nutrient uptake.\n- 🟢 **Available Nitrogen ($N$)**: **80.0 kg/ha** (Benchmark: 120 kg/ha) ➔ *Adequate*\n  - Maintain scheduled vegetative split doses.\n- 🟢 **Available Phosphorus ($P$)**: **45.0 kg/ha** (Benchmark: 50--60 kg/ha) ➔ *Adequate*\n- 🟢 **Available Potassium ($K$)**: **40.0 kg/ha** (Benchmark: 40--50 kg/ha) ➔ *Adequate*\n  - Potassium levels are sufficient for stem strength.\n- 🟡 **Soil Moisture**: **24.0%** (Benchmark: 45% -- 60%) ➔ *Sub-optimal*\n  - Soil moisture (24.0%) is below the ideal sowing threshold (45%--60%). A pre-sowing irrigation (*Paleva*) of 50--60 mm is strongly advised before sowing to ensure uniform seedling emergence.\n- 🟢 **Field Temperature**: **26.0°C** (Benchmark: 18°C -- 25°C) ➔ *Optimal*\n  - Ambient temperature is ideal for winter wheat sowing.\n\n**2. Pre-Sowing Action Protocol (Step-by-Step):**\n1. **Lime Application**: Soil pH is well-balanced; no liming required.\n2. **Pre-Sowing Irrigation (Paleva)**: Provide 1 light irrigation (50 mm) 5--7 days before seed drilling to achieve field capacity.\n3. **Basal Fertilizer Placement**: Drill 50 kg/acre DAP + 35 kg/acre MOP 5 cm below seed level.\n\n**3. Scientific Research Citations:**\n[Research Resource: s41598-025-26910-4.pdf | Page 4]\n[Agronomic Table: TABLE.txt | Page 1]\n\n📚 *Grounded in: ICAR Wheat Production Package & FAO-56 Irrigation Paper No. 56*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 20:30:12",
+    "query": "ഹായ്",
+    "language": "Malayalam",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 180.0
+    },
+    "answer": "🌾 **കിസാൻ എഐ കാർഷിക ഉപദേശം**\n\nനിങ്ങളുടെ ചോദ്യത്തിനുള്ള ഉത്തരം (*\"ഹായ്\"*):\nനിലവിലെ മണ്ണിലെ സ്ഥിതി: നൈട്രജൻ 35.0, ഫോസ്ഫറസ് 60.0, പൊട്ടാസ്യം 32.0, ഈർപ്പം 28.0%.\n\n**ശാസ്ത്രീയ നിർദ്ദേശം:**\nവിളകളുടെ ആരോഗ്യകരമായ വളർച്ചയ്ക്ക് സന്തുലിതമായ വളപ്രയോഗവും കൃത്യമായ ജലസേചനവും ഉറപ്പാക്കുക.\n\nകൂടുതൽ വിവരങ്ങൾക്ക് വിളയുടെ പേരോ ലക്ഷണങ്ങളോ വ്യക്തമാക്കുക.",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 20:37:21",
+    "query": "ഹായ്",
+    "language": "Malayalam",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 180.0
+    },
+    "answer": "🌾 **നമസ്കാരം! ഞാൻ നിങ്ങളുടെ കിസാൻ എഐ സഹായിയാണ്.**\n\n**നിങ്ങളുടെ പാടത്തെ തത്സമയ വിവരങ്ങൾ:**\n- നൈട്രജൻ ($N$): **35.0 kg/ha** | ഫോസ്ഫറസ് ($P$): **60.0 kg/ha** | പൊട്ടാസ്യം ($K$): **32.0 kg/ha**\n- പി.എച്ച് (pH): **5.4** | ഈർപ്പം: **28.0%**\n\nനെല്ലിലെ മഞ്ഞളിപ്പ്, വളത്തിന്റെ അളവ്, വെള്ളം നനയ്ക്കേണ്ട സമയം എന്നിവയെക്കുറിച്ച് എന്തും ചോദിക്കാം.",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 20:37:35",
+    "query": "ഹായ്",
+    "language": "Malayalam",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 180.0
+    },
+    "answer": "🌾 **നമസ്കാരം! ഞാൻ നിങ്ങളുടെ കിസാൻ എഐ സഹായിയാണ്.**\n\n**നിങ്ങളുടെ പാടത്തെ തത്സമയ വിവരങ്ങൾ:**\n- നൈട്രജൻ ($N$): **35.0 kg/ha** | ഫോസ്ഫറസ് ($P$): **60.0 kg/ha** | പൊട്ടാസ്യം ($K$): **32.0 kg/ha**\n- പി.എച്ച് (pH): **5.4** | ഈർപ്പം: **28.0%**\n\nനെല്ലിലെ മഞ്ഞളിപ്പ്, വളത്തിന്റെ അളവ്, വെള്ളം നനയ്ക്കേണ്ട സമയം എന്നിവയെക്കുറിച്ച് എന്തും ചോദിക്കാം.",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 20:39:44",
+    "query": "hello",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 180.0
+    },
+    "answer": "🌾 **Hello! I am your Kisan AI Agronomic Copilot.**\n\n**Your Live Soil Telemetry Snapshot:**\n- Nitrogen: **35.0 kg/ha** | Phosphorus: **60.0 kg/ha** | Potassium: **32.0 kg/ha**\n- Soil pH: **5.4** | Soil Moisture: **28.0%** | Temperature: **31.0°C**\n\nYou can ask me about **crop nutrient deficiencies**, **fertilizer prescriptions (Urea/DAP/MOP)**, **crop feasibility (e.g. Can I farm wheat?)**, **FAO-56 irrigation scheduling**, or specific findings from our **indexed research papers**!",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 20:40:23",
+    "query": "which is the best soil condition to farm wheat",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 180.0
+    },
+    "answer": "🌾 **Kisan AI Precision Crop Feasibility Assessment: WHEAT (*Triticum aestivum*)**\n\n### ⚠️ Feasibility Verdict: **CONDITIONAL -- Soil Amendment Required Before Sowing**\n\nBased on your live IoT sensor readings and ICAR scientific standards, here is the agronomic breakdown for wheat cultivation on your field:\n\n**1. Soil & Climate Telemetry vs. Wheat Benchmarks:**\n- 🔴 **Soil pH**: **5.4** (Benchmark: 6.0 -- 7.5) ➔ *Acidic (Deficit)*\n  - Wheat requires pH 6.0--7.5. At pH 5.4, phosphorus fixation and aluminum toxicity occur. Apply **agricultural lime (CaCO3) at 1.5--2.0 tonnes/ha** (600--800 kg/acre) 2--3 weeks before sowing to raise soil pH.\n- 🔴 **Available Nitrogen ($N$)**: **35.0 kg/ha** (Benchmark: 120 kg/ha) ➔ *Deficient*\n  - Current available N is only 35.0 kg/ha (Target: 120 kg/ha). Apply **120 kg N/ha via Urea (46% N)** in 3 split doses: 50% basal at sowing (130 kg Urea/ha), 25% at Crown Root Initiation (CRI, 21 DAS), and 25% at late tillering.\n- 🟢 **Available Phosphorus ($P$)**: **60.0 kg/ha** (Benchmark: 50--60 kg/ha) ➔ *Adequate*\n- 🟡 **Available Potassium ($K$)**: **32.0 kg/ha** (Benchmark: 40--50 kg/ha) ➔ *Low*\n  - Apply **35--40 kg/acre MOP (Muriate of Potash 60% K2O)** as a basal dressing to build lodging resistance.\n- 🟡 **Soil Moisture**: **28.0%** (Benchmark: 45% -- 60%) ➔ *Sub-optimal*\n  - Soil moisture (28.0%) is below the ideal sowing threshold (45%--60%). A pre-sowing irrigation (*Paleva*) of 50--60 mm is strongly advised before sowing to ensure uniform seedling emergence.\n- 🟡 **Field Temperature**: **31.0°C** (Benchmark: 18°C -- 25°C) ➔ *Warm / Elevated*\n  - Current temperature is 31.0°C. Wheat is a cool-season Rabi crop. Sowing is best initiated when mean ambient temperature drops below 24°C--25°C (late October to November) to prevent heat stress during germination.\n\n**2. Pre-Sowing Action Protocol (Step-by-Step):**\n1. **Lime Application**: Broadcast 600--800 kg/acre agricultural lime and incorporate 15 cm deep.\n2. **Pre-Sowing Irrigation (Paleva)**: Provide 1 light irrigation (50 mm) 5--7 days before seed drilling to achieve field capacity.\n3. **Basal Fertilizer Placement**: Drill 50 kg/acre DAP + 35 kg/acre MOP 5 cm below seed level.\n\n**3. Scientific Research Citations:**\n[Research Resource: s41598-025-26910-4.pdf | Page 4]\n[Agronomic Table: TABLE.txt | Page 1]\n\n📚 *Grounded in: ICAR Wheat Production Package & FAO-56 Irrigation Paper No. 56*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 20:42:13",
+    "query": "can i farm tomato in this soil condition",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 180.0
+    },
+    "answer": "🌾 **Hello! I am your Kisan AI Agronomic Copilot.**\n\n**Your Live Soil Telemetry Snapshot:**\n- Nitrogen: **35.0 kg/ha** | Phosphorus: **60.0 kg/ha** | Potassium: **32.0 kg/ha**\n- Soil pH: **5.4** | Soil Moisture: **28.0%** | Temperature: **31.0°C**\n\nYou can ask me about **crop nutrient deficiencies**, **fertilizer prescriptions (Urea/DAP/MOP)**, **crop feasibility (e.g. Can I farm wheat?)**, **FAO-56 irrigation scheduling**, or specific findings from our **indexed research papers**!",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 21:03:44",
+    "query": "can i farm tomato in this soil condition",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 180.0
+    },
+    "answer": "🌾 **Kisan AI Crop Feasibility Assessment: TOMATO (*Solanum lycopersicum*)**\n\n### 🔴 Feasibility Verdict: **NOT RECOMMENDED -- Multiple Critical Deficits Detected**\n\nBased on your live IoT sensor readings and ICAR/Solanaceae agronomic standards:\n\n**1. Soil & Climate Telemetry vs. Tomato Benchmarks:**\n- 🔴 **Soil pH**: **5.4** (Benchmark: 6.0 -- 7.5) ➔ *Acidic*\n  - Soil is too acidic (pH 5.4 vs required 6.0--7.5). Apply **1.0--2.0 t/ha agricultural lime (CaCO₃)** 2--3 weeks before planting.\n- 🔴 **Nitrogen ($N$)**: **35.0 kg/ha** (Target: 120 kg/ha) ➔ *Deficient*\n  - Nitrogen is critically low (35.0 kg/ha vs target 120 kg/ha). Apply **184.8 kg/ha Urea (46% N)** in split doses as per schedule.\n- 🟢 **Phosphorus ($P$)**: **60.0 kg/ha** (Target: 60 kg/ha) ➔ *Adequate*\n  - Phosphorus is sufficient.\n- 🟡 **Potassium ($K$)**: **32.0 kg/ha** (Target: 60 kg/ha) ➔ *Low*\n  - Potassium is low (32.0 kg/ha vs target 60 kg/ha). Apply **46.7 kg/ha MOP (60% K₂O)** as basal dressing.\n- 🔴 **Soil Moisture**: **28.0%** (Minimum: 35%) ➔ *Insufficient*\n  - Soil moisture (28.0%) is below minimum (35%). **Pre-planting irrigation** of 40--60 mm is required.\n- 🟡 **Temperature**: **31.0°C** (Optimal: 20 -- 30°C) ➔ *Sub-optimal*\n  - Temperature 31.0°C is outside optimal range (20--30°C). Consider adjusting sowing schedule to: Kharif / Rabi / Summer.\n\n**2. Recommended Season:** Kharif / Rabi / Summer\n**3. Plant Spacing:** 60 x 45 cm\n**4. Fertilizer Schedule:** 50% N basal + 25% at 30 DAS + 25% at flowering. 100% P basal. 50% K basal + 50% at fruiting.\n**5. Key Pests & Diseases:** Fruit borer (Helicoverpa), whitefly, leaf curl virus, late blight\n**6. Important Notes:** Fruit set drops above 35°C. Staking recommended. Drip irrigation preferred.\n\n**Scientific Research Citations:**\n[Crop Benchmarks: CROP_FEASIBILITY_BENCHMARKS.txt]\n[Agronomic Table: TABLE.txt | Page 1]\n\n📚 *Grounded in: ICAR Crop Production Package & FAO-56 Irrigation Paper No. 56*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 21:04:13",
+    "query": "can i grow okra",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 180.0
+    },
+    "answer": "🌾 **Kisan AI Crop Feasibility Assessment: OKRA (*Abelmoschus esculentus*)**\n\n### ⚠️ Feasibility Verdict: **CONDITIONAL -- Soil Amendment Required Before Planting**\n\nBased on your live IoT sensor readings and ICAR/Malvaceae agronomic standards:\n\n**1. Soil & Climate Telemetry vs. Okra Benchmarks:**\n- 🔴 **Soil pH**: **5.4** (Benchmark: 6.0 -- 7.0) ➔ *Acidic*\n  - Soil is too acidic (pH 5.4 vs required 6.0--7.0). Apply **1.0--2.0 t/ha agricultural lime (CaCO₃)** 2--3 weeks before planting.\n- 🔴 **Nitrogen ($N$)**: **35.0 kg/ha** (Target: 100 kg/ha) ➔ *Deficient*\n  - Nitrogen is critically low (35.0 kg/ha vs target 100 kg/ha). Apply **141.3 kg/ha Urea (46% N)** in split doses as per schedule.\n- 🟢 **Phosphorus ($P$)**: **60.0 kg/ha** (Target: 50 kg/ha) ➔ *Adequate*\n  - Phosphorus is sufficient.\n- 🟢 **Potassium ($K$)**: **32.0 kg/ha** (Target: 50 kg/ha) ➔ *Adequate*\n  - Potassium is sufficient.\n- 🟢 **Soil Moisture**: **28.0%** (Minimum: 25%) ➔ *Adequate*\n  - Soil moisture is adequate for Okra.\n- 🟢 **Temperature**: **31.0°C** (Optimal: 25 -- 35°C) ➔ *Optimal*\n  - Temperature is ideal for Okra (25--35°C).\n\n**2. Recommended Season:** Kharif / Summer\n**3. Plant Spacing:** 45 x 30 cm\n**4. Fertilizer Schedule:** 50% N basal + 25% at 30 DAS + 25% at 45 DAS. 100% P + K basal.\n**5. Key Pests & Diseases:** Yellow vein mosaic virus (YVMV), fruit borer, jassids\n**6. Important Notes:** Highly heat-tolerant. Avoid waterlogging. Sow after last frost.\n\n**Scientific Research Citations:**\n[Crop Benchmarks: CROP_FEASIBILITY_BENCHMARKS.txt]\n[Agronomic Table: TABLE.txt | Page 1]\n\n📚 *Grounded in: ICAR Crop Production Package & FAO-56 Irrigation Paper No. 56*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 21:04:16",
+    "query": "can i farm potato in this soil",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 180.0
+    },
+    "answer": "🌾 **Kisan AI Crop Feasibility Assessment: POTATO (*Solanum tuberosum*)**\n\n### 🔴 Feasibility Verdict: **NOT RECOMMENDED -- Multiple Critical Deficits Detected**\n\nBased on your live IoT sensor readings and ICAR/Solanaceae agronomic standards:\n\n**1. Soil & Climate Telemetry vs. Potato Benchmarks:**\n- 🔴 **Soil pH**: **5.4** (Benchmark: 5.5 -- 6.5) ➔ *Acidic*\n  - Soil is too acidic (pH 5.4 vs required 5.5--6.5). Apply **1.0--2.0 t/ha agricultural lime (CaCO₃)** 2--3 weeks before planting.\n- 🔴 **Nitrogen ($N$)**: **35.0 kg/ha** (Target: 150 kg/ha) ➔ *Deficient*\n  - Nitrogen is critically low (35.0 kg/ha vs target 150 kg/ha). Apply **250.0 kg/ha Urea (46% N)** in split doses as per schedule.\n- 🟢 **Phosphorus ($P$)**: **60.0 kg/ha** (Target: 70 kg/ha) ➔ *Adequate*\n  - Phosphorus is sufficient.\n- 🟡 **Potassium ($K$)**: **32.0 kg/ha** (Target: 100 kg/ha) ➔ *Low*\n  - Potassium is low (32.0 kg/ha vs target 100 kg/ha). Apply **113.3 kg/ha MOP (60% K₂O)** as basal dressing.\n- 🔴 **Soil Moisture**: **28.0%** (Minimum: 40%) ➔ *Insufficient*\n  - Soil moisture (28.0%) is below minimum (40%). **Pre-planting irrigation** of 40--60 mm is required.\n- 🔴 **Temperature**: **31.0°C** (Optimal: 15 -- 22°C) ➔ *Excessive Heat*\n  - Temperature 31.0°C exceeds absolute tolerance (28°C). **Delay planting** or use shade nets / mulching.\n\n**2. Recommended Season:** Rabi (plains) / Kharif (hills)\n**3. Plant Spacing:** 60 x 20 cm (ridge planting)\n**4. Fertilizer Schedule:** 50% N basal + 50% at earthing up (30 DAS). 100% P + K basal.\n**5. Key Pests & Diseases:** Late blight (Phytophthora), aphids, tuber moth\n**6. Important Notes:** Tuberization ceases above 30°C. Prefers slightly acidic soil. Ridge planting for drainage.\n\n**Scientific Research Citations:**\n[Crop Benchmarks: CROP_FEASIBILITY_BENCHMARKS.txt]\n[Agronomic Table: TABLE.txt | Page 1]\n\n📚 *Grounded in: ICAR Crop Production Package & FAO-56 Irrigation Paper No. 56*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 21:04:18",
+    "query": "should i grow spinach",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 180.0
+    },
+    "answer": "🌾 **Kisan AI Crop Feasibility Assessment: SPINACH (*Spinacia oleracea*)**\n\n### 🔴 Feasibility Verdict: **NOT RECOMMENDED -- Multiple Critical Deficits Detected**\n\nBased on your live IoT sensor readings and ICAR/Amaranthaceae agronomic standards:\n\n**1. Soil & Climate Telemetry vs. Spinach Benchmarks:**\n- 🔴 **Soil pH**: **5.4** (Benchmark: 6.5 -- 7.5) ➔ *Acidic*\n  - Soil is too acidic (pH 5.4 vs required 6.5--7.5). Apply **1.0--2.0 t/ha agricultural lime (CaCO₃)** 2--3 weeks before planting.\n- 🔴 **Nitrogen ($N$)**: **35.0 kg/ha** (Target: 100 kg/ha) ➔ *Deficient*\n  - Nitrogen is critically low (35.0 kg/ha vs target 100 kg/ha). Apply **141.3 kg/ha Urea (46% N)** in split doses as per schedule.\n- 🟢 **Phosphorus ($P$)**: **60.0 kg/ha** (Target: 50 kg/ha) ➔ *Adequate*\n  - Phosphorus is sufficient.\n- 🟢 **Potassium ($K$)**: **32.0 kg/ha** (Target: 50 kg/ha) ➔ *Adequate*\n  - Potassium is sufficient.\n- 🔴 **Soil Moisture**: **28.0%** (Minimum: 40%) ➔ *Insufficient*\n  - Soil moisture (28.0%) is below minimum (40%). **Pre-planting irrigation** of 40--60 mm is required.\n- 🔴 **Temperature**: **31.0°C** (Optimal: 15 -- 22°C) ➔ *Excessive Heat*\n  - Temperature 31.0°C exceeds absolute tolerance (25°C). **Delay planting** or use shade nets / mulching.\n\n**2. Recommended Season:** Rabi (Oct-Mar)\n**3. Plant Spacing:** 25 x 10 cm\n**4. Fertilizer Schedule:** 50% N basal + 50% after first cutting. 100% P + K basal.\n**5. Key Pests & Diseases:** Leaf miners, aphids, downy mildew\n**6. Important Notes:** Bolting above 25°C. Needs nitrogen-rich soil with good organic matter.\n\n**Scientific Research Citations:**\n[Crop Benchmarks: CROP_FEASIBILITY_BENCHMARKS.txt]\n[Agronomic Table: TABLE.txt | Page 1]\n\n📚 *Grounded in: ICAR Crop Production Package & FAO-56 Irrigation Paper No. 56*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 21:04:20",
+    "query": "can i cultivate bitter gourd",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 180.0
+    },
+    "answer": "🌾 **Kisan AI Crop Feasibility Assessment: BITTER GOURD (*Momordica charantia*)**\n\n### ⚠️ Feasibility Verdict: **CONDITIONAL -- Soil Amendment Required Before Planting**\n\nBased on your live IoT sensor readings and ICAR/Cucurbitaceae agronomic standards:\n\n**1. Soil & Climate Telemetry vs. Bitter Gourd Benchmarks:**\n- 🔴 **Soil pH**: **5.4** (Benchmark: 6.0 -- 7.0) ➔ *Acidic*\n  - Soil is too acidic (pH 5.4 vs required 6.0--7.0). Apply **1.0--2.0 t/ha agricultural lime (CaCO₃)** 2--3 weeks before planting.\n- 🔴 **Nitrogen ($N$)**: **35.0 kg/ha** (Target: 100 kg/ha) ➔ *Deficient*\n  - Nitrogen is critically low (35.0 kg/ha vs target 100 kg/ha). Apply **141.3 kg/ha Urea (46% N)** in split doses as per schedule.\n- 🟢 **Phosphorus ($P$)**: **60.0 kg/ha** (Target: 50 kg/ha) ➔ *Adequate*\n  - Phosphorus is sufficient.\n- 🟢 **Potassium ($K$)**: **32.0 kg/ha** (Target: 50 kg/ha) ➔ *Adequate*\n  - Potassium is sufficient.\n- 🟢 **Soil Moisture**: **28.0%** (Minimum: 25%) ➔ *Adequate*\n  - Soil moisture is adequate for Bitter Gourd.\n- 🟢 **Temperature**: **31.0°C** (Optimal: 24 -- 33°C) ➔ *Optimal*\n  - Temperature is ideal for Bitter Gourd (24--33°C).\n\n**2. Recommended Season:** Kharif / Summer\n**3. Plant Spacing:** 200 x 60 cm (pandal system)\n**4. Fertilizer Schedule:** 50% N basal + 25% at vine spread + 25% at fruiting. 100% P basal. 50% K basal + 50% K at fruiting.\n**5. Key Pests & Diseases:** Fruit fly, epilachna beetle, powdery mildew\n**6. Important Notes:** Requires trellis/pandal. Well-drained sandy loam preferred.\n\n**Scientific Research Citations:**\n[Crop Benchmarks: CROP_FEASIBILITY_BENCHMARKS.txt]\n[Agronomic Table: TABLE.txt | Page 1]\n\n📚 *Grounded in: ICAR Crop Production Package & FAO-56 Irrigation Paper No. 56*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 21:04:22",
+    "query": "can i grow onion",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 180.0
+    },
+    "answer": "🌾 **Kisan AI Crop Feasibility Assessment: ONION (*Allium cepa*)**\n\n### 🔴 Feasibility Verdict: **NOT RECOMMENDED -- Multiple Critical Deficits Detected**\n\nBased on your live IoT sensor readings and ICAR/Amaryllidaceae agronomic standards:\n\n**1. Soil & Climate Telemetry vs. Onion Benchmarks:**\n- 🔴 **Soil pH**: **5.4** (Benchmark: 6.0 -- 7.0) ➔ *Acidic*\n  - Soil is too acidic (pH 5.4 vs required 6.0--7.0). Apply **1.0--2.0 t/ha agricultural lime (CaCO₃)** 2--3 weeks before planting.\n- 🔴 **Nitrogen ($N$)**: **35.0 kg/ha** (Target: 100 kg/ha) ➔ *Deficient*\n  - Nitrogen is critically low (35.0 kg/ha vs target 100 kg/ha). Apply **141.3 kg/ha Urea (46% N)** in split doses as per schedule.\n- 🟢 **Phosphorus ($P$)**: **60.0 kg/ha** (Target: 50 kg/ha) ➔ *Adequate*\n  - Phosphorus is sufficient.\n- 🟢 **Potassium ($K$)**: **32.0 kg/ha** (Target: 50 kg/ha) ➔ *Adequate*\n  - Potassium is sufficient.\n- 🔴 **Soil Moisture**: **28.0%** (Minimum: 30%) ➔ *Insufficient*\n  - Soil moisture (28.0%) is below minimum (30%). **Pre-planting irrigation** of 40--60 mm is required.\n- 🔴 **Temperature**: **31.0°C** (Optimal: 15 -- 25°C) ➔ *Excessive Heat*\n  - Temperature 31.0°C exceeds absolute tolerance (30°C). **Delay planting** or use shade nets / mulching.\n\n**2. Recommended Season:** Kharif / Late Kharif / Rabi\n**3. Plant Spacing:** 15 x 10 cm\n**4. Fertilizer Schedule:** 50% N basal + 25% at 30 DAS + 25% at 45 DAS. 100% P + K basal.\n**5. Key Pests & Diseases:** Thrips (Thrips tabaci), purple blotch, Stemphylium blight\n**6. Important Notes:** Avoid waterlogging -- causes bulb rot. Raised beds recommended. Bolting risk above 30°C.\n\n**Scientific Research Citations:**\n[Crop Benchmarks: CROP_FEASIBILITY_BENCHMARKS.txt]\n[Agronomic Table: TABLE.txt | Page 1]\n\n📚 *Grounded in: ICAR Crop Production Package & FAO-56 Irrigation Paper No. 56*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 21:06:31",
+    "query": "can i grow apple with the current soil health level",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 180.0
+    },
+    "answer": "🌾 **Kisan AI Agronomic Advisory**\n\nIn response to your query *\"can i grow apple with the current soil health level\"* and your live soil state (N: 35.0 kg/ha, P: 60.0 kg/ha, K: 32.0 kg/ha, pH: 5.4, Moisture: 28.0%):\n\n**Verified Agronomic Reference Context:**\n[Research Resource: s41598-025-26910-4.pdf | Page 2]\nfarming technologies, especially Internet of Things (IoT) in AI based fertilizer/crop recommendation systems \ncan lead advanced revolution in this direction. IoT sensors continuously monitor the soil health by collecting \ndata in real time on the soil moisture, pH, temperature, and nutrient level\n\n[Research Resource: vtse2078+(1)_compressed.pdf | Page 2]\nVFAST Transactions on Software Engineering Volume 13, Issue 3, 2025\nstability.\nA fundamental aspect of agriculture is maintaining\nthe right balance of essential nutrients in the soil, par-\nticularly nitrogen (N), phosphorus (P), and potassium\n(K), collectively known as NPK. These macronutrie\n\n📚 *Grounded in: ICAR Guidelines & KrishiMitra Research Library*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 21:08:34",
+    "query": "can i grow potato with the current soil health level",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 180.0
+    },
+    "answer": "🌾 **Kisan AI Crop Feasibility Assessment: POTATO (*Solanum tuberosum*)**\n\n### 🔴 Feasibility Verdict: **NOT RECOMMENDED -- Multiple Critical Deficits Detected**\n\nBased on your live IoT sensor readings and ICAR/Solanaceae agronomic standards:\n\n**1. Soil & Climate Telemetry vs. Potato Benchmarks:**\n- 🔴 **Soil pH**: **5.4** (Benchmark: 5.5 -- 6.5) ➔ *Acidic*\n  - Soil is too acidic (pH 5.4 vs required 5.5--6.5). Apply **1.0--2.0 t/ha agricultural lime (CaCO₃)** 2--3 weeks before planting.\n- 🔴 **Nitrogen ($N$)**: **35.0 kg/ha** (Target: 150 kg/ha) ➔ *Deficient*\n  - Nitrogen is critically low (35.0 kg/ha vs target 150 kg/ha). Apply **250.0 kg/ha Urea (46% N)** in split doses as per schedule.\n- 🟢 **Phosphorus ($P$)**: **60.0 kg/ha** (Target: 70 kg/ha) ➔ *Adequate*\n  - Phosphorus is sufficient.\n- 🟡 **Potassium ($K$)**: **32.0 kg/ha** (Target: 100 kg/ha) ➔ *Low*\n  - Potassium is low (32.0 kg/ha vs target 100 kg/ha). Apply **113.3 kg/ha MOP (60% K₂O)** as basal dressing.\n- 🔴 **Soil Moisture**: **28.0%** (Minimum: 40%) ➔ *Insufficient*\n  - Soil moisture (28.0%) is below minimum (40%). **Pre-planting irrigation** of 40--60 mm is required.\n- 🔴 **Temperature**: **31.0°C** (Optimal: 15 -- 22°C) ➔ *Excessive Heat*\n  - Temperature 31.0°C exceeds absolute tolerance (28°C). **Delay planting** or use shade nets / mulching.\n\n**2. Recommended Season:** Rabi (plains) / Kharif (hills)\n**3. Plant Spacing:** 60 x 20 cm (ridge planting)\n**4. Fertilizer Schedule:** 50% N basal + 50% at earthing up (30 DAS). 100% P + K basal.\n**5. Key Pests & Diseases:** Late blight (Phytophthora), aphids, tuber moth\n**6. Important Notes:** Tuberization ceases above 30°C. Prefers slightly acidic soil. Ridge planting for drainage.\n\n**Scientific Research Citations:**\n[Crop Benchmarks: CROP_FEASIBILITY_BENCHMARKS.txt]\n[Agronomic Table: TABLE.txt | Page 1]\n\n📚 *Grounded in: ICAR Crop Production Package & FAO-56 Irrigation Paper No. 56*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 21:09:13",
+    "query": "which are the best vegitables to farm in this current situation",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 180.0
+    },
+    "answer": "🌾 **Hello! I am your Kisan AI Agronomic Copilot.**\n\n**Your Live Soil Telemetry Snapshot:**\n- Nitrogen: **35.0 kg/ha** | Phosphorus: **60.0 kg/ha** | Potassium: **32.0 kg/ha**\n- Soil pH: **5.4** | Soil Moisture: **28.0%** | Temperature: **31.0°C**\n\nYou can ask me about **crop nutrient deficiencies**, **fertilizer prescriptions (Urea/DAP/MOP)**, **crop feasibility (e.g. Can I farm wheat?)**, **FAO-56 irrigation scheduling**, or specific findings from our **indexed research papers**!",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 21:14:13",
+    "query": "which are the best vegetables to farm in this current situation",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 180.0
+    },
+    "answer": "🌾 **Kisan AI: Best Crops Ranked for Your Current Soil Conditions**\n\n**Current Telemetry:** N: 35 | P: 60 | K: 32 kg/ha | pH: 5.4 | Moisture: 28% | Temp: 31°C\n\n### 🟢 Good Match (Minor Amendments Needed):\n1. 🟢 **Brinjal** (*Solanum melongena*) -- 1/6 params OK | Issues: pH 5.4 (needs 5.5-6.5), N low (35 vs 60 min), K low, Temp outside 22-30°C, Moisture low (28% vs 30%)\n2. 🟢 **Bottle Gourd** (*Lagenaria siceraria*) -- 4/6 params OK | Issues: pH 5.4 (needs 6.0-7.0), N low (35 vs 40 min)\n3. 🟢 **Drumstick** (*Moringa oleifera*) -- 4/6 params OK | Issues: pH 5.4 (needs 6.0-7.5), N low (35 vs 40 min)\n\n### 🟡 Moderate Match (Soil Amendment Required):\n4. 🟡 **Rice** (*Oryza sativa*) -- 3/6 params OK | Issues: pH 5.4 (needs 5.5-6.8), N low (35 vs 50 min), Moisture low (28% vs 50%)\n5. 🟡 **Okra** (*Abelmoschus esculentus*) -- 4/6 params OK | Issues: pH 5.4 (needs 6.0-7.0), N low (35 vs 50 min)\n6. 🟡 **Bitter Gourd** (*Momordica charantia*) -- 4/6 params OK | Issues: pH 5.4 (needs 6.0-7.0), N low (35 vs 50 min)\n7. 🟡 **Pumpkin** (*Cucurbita moschata*) -- 2/6 params OK | Issues: pH 5.4 (needs 6.0-7.5), N low (35 vs 40 min), K low, Temp outside 22-30°C\n8. 🟡 **Cucumber** (*Cucumis sativus*) -- 2/6 params OK | Issues: pH 5.4 (needs 6.0-7.0), N low (35 vs 50 min), Temp outside 22-30°C, Moisture low (28% vs 30%)\n\n---\n### 🏆 Top Recommendation: **Brinjal** (*Solanum melongena*)\n- **Season:** Year-round (tropical India)\n- **Spacing:** 75 x 60 cm\n- **Fertilizer Schedule:** 50% N basal + 25% at branching + 25% at peak fruiting. 100% P basal. 50% K basal + 50% K at fruiting.\n- **Key Pests & Diseases:** Fruit & shoot borer (Leucinodes orbonalis), jassids, mites\n- **Important Notes:** Frost-sensitive. Requires well-drained soil. IPM with pheromone traps for shoot borer.\n\n📚 *Grounded in: ICAR & FAO-56 & CROP_FEASIBILITY_BENCHMARKS.txt*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 21:18:15",
+    "query": "which are the best vegitables to farm in this current situation",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 180.0
+    },
+    "answer": "🌾 **Kisan AI: Best Crops Ranked for Your Current Soil Conditions**\n\n**Current Telemetry:** N: 35 | P: 60 | K: 32 kg/ha | pH: 5.4 | Moisture: 28% | Temp: 31°C\n\n### 🟢 Good Match (Minor Amendments Needed):\n1. 🟢 **Brinjal** (*Solanum melongena*) -- 1/6 params OK | Issues: pH 5.4 (needs 5.5-6.5), N low (35 vs 60 min), K low, Temp outside 22-30°C, Moisture low (28% vs 30%)\n2. 🟢 **Bottle Gourd** (*Lagenaria siceraria*) -- 4/6 params OK | Issues: pH 5.4 (needs 6.0-7.0), N low (35 vs 40 min)\n3. 🟢 **Drumstick** (*Moringa oleifera*) -- 4/6 params OK | Issues: pH 5.4 (needs 6.0-7.5), N low (35 vs 40 min)\n\n### 🟡 Moderate Match (Soil Amendment Required):\n4. 🟡 **Rice** (*Oryza sativa*) -- 3/6 params OK | Issues: pH 5.4 (needs 5.5-6.8), N low (35 vs 50 min), Moisture low (28% vs 50%)\n5. 🟡 **Okra** (*Abelmoschus esculentus*) -- 4/6 params OK | Issues: pH 5.4 (needs 6.0-7.0), N low (35 vs 50 min)\n6. 🟡 **Bitter Gourd** (*Momordica charantia*) -- 4/6 params OK | Issues: pH 5.4 (needs 6.0-7.0), N low (35 vs 50 min)\n7. 🟡 **Pumpkin** (*Cucurbita moschata*) -- 2/6 params OK | Issues: pH 5.4 (needs 6.0-7.5), N low (35 vs 40 min), K low, Temp outside 22-30°C\n8. 🟡 **Cucumber** (*Cucumis sativus*) -- 2/6 params OK | Issues: pH 5.4 (needs 6.0-7.0), N low (35 vs 50 min), Temp outside 22-30°C, Moisture low (28% vs 30%)\n\n---\n### 🏆 Top Recommendation: **Brinjal** (*Solanum melongena*)\n- **Season:** Year-round (tropical India)\n- **Spacing:** 75 x 60 cm\n- **Fertilizer Schedule:** 50% N basal + 25% at branching + 25% at peak fruiting. 100% P basal. 50% K basal + 50% K at fruiting.\n- **Key Pests & Diseases:** Fruit & shoot borer (Leucinodes orbonalis), jassids, mites\n- **Important Notes:** Frost-sensitive. Requires well-drained soil. IPM with pheromone traps for shoot borer.\n\n📚 *Grounded in: ICAR & FAO-56 & CROP_FEASIBILITY_BENCHMARKS.txt*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 21:18:20",
+    "query": "which are the best vegitables to farm in this current situation",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 180.0
+    },
+    "answer": "🌾 **Kisan AI: Best Crops Ranked for Your Current Soil Conditions**\n\n**Current Telemetry:** N: 35 | P: 60 | K: 32 kg/ha | pH: 5.4 | Moisture: 28% | Temp: 31°C\n\n### 🟢 Good Match (Minor Amendments Needed):\n1. 🟢 **Brinjal** (*Solanum melongena*) -- 1/6 params OK | Issues: pH 5.4 (needs 5.5-6.5), N low (35 vs 60 min), K low, Temp outside 22-30°C, Moisture low (28% vs 30%)\n2. 🟢 **Bottle Gourd** (*Lagenaria siceraria*) -- 4/6 params OK | Issues: pH 5.4 (needs 6.0-7.0), N low (35 vs 40 min)\n3. 🟢 **Drumstick** (*Moringa oleifera*) -- 4/6 params OK | Issues: pH 5.4 (needs 6.0-7.5), N low (35 vs 40 min)\n\n### 🟡 Moderate Match (Soil Amendment Required):\n4. 🟡 **Rice** (*Oryza sativa*) -- 3/6 params OK | Issues: pH 5.4 (needs 5.5-6.8), N low (35 vs 50 min), Moisture low (28% vs 50%)\n5. 🟡 **Okra** (*Abelmoschus esculentus*) -- 4/6 params OK | Issues: pH 5.4 (needs 6.0-7.0), N low (35 vs 50 min)\n6. 🟡 **Bitter Gourd** (*Momordica charantia*) -- 4/6 params OK | Issues: pH 5.4 (needs 6.0-7.0), N low (35 vs 50 min)\n7. 🟡 **Pumpkin** (*Cucurbita moschata*) -- 2/6 params OK | Issues: pH 5.4 (needs 6.0-7.5), N low (35 vs 40 min), K low, Temp outside 22-30°C\n8. 🟡 **Cucumber** (*Cucumis sativus*) -- 2/6 params OK | Issues: pH 5.4 (needs 6.0-7.0), N low (35 vs 50 min), Temp outside 22-30°C, Moisture low (28% vs 30%)\n\n---\n### 🏆 Top Recommendation: **Brinjal** (*Solanum melongena*)\n- **Season:** Year-round (tropical India)\n- **Spacing:** 75 x 60 cm\n- **Fertilizer Schedule:** 50% N basal + 25% at branching + 25% at peak fruiting. 100% P basal. 50% K basal + 50% K at fruiting.\n- **Key Pests & Diseases:** Fruit & shoot borer (Leucinodes orbonalis), jassids, mites\n- **Important Notes:** Frost-sensitive. Requires well-drained soil. IPM with pheromone traps for shoot borer.\n\n📚 *Grounded in: ICAR & FAO-56 & CROP_FEASIBILITY_BENCHMARKS.txt*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  }
+]

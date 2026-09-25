@@ -1,0 +1,15 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: krishimitra_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: SREEHARI_99
+      MYSQL_DATABASE: krishi_precision_db
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:

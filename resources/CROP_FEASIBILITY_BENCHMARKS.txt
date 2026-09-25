@@ -1,0 +1,644 @@
+================================================================================
+                KRISHIMITRA CROP FEASIBILITY BENCHMARKS DATABASE
+                  (ICAR / FAO-56 / State Agricultural Universities)
+================================================================================
+
+This file contains the scientific agronomic benchmarks for crop feasibility
+evaluation. Each crop entry specifies optimal soil NPK ranges, pH tolerance,
+temperature regime, moisture requirements, and key cultivation notes.
+
+Source references:
+  - ICAR Crop Production Guidelines (2024 Edition)
+  - FAO Irrigation & Drainage Paper No. 56 (Chapter 8)
+  - Kerala Agricultural University (KAU) Package of Practices
+  - Tamil Nadu Agricultural University (TNAU) Crop Advisory
+  - Indian Institute of Vegetable Research (IIVR), Varanasi
+  - Nature Scientific Reports (2025) 15:26910
+
+================================================================================
+                              VEGETABLES
+================================================================================
+
+--- TOMATO (Lycopersicon esculentum) ---
+Scientific Name:   Lycopersicon esculentum / Solanum lycopersicum
+Family:            Solanaceae
+Season:            Kharif (June-Sep), Rabi (Oct-Feb), Summer (Feb-May)
+Optimal pH:        6.0 - 7.5
+Optimal N (kg/ha): 100 - 150
+Optimal P (kg/ha): 50 - 80
+Optimal K (kg/ha): 60 - 80
+Min N Threshold:   60
+Min P Threshold:   40
+Min K Threshold:   40
+Temperature:       20 - 30 °C (Optimal germination: 22-28°C)
+Max Temp Tolerance:35 °C (Fruit set drops above 35°C)
+Moisture:          40 - 70% (Regular drip irrigation preferred)
+Min Moisture:      35%
+Kc_mid:            1.15
+Kc_end:            0.70 - 0.90
+Max Height:        0.6 - 1.5 m (staked varieties)
+Root Depth:        0.7 - 1.5 m
+Spacing:           60x45 cm (open field), 45x30 cm (protected)
+Key Pests:         Fruit borer (Helicoverpa armigera), whitefly, leaf curl virus
+Soil Amendment:    Acidic soils (<6.0): Apply 1.0-1.5 t/ha agricultural lime
+                   Alkaline soils (>7.5): Apply 200 kg/acre gypsum
+Fertilizer Split:  50% N basal + 25% at 30 DAS + 25% at flowering
+                   100% P basal + 50% K basal + 50% K at fruiting
+
+--- ONION (Allium cepa) ---
+Scientific Name:   Allium cepa
+Family:            Amaryllidaceae
+Season:            Kharif (Jun-Aug), Late Kharif (Sep-Oct), Rabi (Nov-Feb)
+Optimal pH:        6.0 - 7.0
+Optimal N (kg/ha): 80 - 120
+Optimal P (kg/ha): 40 - 60
+Optimal K (kg/ha): 40 - 60
+Min N Threshold:   50
+Min P Threshold:   30
+Min K Threshold:   30
+Temperature:       15 - 25 °C (bulb formation: 20-25°C)
+Max Temp Tolerance:30 °C (Bolting risk above 30°C)
+Moisture:          40 - 65% (Avoid waterlogging - causes bulb rot)
+Min Moisture:      30%
+Kc_mid:            1.05
+Kc_end:            0.75
+Max Height:        0.4 m
+Root Depth:        0.3 - 0.6 m
+Spacing:           15x10 cm
+Key Pests:         Thrips (Thrips tabaci), purple blotch, Stemphylium blight
+Soil Amendment:    Acidic soils (<6.0): Apply 1.0-1.5 t/ha lime
+                   Requires well-drained raised beds; avoid heavy clay
+Fertilizer Split:  50% N basal + 25% at 30 DAS + 25% at 45 DAS
+                   100% P basal + 100% K basal
+
+--- POTATO (Solanum tuberosum) ---
+Scientific Name:   Solanum tuberosum
+Family:            Solanaceae
+Season:            Rabi (Oct-Feb in plains), Kharif (May-Sep in hills)
+Optimal pH:        5.5 - 6.5
+Optimal N (kg/ha): 120 - 180
+Optimal P (kg/ha): 60 - 80
+Optimal K (kg/ha): 80 - 120
+Min N Threshold:   80
+Min P Threshold:   40
+Min K Threshold:   50
+Temperature:       15 - 22 °C (tuber initiation: 16-20°C)
+Max Temp Tolerance:28 °C (Tuberization ceases above 30°C)
+Moisture:          50 - 75% (Critical during tuber bulking)
+Min Moisture:      40%
+Kc_mid:            1.15
+Kc_end:            0.75
+Max Height:        0.6 m
+Root Depth:        0.4 - 0.6 m
+Spacing:           60x20 cm (ridge planting)
+Key Pests:         Late blight (Phytophthora infestans), aphids, tuber moth
+Soil Amendment:    Prefers slightly acidic soil. Alkaline soils (>7.0): Apply
+                   sulphur @ 250-300 kg/ha or acidifying fertilizers (ammonium sulphate)
+Fertilizer Split:  50% N basal + 50% at earthing up (30 DAS)
+                   100% P + 100% K basal before planting
+
+--- BRINJAL / EGGPLANT (Solanum melongena) ---
+Scientific Name:   Solanum melongena
+Family:            Solanaceae
+Season:            Year-round in tropical India
+Optimal pH:        5.5 - 6.5
+Optimal N (kg/ha): 100 - 150
+Optimal P (kg/ha): 50 - 75
+Optimal K (kg/ha): 50 - 75
+Min N Threshold:   60
+Min P Threshold:   35
+Min K Threshold:   35
+Temperature:       22 - 30 °C (Frost-sensitive)
+Max Temp Tolerance:35 °C
+Moisture:          40 - 60%
+Min Moisture:      30%
+Kc_mid:            1.05
+Kc_end:            0.90
+Max Height:        0.8 m
+Root Depth:        0.7 - 1.2 m
+Spacing:           75x60 cm
+Key Pests:         Fruit and shoot borer (Leucinodes orbonalis), jassids, mites
+Soil Amendment:    Prefers slightly acidic to neutral soil
+                   Acidic (<5.5): Apply 1.0 t/ha lime
+Fertilizer Split:  50% N basal + 25% at branching + 25% at peak fruiting
+                   100% P basal + 50% K basal + 50% K at fruiting
+
+--- OKRA / BHINDI / LADY'S FINGER (Abelmoschus esculentus) ---
+Scientific Name:   Abelmoschus esculentus
+Family:            Malvaceae
+Season:            Kharif (Jun-Sep), Summer (Feb-May)
+Optimal pH:        6.0 - 7.0
+Optimal N (kg/ha): 80 - 120
+Optimal P (kg/ha): 40 - 60
+Optimal K (kg/ha): 40 - 60
+Min N Threshold:   50
+Min P Threshold:   30
+Min K Threshold:   30
+Temperature:       25 - 35 °C (Warm-season crop, thrives in heat)
+Max Temp Tolerance:40 °C (Highly heat-tolerant)
+Moisture:          35 - 55%
+Min Moisture:      25%
+Kc_mid:            1.00
+Kc_end:            0.80
+Max Height:        1.0 - 2.0 m
+Root Depth:        0.6 - 1.0 m
+Spacing:           45x30 cm (Summer), 60x30 cm (Kharif)
+Key Pests:         Yellow vein mosaic virus (YVMV), fruit borer, jassids
+Soil Amendment:    Tolerant of wide pH range; avoid waterlogging
+Fertilizer Split:  50% N basal + 25% at 30 DAS + 25% at 45 DAS
+                   100% P + K basal
+
+--- CHILI / CHILLI (Capsicum annuum) ---
+Scientific Name:   Capsicum annuum
+Family:            Solanaceae
+Season:            Year-round (tropical), Kharif/Rabi in subtropics
+Optimal pH:        6.0 - 7.0
+Optimal N (kg/ha): 100 - 150
+Optimal P (kg/ha): 50 - 80
+Optimal K (kg/ha): 50 - 80
+Min N Threshold:   60
+Min P Threshold:   35
+Min K Threshold:   35
+Temperature:       20 - 30 °C
+Max Temp Tolerance:35 °C (Flower drop above 35°C)
+Moisture:          40 - 60%
+Min Moisture:      30%
+Kc_mid:            1.05
+Kc_end:            0.90
+Max Height:        0.7 m
+Root Depth:        0.5 - 1.0 m
+Spacing:           60x45 cm
+Key Pests:         Thrips, mites, fruit rot (Colletotrichum), leaf curl virus
+Soil Amendment:    Acidic (<6.0): Apply 1.0-1.5 t/ha lime
+Fertilizer Split:  50% N basal + 25% at branching + 25% at fruiting
+                   100% P basal + 50% K basal + 50% K at fruiting
+
+--- CAULIFLOWER (Brassica oleracea var. botrytis) ---
+Scientific Name:   Brassica oleracea var. botrytis
+Family:            Brassicaceae (Cruciferae)
+Season:            Rabi (Sep-Feb)
+Optimal pH:        6.0 - 7.0
+Optimal N (kg/ha): 120 - 180
+Optimal P (kg/ha): 60 - 80
+Optimal K (kg/ha): 60 - 80
+Min N Threshold:   80
+Min P Threshold:   40
+Min K Threshold:   40
+Temperature:       15 - 22 °C (Curd formation: 15-20°C)
+Max Temp Tolerance:25 °C (Buttoning / riceyness above 25°C)
+Moisture:          50 - 70%
+Min Moisture:      40%
+Kc_mid:            1.05
+Kc_end:            0.95
+Max Height:        0.4 m
+Root Depth:        0.4 - 0.6 m
+Spacing:           60x45 cm
+Key Pests:         Diamond back moth (DBM), aphids, black rot, clubroot
+Soil Amendment:    Boron-sensitive: Apply 1 kg/ha Borax if deficient
+Fertilizer Split:  50% N basal + 25% at 30 DAS + 25% at curd initiation
+                   100% P + K basal
+
+--- CABBAGE (Brassica oleracea var. capitata) ---
+Scientific Name:   Brassica oleracea var. capitata
+Family:            Brassicaceae
+Season:            Rabi (Sep-Feb)
+Optimal pH:        6.0 - 7.5
+Optimal N (kg/ha): 120 - 150
+Optimal P (kg/ha): 50 - 75
+Optimal K (kg/ha): 50 - 75
+Min N Threshold:   80
+Min P Threshold:   40
+Min K Threshold:   35
+Temperature:       15 - 22 °C (Head formation: 15-20°C)
+Max Temp Tolerance:27 °C (Bolting risk)
+Moisture:          50 - 70%
+Min Moisture:      40%
+Kc_mid:            1.05
+Kc_end:            0.95
+Max Height:        0.4 m
+Root Depth:        0.4 - 0.6 m
+Spacing:           60x45 cm
+Key Pests:         Cabbage butterfly, DBM, black rot, Alternaria leaf spot
+Soil Amendment:    Neutral to slightly acidic preferred
+Fertilizer Split:  50% N basal + 25% at 25 DAS + 25% at heading
+                   100% P + K basal
+
+--- CARROT (Daucus carota) ---
+Scientific Name:   Daucus carota subsp. sativus
+Family:            Apiaceae (Umbelliferae)
+Season:            Rabi (Oct-Feb)
+Optimal pH:        6.0 - 6.8
+Optimal N (kg/ha): 60 - 80
+Optimal P (kg/ha): 40 - 60
+Optimal K (kg/ha): 60 - 80
+Min N Threshold:   40
+Min P Threshold:   30
+Min K Threshold:   40
+Temperature:       15 - 25 °C (Root development: 16-22°C)
+Max Temp Tolerance:28 °C (Forking / poor color above 28°C)
+Moisture:          40 - 60%
+Min Moisture:      30%
+Kc_mid:            1.05
+Kc_end:            0.95
+Max Height:        0.3 m
+Root Depth:        0.5 - 1.0 m (deep, loose soil essential)
+Spacing:           30x8 cm
+Key Pests:         Carrot weevil, Alternaria leaf blight, nematodes
+Soil Amendment:    Deep ploughing required; avoid stony/compacted soils
+Fertilizer Split:  50% N basal + 50% at 30 DAS
+                   100% P + K basal before sowing
+
+--- RADISH (Raphanus sativus) ---
+Scientific Name:   Raphanus sativus
+Family:            Brassicaceae
+Season:            Rabi (Oct-Feb), can be year-round in hills
+Optimal pH:        6.0 - 7.0
+Optimal N (kg/ha): 60 - 80
+Optimal P (kg/ha): 40 - 50
+Optimal K (kg/ha): 40 - 50
+Min N Threshold:   35
+Min P Threshold:   25
+Min K Threshold:   25
+Temperature:       15 - 25 °C
+Max Temp Tolerance:30 °C (Pungency increases in heat)
+Moisture:          40 - 60%
+Min Moisture:      30%
+Kc_mid:            0.90
+Kc_end:            0.85
+Max Height:        0.3 m
+Root Depth:        0.3 - 0.6 m
+Spacing:           30x10 cm
+Key Pests:         Flea beetle, Alternaria blight, aphids
+Soil Amendment:    Light, sandy loam preferred; avoid heavy clay
+Fertilizer Split:  100% NPK basal (short-duration crop: 40-50 days)
+
+--- SPINACH / PALAK (Spinacia oleracea) ---
+Scientific Name:   Spinacia oleracea
+Family:            Amaranthaceae
+Season:            Rabi (Oct-Mar)
+Optimal pH:        6.5 - 7.5
+Optimal N (kg/ha): 80 - 120
+Optimal P (kg/ha): 40 - 60
+Optimal K (kg/ha): 40 - 60
+Min N Threshold:   50
+Min P Threshold:   30
+Min K Threshold:   30
+Temperature:       15 - 22 °C
+Max Temp Tolerance:25 °C (Bolting above 25°C)
+Moisture:          50 - 70%
+Min Moisture:      40%
+Kc_mid:            1.00
+Kc_end:            0.95
+Max Height:        0.3 m
+Root Depth:        0.3 - 0.6 m
+Spacing:           25x10 cm
+Key Pests:         Leaf miners, aphids, downy mildew
+Soil Amendment:    Demands nitrogen-rich soil with good organic matter
+Fertilizer Split:  50% N basal + 50% after first cutting
+                   100% P + K basal
+
+--- CUCUMBER (Cucumis sativus) ---
+Scientific Name:   Cucumis sativus
+Family:            Cucurbitaceae
+Season:            Kharif (Jun-Aug), Summer (Feb-May)
+Optimal pH:        6.0 - 7.0
+Optimal N (kg/ha): 80 - 120
+Optimal P (kg/ha): 40 - 60
+Optimal K (kg/ha): 40 - 60
+Min N Threshold:   50
+Min P Threshold:   30
+Min K Threshold:   30
+Temperature:       22 - 30 °C (Frost-sensitive)
+Max Temp Tolerance:35 °C
+Moisture:          40 - 65%
+Min Moisture:      30%
+Kc_mid:            1.00
+Kc_end:            0.75
+Max Height:        0.3 m (trailing), 2.0 m (trellised)
+Root Depth:        0.4 - 0.8 m
+Spacing:           150x60 cm (trailing), 120x30 cm (trellised)
+Key Pests:         Downy mildew, powdery mildew, fruit fly, aphids
+Soil Amendment:    Excellent drainage essential; raised beds recommended
+Fertilizer Split:  50% N basal + 25% at vine spread + 25% at fruiting
+                   100% P basal + 50% K basal + 50% K at fruiting
+
+--- BITTER GOURD / KARELA (Momordica charantia) ---
+Scientific Name:   Momordica charantia
+Family:            Cucurbitaceae
+Season:            Kharif (Jun-Aug), Summer (Feb-May)
+Optimal pH:        6.0 - 7.0
+Optimal N (kg/ha): 80 - 120
+Optimal P (kg/ha): 40 - 60
+Optimal K (kg/ha): 40 - 60
+Min N Threshold:   50
+Min P Threshold:   30
+Min K Threshold:   30
+Temperature:       24 - 33 °C
+Max Temp Tolerance:38 °C
+Moisture:          35 - 55%
+Min Moisture:      25%
+Kc_mid:            0.95
+Kc_end:            0.75
+Max Height:        2.0 - 3.0 m (vine, requires trellis/pandal)
+Root Depth:        0.4 - 0.8 m
+Spacing:           200x60 cm (pandal system)
+Key Pests:         Fruit fly, epilachna beetle, powdery mildew
+Soil Amendment:    Well-drained sandy loam preferred
+Fertilizer Split:  50% N basal + 25% at vine spread + 25% at fruiting
+                   100% P basal + 50% K basal + 50% K at fruiting
+
+--- BOTTLE GOURD / LAUKI (Lagenaria siceraria) ---
+Scientific Name:   Lagenaria siceraria
+Family:            Cucurbitaceae
+Season:            Kharif (Jun-Aug), Summer (Feb-May), Zaid
+Optimal pH:        6.0 - 7.0
+Optimal N (kg/ha): 60 - 100
+Optimal P (kg/ha): 40 - 60
+Optimal K (kg/ha): 40 - 60
+Min N Threshold:   40
+Min P Threshold:   25
+Min K Threshold:   25
+Temperature:       24 - 35 °C (Heat-loving)
+Max Temp Tolerance:40 °C
+Moisture:          35 - 55%
+Min Moisture:      25%
+Kc_mid:            1.00
+Kc_end:            0.80
+Max Height:        3.0 - 5.0 m (vine)
+Root Depth:        0.5 - 1.0 m
+Spacing:           300x60 cm (bower/pandal system)
+Key Pests:         Fruit fly, downy mildew, aphids, red pumpkin beetle
+Soil Amendment:    Sandy loam with good organic matter
+Fertilizer Split:  50% N basal + 25% at 30 DAS + 25% at flowering
+                   100% P + K basal
+
+--- PUMPKIN (Cucurbita moschata) ---
+Scientific Name:   Cucurbita moschata / Cucurbita maxima
+Family:            Cucurbitaceae
+Season:            Kharif (Jun-Aug), Summer (Jan-Mar)
+Optimal pH:        6.0 - 7.5
+Optimal N (kg/ha): 60 - 100
+Optimal P (kg/ha): 40 - 60
+Optimal K (kg/ha): 60 - 80
+Min N Threshold:   40
+Min P Threshold:   25
+Min K Threshold:   35
+Temperature:       22 - 30 °C
+Max Temp Tolerance:35 °C
+Moisture:          35 - 55%
+Min Moisture:      25%
+Kc_mid:            1.00
+Kc_end:            0.80
+Max Height:        0.4 m (trailing vine)
+Root Depth:        0.5 - 1.0 m
+Spacing:           300x200 cm (trailing), 200x100 cm (bush types)
+Key Pests:         Fruit fly, powdery mildew, aphids
+Soil Amendment:    Tolerant of wide soil types; organic mulching recommended
+Fertilizer Split:  50% N basal + 50% at vine spread
+                   100% P + K basal
+
+--- GREEN PEAS (Pisum sativum) ---
+Scientific Name:   Pisum sativum
+Family:            Fabaceae (Leguminosae)
+Season:            Rabi (Oct-Dec sowing)
+Optimal pH:        6.0 - 7.5
+Optimal N (kg/ha): 25 - 40 (N-fixing legume, low N need)
+Optimal P (kg/ha): 40 - 60
+Optimal K (kg/ha): 40 - 50
+Min N Threshold:   20
+Min P Threshold:   30
+Min K Threshold:   25
+Temperature:       12 - 22 °C (Cool-season crop)
+Max Temp Tolerance:25 °C (Pod fill fails above 25°C)
+Moisture:          45 - 65%
+Min Moisture:      35%
+Kc_mid:            1.15
+Kc_end:            1.05
+Max Height:        0.5 - 1.5 m (staked varieties)
+Root Depth:        0.6 - 1.0 m
+Spacing:           30x10 cm (bush), 100x15 cm (climbing)
+Key Pests:         Pod borer, powdery mildew, rust, pea aphid
+Soil Amendment:    Seed inoculation with Rhizobium culture recommended
+Fertilizer Split:  100% P + K basal; minimal N as starter only
+
+--- BEANS / FRENCH BEAN (Phaseolus vulgaris) ---
+Scientific Name:   Phaseolus vulgaris
+Family:            Fabaceae
+Season:            Kharif (Jun-Aug), Rabi (Sep-Nov), Summer (Feb-Apr in hills)
+Optimal pH:        5.5 - 6.5
+Optimal N (kg/ha): 20 - 40 (N-fixing)
+Optimal P (kg/ha): 50 - 70
+Optimal K (kg/ha): 30 - 50
+Min N Threshold:   15
+Min P Threshold:   30
+Min K Threshold:   20
+Temperature:       18 - 27 °C
+Max Temp Tolerance:30 °C
+Moisture:          40 - 60%
+Min Moisture:      30%
+Kc_mid:            1.05
+Kc_end:            0.90
+Max Height:        0.5 m (bush), 2.0 m (pole)
+Root Depth:        0.6 - 0.9 m
+Spacing:           45x15 cm (bush), 90x15 cm (pole)
+Key Pests:         Bean fly, rust, angular leaf spot, anthracnose
+Soil Amendment:    Prefers slightly acidic; Rhizobium inoculation beneficial
+Fertilizer Split:  100% P + K basal; 20 kg N/ha as starter only
+
+--- GARLIC (Allium sativum) ---
+Scientific Name:   Allium sativum
+Family:            Amaryllidaceae
+Season:            Rabi (Oct-Nov planting)
+Optimal pH:        6.0 - 7.0
+Optimal N (kg/ha): 80 - 120
+Optimal P (kg/ha): 40 - 60
+Optimal K (kg/ha): 40 - 60
+Min N Threshold:   50
+Min P Threshold:   30
+Min K Threshold:   30
+Temperature:       15 - 25 °C (Bulb formation needs short days + cool nights)
+Max Temp Tolerance:30 °C
+Moisture:          40 - 60%
+Min Moisture:      30%
+Kc_mid:            1.00
+Kc_end:            0.70
+Max Height:        0.3 m
+Root Depth:        0.3 - 0.5 m
+Spacing:           15x10 cm
+Key Pests:         Thrips, purple blotch, Stemphylium, white rot
+Soil Amendment:    Avoid heavy clay; raised beds for drainage
+Fertilizer Split:  50% N basal + 25% at 30 DAS + 25% at 60 DAS
+                   100% P + K basal
+
+--- SWEET PEPPER / CAPSICUM (Capsicum annuum var. grossum) ---
+Scientific Name:   Capsicum annuum var. grossum
+Family:            Solanaceae
+Season:            Year-round (polyhouse), Rabi (open field)
+Optimal pH:        6.0 - 7.0
+Optimal N (kg/ha): 120 - 180
+Optimal P (kg/ha): 60 - 80
+Optimal K (kg/ha): 60 - 100
+Min N Threshold:   80
+Min P Threshold:   40
+Min K Threshold:   40
+Temperature:       20 - 28 °C
+Max Temp Tolerance:32 °C (Color development poor above 32°C)
+Moisture:          50 - 70%
+Min Moisture:      40%
+Kc_mid:            1.05
+Kc_end:            0.90
+Max Height:        0.7 m
+Root Depth:        0.5 - 1.0 m
+Spacing:           60x45 cm (open), 45x30 cm (polyhouse)
+Key Pests:         Thrips, mites, powdery mildew, bacterial wilt
+Soil Amendment:    Requires well-drained, organic-rich soil
+Fertilizer Split:  50% N basal + 25% at flowering + 25% at fruiting
+                   100% P basal + 50% K basal + 50% K at fruit color
+
+--- DRUMSTICK / MORINGA (Moringa oleifera) ---
+Scientific Name:   Moringa oleifera
+Family:            Moringaceae
+Season:            Year-round in tropical India
+Optimal pH:        6.0 - 7.5
+Optimal N (kg/ha): 60 - 100
+Optimal P (kg/ha): 30 - 50
+Optimal K (kg/ha): 30 - 50
+Min N Threshold:   40
+Min P Threshold:   20
+Min K Threshold:   20
+Temperature:       25 - 35 °C (Highly heat-tolerant)
+Max Temp Tolerance:40 °C
+Moisture:          25 - 50% (Drought-tolerant once established)
+Min Moisture:      20%
+Kc_mid:            0.80
+Kc_end:            0.60
+Max Height:        5 - 10 m (tree crop)
+Root Depth:        1.0 - 3.0 m
+Spacing:           300x300 cm (perennial), 100x100 cm (annual PKM-1)
+Key Pests:         Pod fly, hairy caterpillar, bark caterpillar
+Soil Amendment:    Highly adaptable; avoid waterlogged soils
+Fertilizer Split:  Annual FYM application 10-15 t/ha + NPK basal per year
+
+--- AMARANTH / CHEERA (Amaranthus spp.) ---
+Scientific Name:   Amaranthus tricolor / Amaranthus viridis
+Family:            Amaranthaceae
+Season:            Year-round in tropical regions
+Optimal pH:        6.0 - 7.5
+Optimal N (kg/ha): 60 - 80
+Optimal P (kg/ha): 30 - 50
+Optimal K (kg/ha): 30 - 50
+Min N Threshold:   35
+Min P Threshold:   20
+Min K Threshold:   20
+Temperature:       22 - 35 °C
+Max Temp Tolerance:40 °C
+Moisture:          30 - 55%
+Min Moisture:      20%
+Kc_mid:            0.90
+Kc_end:            0.80
+Max Height:        0.5 - 1.5 m
+Root Depth:        0.3 - 0.6 m
+Spacing:           30x15 cm (leaf type)
+Key Pests:         Leaf webber, leaf caterpillar, white rust
+Soil Amendment:    Tolerant of marginal soils; responds well to organic matter
+Fertilizer Split:  50% N basal + 50% after first cutting
+                   100% P + K basal
+
+================================================================================
+                         CEREALS & GRAINS
+================================================================================
+
+--- WHEAT (Triticum aestivum) ---
+Optimal pH:        6.0 - 7.5
+Optimal N (kg/ha): 120
+Optimal P (kg/ha): 50 - 60
+Optimal K (kg/ha): 40 - 50
+Min N Threshold:   80
+Min P Threshold:   40
+Min K Threshold:   40
+Temperature:       18 - 25 °C (Cool-season Rabi crop)
+Max Temp Tolerance:30 °C
+Moisture:          45 - 60%
+Min Moisture:      35%
+
+--- RICE / PADDY (Oryza sativa) ---
+Optimal pH:        5.5 - 6.8
+Optimal N (kg/ha): 80
+Optimal P (kg/ha): 48
+Optimal K (kg/ha): 40
+Min N Threshold:   50
+Min P Threshold:   30
+Min K Threshold:   25
+Temperature:       22 - 32 °C
+Max Temp Tolerance:35 °C
+Moisture:          60 - 90% (Flooded paddy conditions)
+Min Moisture:      50%
+
+--- MAIZE (Zea mays) ---
+Optimal pH:        5.8 - 7.2
+Optimal N (kg/ha): 78
+Optimal P (kg/ha): 48
+Optimal K (kg/ha): 20
+Min N Threshold:   50
+Min P Threshold:   30
+Min K Threshold:   15
+Temperature:       20 - 28 °C
+Max Temp Tolerance:35 °C
+Moisture:          40 - 60%
+Min Moisture:      30%
+
+================================================================================
+                   COMMERCIAL / FIBER / PLANTATION
+================================================================================
+
+--- COTTON (Gossypium hirsutum) ---
+Optimal pH:        6.5 - 8.0
+Optimal N (kg/ha): 118
+Optimal P (kg/ha): 46
+Optimal K (kg/ha): 19
+Min N Threshold:   80
+Min P Threshold:   30
+Min K Threshold:   15
+Temperature:       22 - 32 °C
+Max Temp Tolerance:38 °C
+Moisture:          35 - 55%
+Min Moisture:      25%
+
+================================================================================
+  END OF FILE — KrishiMitra Crop Feasibility Benchmarks Database v2.0
+================================================================================
+
+
+================================================================================
+           SCORING METHODOLOGY FOR BEST CROP RECOMMENDATION
+================================================================================
+
+When a farmer asks 'which crops are best for my soil', the system scores all
+crops using weighted parameter comparison:
+
+  Parameter      Weight   Logic
+  ----------     ------   -----
+  Temperature      25     Full penalty if above absolute max; scaled by gap
+  pH               20     Scaled by distance from optimal range
+  Moisture         20     Scaled by deficit percentage below minimum
+  Nitrogen         15     Scaled by deficit percentage below crop minimum
+  Phosphorus       10     Scaled by deficit percentage below crop minimum
+  Potassium        10     Scaled by deficit percentage below crop minimum
+                  ----
+  Total           100
+
+Score Interpretation:
+  < 5      = Excellent Match (Ready to plant)
+  5 - 15   = Good Match (Minor amendments needed)
+  15 - 30  = Moderate Match (Soil amendment required)
+  > 30     = Poor Match (Not recommended)
+
+Example Query Triggers:
+  English:   'best vegetable', 'which crop', 'suggest crops', 'what to grow'
+  Hindi:     'सबसे अच्छी फसल', 'कौन सी सब्जी', 'उपयुक्त फसल'
+  Malayalam: 'ഏറ്റവും നല്ല വിള', 'ഏത് പച്ചക്കറി', 'ഏത് വിള'
+  Tamil:     'சிறந்த காய்கறி', 'எந்த பயிர்'
+  Telugu:    'ఉత్తమ పంట', 'ఏ కూరగాయ'
+  Kannada:   'ಉತ್ತಮ ಬೆಳೆ', 'ಯಾವ ತರಕಾರಿ'
+
+================================================================================

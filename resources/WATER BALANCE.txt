@@ -1,0 +1,52 @@
+## Soil water balance
+
+The estimation of Ks requires a daily water balance computation for the root zone. Schematically (Figure 43), the root zone can be presented by means of a container in which the water content may fluctuate. To express the water content as root zone depletion is useful. It makes the adding and subtracting of losses and gains straightforward as the various parameters of the soil water budget are usually expressed in terms of water depth. Rainfall, irrigation and capillary rise of groundwater towards the root zone add water to the root zone and decrease the root zone depletion. Soil evaporation, crop transpiration and percolation losses remove water from the root zone and increase the depletion. The daily water balance, expressed in terms of depletion at the end of the day is:
+
+> Dr, i = Dr, i-1 - (P - RO)i - Ii - CRi + ETc, i + DPi (85)
+
+where
+
+> Dr, i root zone depletion at the end of day i [mm],
+> Dr, i-1 water content in the root zone at the end of the previous day, i-1 [mm],
+> Pi precipitation on day i [mm],
+> ROi runoff from the soil surface on day i [mm],
+> Ii net irrigation depth on day i that infiltrates the soil [mm],
+> CRi capillary rise from the groundwater table on day i [mm],
+> ETc, i crop evapotranspiration on day i [mm],
+> DPi water loss out of the root zone by deep percolation on day i [mm].
+
+***Limits on Dr, i***
+
+In Figure 43 it is assumed that water can be stored in the root zone until field capacity is reached. Although following heavy rain or irrigation the water content might temporally exceed field capacity, the total amount of water above field capacity is assumed to be lost the same day by deep percolation, following any ET for that day. By assuming that the root zone is at field capacity following heavy rain or irrigation, the minimum value for the depletion Dr, i is zero. As a result of percolation and evapotranspiration, the water content in the root zone will gradually decrease and the root zone depletion will increase. In the absence of any wetting event, the water content will steadily reach its minimum value q WP. At that moment no water is left for evapotranspiration in the root zone, Ks becomes zero, and the root zone depletion has reached its maximum value TAW. The limits imposed on Dr, i are consequently:
+
+> 0 £ Dr, i £ TAW (86)
+
+***Initial depletion***
+
+To initiate the water balance for the root zone, the initial depletion Dr, i-1 should be estimated. The initial depletion can be derived from measured soil water content by:
+
+> Dr, i-1 = 1000(q FC - q i-1) Zr (87)
+
+where q i-1 is the average soil water content for the effective root zone. Following heavy rain or irrigation, the user can assume that the root zone is near field capacity, i.e., Dr, i-1 » 0.
+
+***Precipitation (P), runoff (RO) and irrigation (I)***
+
+Pi is equivalent to daily precipitation. Daily precipitation in amounts less than about 0.2 ETo is normally entirely evaporated and can usually be ignored in the water balance calculations especially when the single crop coefficient approach is being used. Ii is equivalent to the mean infiltrated irrigation depth expressed for the entire field surface. Runoff from the surface during precipitation can be predicted using standard procedures from hydrological texts.
+
+***Capillary rise (CR)***
+
+The amount of water transported upwards by capillary rise from the water table to the root zone depends on the soil type, the depth of the water table and the wetness of the root zone. CR can normally be assumed to be zero when the water table is more than about 1 m below the bottom of the root zone. Some information on CR was presented in FAO Irrigation and Drainage Paper No. 24. CR will be a topic in a future FAO publication.
+
+***Evapotranspiration (ETc)***
+
+Where the soil water depletion is smaller than RAW, the crop evapotranspiration equals ETc = Kc ETo. As soon as Dr, i exceeds RAW, the crop evapotranspiration is reduced and ETc can be computed from Equation 80 or 81.
+
+***Deep percolation (DP)***
+
+Following heavy rain or irrigation, the soil water content in the root zone might exceed field capacity. In this simple procedure it is assumed that the soil water content is at q FC within the same day of the wetting event, so that the depletion Dr, i in Equation 85 becomes zero. Therefore, following heavy rain or irrigation
+
+> DPi = (Pi - ROi) + Ii - ETc, i - Dr, i-1 ³ 0 (88)
+
+As long as the soil water content in the root zone is below field capacity (i.e., Dr, i > 0), the soil will not drain and DPi = 0.
+
+The DPi term in Equations 85 and 88 is not to be confused with the DPe, i term used in Equations 77 and 79 for the evaporation layer. Both terms can be calculated at the same time, but are independent of one another

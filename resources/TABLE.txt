@@ -1,0 +1,25 @@
+| Crop                       | Kc initial | Kc mid |    Kc end | Maximum Crop Height (m) |
+| -------------------------- | ---------: | -----: | --------: | ----------------------: |
+| Broccoli                   |          — |   1.05 |      0.95 |                     0.3 |
+| Brussel Sprouts            |          — |   1.05 |      0.95 |                     0.4 |
+| Cabbage                    |          — |   1.05 |      0.95 |                     0.4 |
+| Carrots                    |          — |   1.05 |      0.95 |                     0.3 |
+| Cauliflower                |          — |   1.05 |      0.95 |                     0.4 |
+| Celery                     |          — |   1.05 |      1.00 |                     0.6 |
+| Garlic                     |          — |   1.00 |      0.70 |                     0.3 |
+| Lettuce                    |          — |   1.00 |      0.95 |                     0.3 |
+| Onions – dry               |          — |   1.05 |      0.75 |                     0.4 |
+| Onions – green             |          — |   1.00 |      1.00 |                     0.3 |
+| Onions – seed              |          — |   1.05 |      0.80 |                     0.5 |
+| Spinach                    |          — |   1.00 |      0.95 |                     0.3 |
+| Radish                     |          — |   0.90 |      0.85 |                     0.3 |
+| Egg Plant                  |          — |   1.05 |      0.90 |                     0.8 |
+| Sweet Peppers              |          — |   1.05 |      0.90 |                     0.7 |
+| Tomato                     |          — |   1.15 | 0.70–0.90 |                     0.6 |
+| Cantaloupe                 |        0.5 |   0.85 |      0.60 |                     0.3 |
+| Cucumber – fresh market    |        0.6 |   1.00 |      0.75 |                     0.3 |
+| Cucumber – machine harvest |        0.5 |   1.00 |      0.90 |                     0.3 |
+| Pumpkin / Winter Squash    |          — |   1.00 |      0.80 |                     0.4 |
+| Squash, Zucchini           |          — |   0.95 |      0.75 |                     0.3 |
+| Sweet Melons               |          — |   1.05 |      0.75 |                     0.4 |
+| Watermelon                 |        0.4 |   1.00 |      0.75 |                     0.4 |
