@@ -134,3 +134,33 @@ class KisanAIChatResponse(BaseModel):
         "https://drive.google.com/drive/folders/1LdRwAKBybFYsijbMmOd2EdLRDqISTpI6?usp=drive_link"
     )
 
+
+# ---------------------------------------------------------
+# Crop AI Briefing Schemas (Gemini XAI & Economic Value)
+# ---------------------------------------------------------
+class CropAiBriefingRequest(BaseModel):
+    crop: str = Field(..., description="Crop name to generate briefing for")
+    telemetry_id: Optional[int] = Field(None, description="Optional telemetry ID")
+    n: Optional[float] = None
+    p: Optional[float] = None
+    k: Optional[float] = None
+    ph: Optional[float] = None
+    moisture: Optional[float] = None
+    temperature: Optional[float] = None
+    humidity: Optional[float] = None
+    rainfall: Optional[float] = None
+
+
+class CropAiBriefingResponse(BaseModel):
+    crop: str
+    market_value: str
+    mandi_rate: str
+    estimated_yield: str
+    gross_revenue: str
+    cultivation_time: str
+    growth_stages: str
+    why_recommended: str
+    key_agronomic_tip: str
+    source: str
+
+

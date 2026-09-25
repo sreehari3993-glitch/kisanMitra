@@ -3156,3 +3156,228 @@ input[type="range"]::-webkit-slider-thumb:hover {
   }
 }
 
+/* ========================================================
+   Gemini AI Agronomic Intelligence Card & Metrics
+   ======================================================== */
+.ai-briefing-card {
+  position: relative;
+  border-top: 3px solid #10b981;
+  background: linear-gradient(180deg, rgba(18, 31, 23, 0.95) 0%, rgba(12, 22, 16, 0.95) 100%);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+
+.ai-briefing-tag-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.35rem;
+}
+
+.briefing-tag-pill {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.22rem 0.65rem;
+  border-radius: var(--radius-full);
+}
+
+.briefing-tag-pill.gemini {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(16, 185, 129, 0.2));
+  color: #a7f3d0;
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.2);
+}
+
+.briefing-tag-pill.source {
+  background: rgba(56, 189, 248, 0.12);
+  color: #7dd3fc;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.crop-title-highlight {
+  color: #34d399;
+  text-shadow: 0 0 12px rgba(52, 211, 153, 0.35);
+}
+
+.briefing-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 900px) {
+  .briefing-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.briefing-metric-box {
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.1rem;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.briefing-metric-box:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-active);
+}
+
+.briefing-metric-box.val-box {
+  border-left: 3px solid #38bdf8;
+}
+
+.briefing-metric-box.rev-box {
+  border-left: 3px solid #f59e0b;
+}
+
+.briefing-metric-box.time-box {
+  border-left: 3px solid #10b981;
+}
+
+.metric-box-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.metric-box-icon {
+  font-size: 1.25rem;
+}
+
+.metric-box-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.metric-box-val {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin-top: 0.45rem;
+  color: #ffffff;
+  line-height: 1.25;
+}
+
+.metric-box-val.highlight-gold {
+  color: #fbbf24;
+  text-shadow: 0 0 12px rgba(251, 191, 36, 0.25);
+}
+
+.metric-box-sub {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 0.35rem;
+  line-height: 1.35;
+}
+
+.briefing-stages-card {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1.15rem;
+  margin-top: 1rem;
+}
+
+.stages-header {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 0.35rem;
+}
+
+.stages-icon {
+  font-size: 1.1rem;
+}
+
+.stages-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--primary-light);
+}
+
+.stages-timeline-box {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  line-height: 1.45;
+}
+
+.briefing-xai-card {
+  background: rgba(16, 185, 129, 0.05);
+  border: 1px solid rgba(52, 211, 153, 0.22);
+  border-radius: var(--radius-md);
+  padding: 1.15rem;
+  margin-top: 1rem;
+}
+
+.xai-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.65rem;
+}
+
+.xai-icon {
+  font-size: 1.5rem;
+}
+
+.xai-title {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.xai-subtitle {
+  font-size: 0.75rem;
+  color: var(--primary-light);
+  display: block;
+  margin-top: 0.15rem;
+}
+
+.xai-body-text {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: #d1d5db;
+  margin: 0;
+}
+
+.briefing-tip-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1.15rem;
+  margin-top: 1rem;
+}
+
+.tip-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.tip-content {
+  font-size: 0.84rem;
+  color: #fef3c7;
+  line-height: 1.5;
+}
+
+.tip-content strong {
+  color: #fbbf24;
+  margin-right: 0.35rem;
+}
+
+
