@@ -1,14 +1,22 @@
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 import joblib
-import numpy as np
-import pandas as pd
+
+try:
+    import numpy as np
+except ImportError:
+    np = None  # type: ignore
+
+try:
+    import pandas as pd
+except ImportError:
+    pd = None  # type: ignore
 
 # Module-level model bundle cache
 _model_bundle: Optional[Dict[str, Any]] = None
 
 
-def load_model(model_path: Optional[str | Path] = None) -> None:
+def load_model(model_path: Optional[Union[str, Path]] = None) -> None:
     """Loads the serialized Random Forest model bundle into memory.
 
     Must be called exactly once during the FastAPI lifespan startup event — never per-request.
@@ -80,15 +88,21 @@ def predict_top_crops(
         "rainfall": float(rainfall),
     }
 
-    # Build single-row DataFrame with the exact feature order the model was trained on
+    # Build input format with the exact feature order the model was trained on
     ordered_values = [[raw_inputs[feat] for feat in feature_names]]
-    input_df = pd.DataFrame(ordered_values, columns=feature_names)
+    if pd is not None:
+        input_data = pd.DataFrame(ordered_values, columns=feature_names)
+    else:
+        input_data = ordered_values
 
     # Compute prediction probabilities
-    probabilities = model.predict_proba(input_df)[0]
+    probabilities = model.predict_proba(input_data)[0]
 
     # Sort indices by probability descending and pick top_k
-    top_indices = np.argsort(probabilities)[::-1][:top_k]
+    if np is not None:
+        top_indices = np.argsort(probabilities)[::-1][:top_k]
+    else:
+        top_indices = sorted(range(len(probabilities)), key=lambda i: probabilities[i], reverse=True)[:top_k]
 
     results: List[Dict[str, Any]] = []
     for idx in top_indices:
