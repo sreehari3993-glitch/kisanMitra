@@ -1858,3 +1858,32 @@ You can ask me about **crop nutrient deficiencies**, **fertilizer prescriptions 
 
 ---
 
+### 🌾 Session: 2026-09-25 23:42:53
+- **Language**: `English` | **Engine**: `ICAR-FAO56`
+- **Telemetry Context**: N=35.0, P=60.0, K=32.0, pH=5.4, Moisture=28.0
+
+**Farmer Query**:
+> why papaya
+
+**Kisan AI Answer**:
+🌾 **Kisan AI Agronomic Advisory**
+
+In response to your query *"why papaya"* and your live soil state (N: 35.0 kg/ha, P: 60.0 kg/ha, K: 32.0 kg/ha, pH: 5.4, Moisture: 28.0%):
+
+**Verified Agronomic Reference Context:**
+[Knowledge Base / Research Document: icar_crop_guidelines.md]
+### Papaya (*Carica papaya*)
+- **Optimal Soil NPK**: 50 kg/ha N, 59 kg/ha P₂O₅, 50 kg/ha K₂O
+- **Soil pH**: 6.0 - 7.2
+- **Temperature & Climate**: 25°C - 35°C; humidity >70%; rainfall 120 - 160 mm.
+- **Agronomic Key**: Continuous feeder throughout the vegetative and fruit-bearing period.
+
+[Knowledge Base / Research Document: fao56_irrigation_tables.md]
+| Crop Category | Crop Name | $K_{c\text{, initial}}$ | $K_{c\text{, mid-season}}$ | $K_{c\text{, late/end}}$ | Typical Root Depth ($Z_r$, m) | Depletion Fraction ($p$) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: |
+| **Cereals** | Rice (Paddy) | 1.05 | 1.20 | 0.90 | 0.5 - 
+
+📚 *Grounded in: ICAR Guidelines & KrishiMitra Research Library*
+
+---
+

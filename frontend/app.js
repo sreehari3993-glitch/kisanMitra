@@ -257,6 +257,350 @@ function renderCropRecommendations(data) {
   });
 }
 
+// Cached recommendation data for reactive target crop evaluation
+let lastRecData = null;
+
+function renderTargetCropGapAnalysis(recData) {
+  if (recData) lastRecData = recData;
+  if (!lastRecData) return;
+
+  const topCrop = lastRecData.top_crop || "Rice";
+  const topConfidence = lastRecData.confidence || 90;
+  
+  // Tested crop selected in sensor screen or fallback to topCrop
+  const testedKey = selectedTargetCrop ? selectedTargetCrop.toLowerCase() : topCrop.toLowerCase();
+  const benchmark = CROP_BENCHMARKS[testedKey] || {
+    name: testedKey.charAt(0).toUpperCase() + testedKey.slice(1),
+    optimal_n: 80, min_n: 60, max_n: 100,
+    optimal_p: 45, min_p: 30, max_p: 60,
+    optimal_k: 40, min_k: 30, max_k: 50,
+    min_ph: 6.0, max_ph: 7.2, opt_ph: 6.5,
+    min_moisture: 30, max_moisture: 60, opt_moisture: 45,
+    min_temp: 20, max_temp: 32, opt_temp: 26,
+    min_humidity: 50, max_humidity: 85, opt_humidity: 70,
+    optimal_rainfall: 120,
+    advice_acidic: "Apply agricultural lime 3 weeks before planting.",
+    advice_alkaline: "Incorporate gypsum and organic compost."
+  };
+
+  const testedName = benchmark.name;
+  const isMatch = testedKey === topCrop.toLowerCase();
+
+  // Read current sensor input values
+  const n = parseFloat(document.getElementById("num-n")?.value || document.getElementById("slider-n")?.value || 35);
+  const p = parseFloat(document.getElementById("num-p")?.value || document.getElementById("slider-p")?.value || 60);
+  const k = parseFloat(document.getElementById("num-k")?.value || document.getElementById("slider-k")?.value || 32);
+  const ph = parseFloat(document.getElementById("num-ph")?.value || document.getElementById("slider-ph")?.value || 5.4);
+  const moisture = parseFloat(document.getElementById("num-moisture")?.value || document.getElementById("slider-moisture")?.value || 28);
+  const temp = parseFloat(document.getElementById("num-temp")?.value || document.getElementById("slider-temp")?.value || 31);
+  const humidity = parseFloat(document.getElementById("num-humidity")?.value || document.getElementById("slider-humidity")?.value || 80);
+  const rain = parseFloat(document.getElementById("num-rainfall")?.value || document.getElementById("slider-rainfall")?.value || currentRainfall || 180);
+
+  // Compute Suitability Score (0 - 100)
+  // 1. pH Score (25 max)
+  let phScore = 0;
+  let phStatus = "ok";
+  if (ph >= benchmark.min_ph && ph <= benchmark.max_ph) {
+    phScore = 25;
+    phStatus = "ok";
+  } else {
+    const diff = ph < benchmark.min_ph ? benchmark.min_ph - ph : ph - benchmark.max_ph;
+    if (diff <= 0.6) { phScore = 15; phStatus = "warn"; }
+    else { phScore = 5; phStatus = "bad"; }
+  }
+
+  // 2. NPK Score (35 max)
+  const nDiff = Math.round(n - benchmark.optimal_n);
+  const pDiff = Math.round(p - benchmark.optimal_p);
+  const kDiff = Math.round(k - benchmark.optimal_k);
+  let npkScore = 0;
+  npkScore += (n >= benchmark.min_n && n <= benchmark.max_n) ? 12 : Math.max(2, 12 - Math.abs(nDiff) * 0.15);
+  npkScore += (p >= benchmark.min_p && p <= benchmark.max_p) ? 12 : Math.max(2, 12 - Math.abs(pDiff) * 0.18);
+  npkScore += (k >= benchmark.min_k && k <= benchmark.max_k) ? 11 : Math.max(2, 11 - Math.abs(kDiff) * 0.16);
+
+  // 3. Moisture Score (20 max)
+  let moistScore = 0;
+  let moistStatus = "ok";
+  if (moisture >= benchmark.min_moisture && moisture <= benchmark.max_moisture) {
+    moistScore = 20;
+    moistStatus = "ok";
+  } else {
+    const mDiff = moisture < benchmark.min_moisture ? benchmark.min_moisture - moisture : moisture - benchmark.max_moisture;
+    if (mDiff <= 12) { moistScore = 12; moistStatus = "warn"; }
+    else { moistScore = 5; moistStatus = "bad"; }
+  }
+
+  // 4. Climate Score (20 max)
+  let climScore = 0;
+  if (temp >= benchmark.min_temp && temp <= benchmark.max_temp) climScore += 10;
+  else climScore += 4;
+  if (humidity >= benchmark.min_humidity && humidity <= benchmark.max_humidity) climScore += 10;
+  else climScore += 4;
+
+  const totalScore = Math.min(100, Math.round(phScore + npkScore + moistScore + climScore));
+
+  // Populate Header & Rank
+  const headerRankPill = document.getElementById("gap-header-rank-pill");
+  if (headerRankPill) headerRankPill.textContent = `Top Rank: ${topCrop} (${topConfidence.toFixed(1)}%)`;
+
+  const topRankNameEl = document.getElementById("gap-top-rank-name");
+  if (topRankNameEl) topRankNameEl.textContent = topCrop;
+
+  const topRankScoreEl = document.getElementById("gap-top-rank-score");
+  if (topRankScoreEl) topRankScoreEl.textContent = `${topConfidence.toFixed(1)}% AI Compatibility`;
+
+  const testedNameEl = document.getElementById("gap-tested-crop-name");
+  if (testedNameEl) testedNameEl.textContent = testedName;
+
+  const testedScoreEl = document.getElementById("gap-tested-score-badge");
+  if (testedScoreEl) {
+    testedScoreEl.textContent = `${totalScore}% Compatibility`;
+    testedScoreEl.className = `col-score-badge ${totalScore >= 75 ? "status-high" : totalScore >= 52 ? "status-moderate" : "status-low"}`;
+  }
+
+  const testedDescEl = document.getElementById("gap-tested-status-desc");
+  if (testedDescEl) {
+    if (isMatch) {
+      testedDescEl.textContent = `Identical to #1 AI recommendation; naturally thriving under current soil state.`;
+    } else if (totalScore >= 75) {
+      testedDescEl.textContent = `Highly suitable crop for this soil. Only minor basal fertilization required.`;
+    } else if (totalScore >= 52) {
+      testedDescEl.textContent = `Conditionally viable; requires targeted soil amendments (NPK / pH correction).`;
+    } else {
+      testedDescEl.textContent = `High risk / sub-optimal without comprehensive multi-stage soil reclamation.`;
+    }
+  }
+
+  // Populate Soil Health Card for Selected Crop
+  const healthCard = document.getElementById("gap-soil-health-card");
+  const healthIcon = document.getElementById("gap-health-icon");
+  const healthTitle = document.getElementById("gap-health-title");
+  const healthSummary = document.getElementById("gap-health-summary");
+
+  if (healthCard && healthTitle && healthSummary) {
+    if (isMatch || totalScore >= 75) {
+      healthCard.className = "gap-soil-health-card optimal";
+      healthIcon.textContent = "🟢";
+      healthTitle.textContent = `Soil Health Assessment for ${testedName}: Optimal Zone (${totalScore}/100)`;
+      healthSummary.innerHTML = `Current soil parameters (pH ${ph.toFixed(2)}, N: ${n}, P: ${p}, K: ${k} kg/ha) are <strong>well-balanced for ${testedName}</strong> root establishment and yield potential.`;
+    } else if (totalScore >= 52) {
+      healthCard.className = "gap-soil-health-card";
+      healthIcon.textContent = "🟡";
+      healthTitle.textContent = `Soil Health Assessment for ${testedName}: Conditionally Viable (${totalScore}/100)`;
+      healthSummary.innerHTML = `Soil exhibits <strong>moderate agronomic friction</strong> for ${testedName}. Primary limiting factors: ${ph < benchmark.min_ph ? 'soil acidity (pH ' + ph.toFixed(2) + ')' : ph > benchmark.max_ph ? 'soil alkalinity' : ''}${nDiff < -15 ? ', Nitrogen deficiency (' + nDiff + ' kg/ha)' : ''}.`;
+    } else {
+      healthCard.className = "gap-soil-health-card hostile";
+      healthIcon.textContent = "🔴";
+      healthTitle.textContent = `Soil Health Assessment for ${testedName}: Hostile / Stress Zone (${totalScore}/100)`;
+      healthSummary.innerHTML = `Current soil chemistry presents <strong>severe growth inhibitors</strong> for ${testedName}. Planting without prior pH correction and basal fertilization will cause root failure or severe chlorosis.`;
+    }
+  }
+
+  // Populate "Why is Selected Crop Not Optimal for Current Soil?"
+  const whyCropName = document.getElementById("gap-why-crop-name");
+  if (whyCropName) whyCropName.textContent = testedName;
+
+  const factorsContainer = document.getElementById("gap-factors-container");
+  if (factorsContainer) {
+    let factorsHtml = "";
+
+    // Factor 1: Soil pH Diagnosis
+    let phDiag = "";
+    if (ph < benchmark.min_ph) {
+      phDiag = `Soil pH ${ph.toFixed(2)} is too acidic for ${testedName} (Requires ${benchmark.min_ph} - ${benchmark.max_ph}). High acidity mobilizes toxic Aluminum/Iron ions and locks Phosphate ions into insoluble compounds.`;
+    } else if (ph > benchmark.max_ph) {
+      phDiag = `Soil pH ${ph.toFixed(2)} is too alkaline for ${testedName} (Requires ${benchmark.min_ph} - ${benchmark.max_ph}). Alkaline conditions induce Zinc and Iron chlorosis.`;
+    } else {
+      phDiag = `Soil pH ${ph.toFixed(2)} is ideal for ${testedName}, providing optimal bioavailability for macro and micronutrients.`;
+    }
+    factorsHtml += `
+      <div class="gap-factor-card ${phStatus}">
+        <div class="gap-factor-title">
+          <span>🧪 Soil pH Variance</span>
+          <span class="gap-factor-val ${phStatus}">pH ${ph.toFixed(2)} (Opt: ${benchmark.min_ph}-${benchmark.max_ph})</span>
+        </div>
+        <p class="gap-factor-desc">${phDiag}</p>
+      </div>
+    `;
+
+    // Factor 2: Nitrogen Gap Diagnosis
+    let nStatus = "ok";
+    let nDiag = "";
+    if (nDiff < -15) {
+      nStatus = "bad";
+      nDiag = `Nitrogen deficit of ${nDiff} kg/ha (Current: ${n} vs Target: ${benchmark.optimal_n} kg/ha). Stunts vegetative tillering, causes leaf chlorosis, and restricts protein synthesis.`;
+    } else if (nDiff > 25) {
+      nStatus = "warn";
+      nDiag = `Nitrogen excess of +${nDiff} kg/ha above target. Can cause vegetative overgrowth, crop lodging, and increased vulnerability to fungal blast pathogens.`;
+    } else {
+      nDiag = `Available Nitrogen (${n} kg/ha) matches ${testedName}'s nutritional requirement (${benchmark.optimal_n} kg/ha).`;
+    }
+    factorsHtml += `
+      <div class="gap-factor-card ${nStatus}">
+        <div class="gap-factor-title">
+          <span>🌿 Nitrogen (N) Uptake Gap</span>
+          <span class="gap-factor-val ${nStatus}">${nDiff >= 0 ? '+' + nDiff : nDiff} kg/ha</span>
+        </div>
+        <p class="gap-factor-desc">${nDiag}</p>
+      </div>
+    `;
+
+    // Factor 3: P & K Nutrient Balance
+    let pkStatus = (pDiff < -10 || kDiff < -12) ? "warn" : "ok";
+    let pkDiag = "";
+    if (pDiff < -10 && kDiff < -12) {
+      pkDiag = `Double deficit in Phosphorus (${pDiff} kg/ha) and Potassium (${kDiff} kg/ha). Limits early root ramification and post-flowering fruit/grain filling.`;
+    } else if (pDiff < -10) {
+      pkDiag = `Phosphorus is deficient by ${pDiff} kg/ha. Causes poor root depth, thin stalks, and delayed maturity.`;
+    } else if (kDiff < -12) {
+      pkDiag = `Potassium is deficient by ${kDiff} kg/ha. Reduces drought tolerance, disease resistance, and fruit/grain weight.`;
+    } else {
+      pkDiag = `Phosphorus (${p} kg/ha) and Potassium (${k} kg/ha) are sufficient for initial establishment.`;
+    }
+    factorsHtml += `
+      <div class="gap-factor-card ${pkStatus}">
+        <div class="gap-factor-title">
+          <span>🌾 P &amp; K Nutrient Reserve</span>
+          <span class="gap-factor-val ${pkStatus}">P: ${pDiff >= 0 ? '+' + pDiff : pDiff} | K: ${kDiff >= 0 ? '+' + kDiff : kDiff}</span>
+        </div>
+        <p class="gap-factor-desc">${pkDiag}</p>
+      </div>
+    `;
+
+    // Factor 4: Moisture & Ambient Climate
+    let climDiag = "";
+    if (moisture < benchmark.min_moisture) {
+      climDiag = `Soil moisture (${moisture}%) is below the ${benchmark.min_moisture}% hydro-threshold for ${testedName}. Evapotranspiration will induce water stress and stomatal closure.`;
+    } else if (moisture > benchmark.max_moisture) {
+      climDiag = `Soil moisture (${moisture}%) exceeds the ${benchmark.max_moisture}% saturation limit. Risk of poor root aeration and collar rot.`;
+    } else {
+      climDiag = `Moisture (${moisture}%) and ambient temperature (${temp}°C) are within the biological growth envelope.`;
+    }
+    factorsHtml += `
+      <div class="gap-factor-card ${moistStatus}">
+        <div class="gap-factor-title">
+          <span>💧 Moisture &amp; Water Balance</span>
+          <span class="gap-factor-val ${moistStatus}">${moisture}% (Ideal: ${benchmark.min_moisture}-${benchmark.max_moisture}%)</span>
+        </div>
+        <p class="gap-factor-desc">${climDiag}</p>
+      </div>
+    `;
+
+    factorsContainer.innerHTML = factorsHtml;
+  }
+
+  // Populate "Recommended Actions to Make Soil Optimal"
+  const actionCropName = document.getElementById("gap-action-crop-name");
+  if (actionCropName) actionCropName.textContent = testedName;
+
+  const actionsContainer = document.getElementById("gap-actions-container");
+  if (actionsContainer) {
+    let actionsHtml = "";
+
+    // Action 1: pH Amendment
+    if (ph < benchmark.min_ph) {
+      const limeNeeded = Math.round(Math.max(400, (benchmark.opt_ph - ph) * 1200));
+      actionsHtml += `
+        <div class="gap-action-item">
+          <div class="gap-action-step-num">1</div>
+          <div class="gap-action-content">
+            <div class="gap-action-head">🧪 Correct Soil Acidity via Liming</div>
+            <p class="gap-action-text">Broadcast <strong>${limeNeeded} kg/acre of Agricultural Lime (CaCO₃)</strong> or Dolomite evenly across field plots 3 weeks prior to sowing. Harrow into the top 15 cm soil layer to neutralize free H⁺ and Al³⁺ ions.</p>
+          </div>
+        </div>
+      `;
+    } else if (ph > benchmark.max_ph) {
+      const gypsumNeeded = Math.round(Math.max(300, (ph - benchmark.opt_ph) * 1000));
+      actionsHtml += `
+        <div class="gap-action-item">
+          <div class="gap-action-step-num">1</div>
+          <div class="gap-action-content">
+            <div class="gap-action-head">🧪 Remediate Alkaline Hardpan with Gypsum</div>
+            <p class="gap-action-text">Apply <strong>${gypsumNeeded} kg/acre Agricultural Gypsum (CaSO₄·2H₂O)</strong> with heavy pre-plant leaching to displace exchangeable sodium and lower pH toward neutral.</p>
+          </div>
+        </div>
+      `;
+    } else {
+      actionsHtml += `
+        <div class="gap-action-item">
+          <div class="gap-action-step-num">1</div>
+          <div class="gap-action-content">
+            <div class="gap-action-head">✅ Soil pH is Optimal</div>
+            <p class="gap-action-text">Soil reaction (pH ${ph.toFixed(2)}) is in the physiological sweet spot (${benchmark.min_ph} - ${benchmark.max_ph}) for ${testedName}. No chemical amendment needed.</p>
+          </div>
+        </div>
+      `;
+    }
+
+    // Action 2: Fertilizer Split Dosage
+    const ureaDose = nDiff < 0 ? Math.round(Math.abs(nDiff) * 2.17) : 25;
+    const dapDose = pDiff < 0 ? Math.round(Math.abs(pDiff) * 2.17) : 15;
+    const mopDose = kDiff < 0 ? Math.round(Math.abs(kDiff) * 1.67) : 20;
+
+    actionsHtml += `
+      <div class="gap-action-item">
+        <div class="gap-action-step-num">2</div>
+        <div class="gap-action-content">
+          <div class="gap-action-head">🌾 Stoichiometric Fertilizer Compensation</div>
+          <p class="gap-action-text">
+            Incorporate <strong>${dapDose} kg/acre DAP</strong> as basal placement at seed depth. Top-dress <strong>${ureaDose} kg/acre Urea</strong> in 2–3 calibrated splits (at 21 and 45 days after emergence) and <strong>${mopDose} kg/acre MOP</strong> during canopy expansion to satisfy the ${testedName} uptake curve.
+          </p>
+        </div>
+      </div>
+    `;
+
+    // Action 3: Moisture & Organic Reclamation
+    const moistureAdvice = moisture < benchmark.min_moisture
+      ? `Schedule a <strong>${Math.round((benchmark.opt_moisture - moisture) * 1.8)} mm depth irrigation</strong> via drip/furrow to elevate root zone moisture to ${benchmark.opt_moisture}%.`
+      : moisture > benchmark.max_moisture
+      ? `Establish <strong>lateral drainage furrows</strong> to shed surface pooling and prevent root hypoxia.`
+      : `Maintain current irrigation schedule; moisture level (${moisture}%) aligns with FAO-56 crop transpiration demand.`;
+
+    actionsHtml += `
+      <div class="gap-action-item">
+        <div class="gap-action-step-num">3</div>
+        <div class="gap-action-content">
+          <div class="gap-action-head">💧 Hydrological &amp; Organic Management</div>
+          <p class="gap-action-text">${moistureAdvice} Blend in <strong>3–4 tonnes/acre well-rotted Farm Yard Manure (FYM)</strong> to enhance cation exchange capacity (CEC) and microbiological microbial activity.</p>
+        </div>
+      </div>
+    `;
+
+    actionsContainer.innerHTML = actionsHtml;
+  }
+
+  // Populate Button Labels & Event Listeners
+  const btnGapCropName = document.getElementById("gap-btn-crop-name");
+  if (btnGapCropName) btnGapCropName.textContent = testedName;
+
+  const btnGapTopCropName = document.getElementById("gap-btn-top-crop-name");
+  if (btnGapTopCropName) btnGapTopCropName.textContent = topCrop;
+
+  const btnApplyPrescription = document.getElementById("btn-gap-apply-prescription");
+  if (btnApplyPrescription) {
+    btnApplyPrescription.onclick = () => {
+      selectCropForPrescription(testedName);
+      document.getElementById("section-fertilizer")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+  }
+
+  const btnSwitchTopCrop = document.getElementById("btn-gap-switch-top-crop");
+  if (btnSwitchTopCrop) {
+    btnSwitchTopCrop.onclick = () => {
+      selectCropForPrescription(topCrop);
+      document.getElementById("section-crop-recommendations")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+  }
+
+  const btnGotoSensor = document.getElementById("btn-gap-goto-sensor");
+  if (btnGotoSensor) {
+    btnGotoSensor.onclick = () => {
+      document.getElementById("tab-btn-sensor")?.click();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+  }
+}
+
 function renderFertilizerTable(data) {
   document.getElementById("prescription-crop-badge").textContent = `Prescription for: ${data.selected_crop}`;
   document.getElementById("fertilizer-subtitle").textContent =
@@ -446,6 +790,11 @@ async function executeTelemetryPipeline() {
       // 3. Compute Fertilizer Prescription & Irrigation for the selected crop
       await updateCropDependentAdvisories(currentRecommendationId, currentSelectedCrop);
 
+      // Render Target Crop Gap & Feasibility Intelligence on User Interface
+      if (typeof renderTargetCropGapAnalysis === "function") {
+        renderTargetCropGapAnalysis(recData);
+      }
+
       // Refresh crop suitability badge with updated telemetry
       if (typeof evaluateTargetCropSuitability === "function") {
         evaluateTargetCropSuitability();
@@ -574,6 +923,9 @@ function bindDualControl(sliderId, numId, labelId, suffix = "", onUpdateCallback
       if (typeof evaluateTargetCropSuitability === "function") {
         evaluateTargetCropSuitability();
       }
+      if (typeof renderTargetCropGapAnalysis === "function" && lastRecData) {
+        renderTargetCropGapAnalysis(lastRecData);
+      }
     });
 
     slider.addEventListener("change", () => {
@@ -601,6 +953,9 @@ function bindDualControl(sliderId, numId, labelId, suffix = "", onUpdateCallback
       }
       if (typeof evaluateTargetCropSuitability === "function") {
         evaluateTargetCropSuitability();
+      }
+      if (typeof renderTargetCropGapAnalysis === "function" && lastRecData) {
+        renderTargetCropGapAnalysis(lastRecData);
       }
     });
 
@@ -1130,6 +1485,9 @@ function initCropSuitabilityFeature() {
       }
     });
     evaluateTargetCropSuitability();
+    if (typeof renderTargetCropGapAnalysis === "function" && lastRecData) {
+      renderTargetCropGapAnalysis(lastRecData);
+    }
   };
 
   cropSelect?.addEventListener("change", (e) => {
@@ -1885,15 +2243,22 @@ function initTestNowButtons() {
     });
 
     if (sourceName === "sensor") {
+      // Auto-switch to User Interface tab to immediately showcase the Top Rank and Tested Crop Gap analysis
+      document.getElementById("tab-btn-ui")?.click();
+      setTimeout(() => {
+        document.getElementById("section-target-crop-gap")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 150);
+
+      const targetLabel = selectedTargetCrop 
+        ? (CROP_BENCHMARKS[selectedTargetCrop]?.name || selectedTargetCrop)
+        : (lastRecData?.top_crop || "Selected Crop");
+      const topLabel = lastRecData?.top_crop || "Rice";
+
       showToast(
-        `<span>✅ Soil Telemetry Transmitted &amp; Analyzed!</span>
-         <button type="button" id="toast-view-advisory-btn" style="background:rgba(255,255,255,0.25);border:1px solid #ffffff;color:#fff;padding:0.25rem 0.65rem;border-radius:4px;cursor:pointer;font-size:0.78rem;font-weight:700;">View Advisory →</button>`,
+        `🎯 Tested Crop: <strong>${targetLabel}</strong> | 🏆 Top Rank AI: <strong>${topLabel}</strong>`,
         "success",
-        6000
+        5000
       );
-      document.getElementById("toast-view-advisory-btn")?.addEventListener("click", () => {
-        document.getElementById("tab-btn-ui")?.click();
-      });
     } else {
       showToast("🌱 Soil Sensor Scan Complete! Recommendations & Health Score updated.", "success");
     }

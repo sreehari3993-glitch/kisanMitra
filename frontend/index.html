@@ -284,6 +284,87 @@
             <p class="healing-subtitle">AI-guided crop matching with stoichiometric fertilizer dosing &amp; mineral amendments (DAP, Urea, MOP, Lime/Gypsum) to enrich and balance your soil</p>
           </div>
 
+          <!-- SECTION 2A: Target Crop Feasibility & Soil Gap Intelligence -->
+          <section class="dashboard-section card target-crop-gap-card" id="section-target-crop-gap">
+            <div class="section-header">
+              <div>
+                <div class="gap-tag-row">
+                  <span class="gap-tag-pill primary">🎯 TARGET CROP EVALUATION</span>
+                  <span class="gap-tag-pill rank" id="gap-header-rank-pill">Top Rank: Rice (93%)</span>
+                </div>
+                <h2 class="section-title">Tested Crop vs. Top-Ranked Soil Compatibility</h2>
+                <p class="section-desc">Real-time agronomic gap analysis, soil health assessment, and corrective actions for your selected crop</p>
+              </div>
+            </div>
+
+            <!-- Tested vs Top Comparison Banner -->
+            <div class="gap-comparison-banner" id="gap-comparison-banner">
+              <div class="gap-crop-col top-rank-col">
+                <span class="col-meta-label">🏆 TOP RANK AI MATCH</span>
+                <h3 class="col-crop-title" id="gap-top-rank-name">Rice</h3>
+                <span class="col-score-badge top-rank" id="gap-top-rank-score">93.0% AI Compatibility</span>
+                <p class="col-desc" id="gap-top-rank-desc">Naturally thrives in current acidic, high-moisture wetland soil telemetry.</p>
+              </div>
+
+              <div class="gap-vs-divider">
+                <span class="vs-circle">VS</span>
+              </div>
+
+              <div class="gap-crop-col tested-crop-col" id="gap-tested-crop-box">
+                <span class="col-meta-label">🎯 YOUR TESTED CROP</span>
+                <h3 class="col-crop-title" id="gap-tested-crop-name">Banana</h3>
+                <span class="col-score-badge" id="gap-tested-score-badge">54% Compatibility</span>
+                <p class="col-desc" id="gap-tested-status-desc">Conditionally viable with major soil amendments.</p>
+              </div>
+            </div>
+
+            <!-- Soil Health Assessment for Selected Crop -->
+            <div class="gap-soil-health-card" id="gap-soil-health-card">
+              <div class="health-card-header">
+                <span class="health-card-icon" id="gap-health-icon">⚠️</span>
+                <div>
+                  <h4 class="health-card-title" id="gap-health-title">Soil Health Assessment for Banana</h4>
+                  <p class="health-card-summary" id="gap-health-summary">
+                    Current soil state is <strong>Sub-optimal / Acidity-Stressed</strong> for Banana. High acidity and Nitrogen deficit restrict optimal yield.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- "Why is Selected Crop Not Optimal for Current Soil?" Factor Grid -->
+            <div class="gap-bottlenecks-wrapper" id="gap-bottlenecks-wrapper">
+              <h4 class="gap-section-subheading">
+                <span>🔍 Why is <strong id="gap-why-crop-name">Banana</strong> Not Optimal for this Soil?</span>
+              </h4>
+              <div class="gap-factors-grid" id="gap-factors-container">
+                <!-- Dynamically generated factor cards (pH, N, P/K, Climate) -->
+              </div>
+            </div>
+
+            <!-- "Recommended Actions to Make Soil Optimal" Blueprint -->
+            <div class="gap-actions-wrapper" id="gap-actions-wrapper">
+              <h4 class="gap-section-subheading">
+                <span>🛠️ Recommended Soil Healing Actions to Grow <strong id="gap-action-crop-name">Banana</strong></span>
+              </h4>
+              <div class="gap-actions-list" id="gap-actions-container">
+                <!-- Dynamically generated action steps -->
+              </div>
+            </div>
+
+            <!-- Quick Action Toolbar -->
+            <div class="gap-action-toolbar" id="gap-action-toolbar">
+              <button type="button" class="btn-gap-action primary" id="btn-gap-apply-prescription">
+                <span>🌿 Apply Prescription &amp; Water Balance for <strong id="gap-btn-crop-name">Banana</strong></span>
+              </button>
+              <button type="button" class="btn-gap-action secondary" id="btn-gap-switch-top-crop">
+                <span>🏆 Switch Back to Top Rank (<strong id="gap-btn-top-crop-name">Rice</strong>)</span>
+              </button>
+              <button type="button" class="btn-gap-action outline" id="btn-gap-goto-sensor">
+                <span>📡 Re-test in Sensor Screen</span>
+              </button>
+            </div>
+          </section>
+
           <!-- SECTION 2: Top 3 Crop Cards -->
           <section class="dashboard-section card" id="section-crop-recommendations">
             <div class="section-header">

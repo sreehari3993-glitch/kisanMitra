@@ -1225,5 +1225,23 @@
     },
     "answer": "🌾 **Kisan AI: Best Crops Ranked for Your Current Soil Conditions**\n\n**Current Telemetry:** N: 35 | P: 60 | K: 32 kg/ha | pH: 5.4 | Moisture: 28% | Temp: 31°C\n\n### 🟢 Good Match (Minor Amendments Needed):\n1. 🟢 **Brinjal** (*Solanum melongena*) -- 1/6 params OK | Issues: pH 5.4 (needs 5.5-6.5), N low (35 vs 60 min), K low, Temp outside 22-30°C, Moisture low (28% vs 30%)\n2. 🟢 **Bottle Gourd** (*Lagenaria siceraria*) -- 4/6 params OK | Issues: pH 5.4 (needs 6.0-7.0), N low (35 vs 40 min)\n3. 🟢 **Drumstick** (*Moringa oleifera*) -- 4/6 params OK | Issues: pH 5.4 (needs 6.0-7.5), N low (35 vs 40 min)\n\n### 🟡 Moderate Match (Soil Amendment Required):\n4. 🟡 **Rice** (*Oryza sativa*) -- 3/6 params OK | Issues: pH 5.4 (needs 5.5-6.8), N low (35 vs 50 min), Moisture low (28% vs 50%)\n5. 🟡 **Okra** (*Abelmoschus esculentus*) -- 4/6 params OK | Issues: pH 5.4 (needs 6.0-7.0), N low (35 vs 50 min)\n6. 🟡 **Bitter Gourd** (*Momordica charantia*) -- 4/6 params OK | Issues: pH 5.4 (needs 6.0-7.0), N low (35 vs 50 min)\n7. 🟡 **Pumpkin** (*Cucurbita moschata*) -- 2/6 params OK | Issues: pH 5.4 (needs 6.0-7.5), N low (35 vs 40 min), K low, Temp outside 22-30°C\n8. 🟡 **Cucumber** (*Cucumis sativus*) -- 2/6 params OK | Issues: pH 5.4 (needs 6.0-7.0), N low (35 vs 50 min), Temp outside 22-30°C, Moisture low (28% vs 30%)\n\n---\n### 🏆 Top Recommendation: **Brinjal** (*Solanum melongena*)\n- **Season:** Year-round (tropical India)\n- **Spacing:** 75 x 60 cm\n- **Fertilizer Schedule:** 50% N basal + 25% at branching + 25% at peak fruiting. 100% P basal. 50% K basal + 50% K at fruiting.\n- **Key Pests & Diseases:** Fruit & shoot borer (Leucinodes orbonalis), jassids, mites\n- **Important Notes:** Frost-sensitive. Requires well-drained soil. IPM with pheromone traps for shoot borer.\n\n📚 *Grounded in: ICAR & FAO-56 & CROP_FEASIBILITY_BENCHMARKS.txt*",
     "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
+  },
+  {
+    "timestamp": "2026-09-25 23:42:53",
+    "query": "why papaya",
+    "language": "English",
+    "source": "icar-fao56",
+    "telemetry_snapshot": {
+      "n": 35.0,
+      "p": 60.0,
+      "k": 32.0,
+      "ph": 5.4,
+      "moisture": 28.0,
+      "temperature": 31.0,
+      "humidity": 80.0,
+      "rainfall": 180.0
+    },
+    "answer": "🌾 **Kisan AI Agronomic Advisory**\n\nIn response to your query *\"why papaya\"* and your live soil state (N: 35.0 kg/ha, P: 60.0 kg/ha, K: 32.0 kg/ha, pH: 5.4, Moisture: 28.0%):\n\n**Verified Agronomic Reference Context:**\n[Knowledge Base / Research Document: icar_crop_guidelines.md]\n### Papaya (*Carica papaya*)\n- **Optimal Soil NPK**: 50 kg/ha N, 59 kg/ha P₂O₅, 50 kg/ha K₂O\n- **Soil pH**: 6.0 - 7.2\n- **Temperature & Climate**: 25°C - 35°C; humidity >70%; rainfall 120 - 160 mm.\n- **Agronomic Key**: Continuous feeder throughout the vegetative and fruit-bearing period.\n\n[Knowledge Base / Research Document: fao56_irrigation_tables.md]\n| Crop Category | Crop Name | $K_{c\\text{, initial}}$ | $K_{c\\text{, mid-season}}$ | $K_{c\\text{, late/end}}$ | Typical Root Depth ($Z_r$, m) | Depletion Fraction ($p$) |\n| :--- | :--- | :---: | :---: | :---: | :---: | :---: |\n| **Cereals** | Rice (Paddy) | 1.05 | 1.20 | 0.90 | 0.5 - \n\n📚 *Grounded in: ICAR Guidelines & KrishiMitra Research Library*",
+    "gdrive_folder": "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link"
   }
 ]

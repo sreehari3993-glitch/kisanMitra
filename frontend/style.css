@@ -2761,3 +2761,398 @@ input[type="range"]::-webkit-slider-thumb:hover {
     justify-content: center;
   }
 }
+
+/* =============================================================
+   Target Crop Feasibility & Soil Gap Card Styles
+   ============================================================= */
+.target-crop-gap-card {
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  background: linear-gradient(145deg, rgba(17, 30, 22, 0.95), rgba(10, 18, 13, 0.98));
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), 0 0 15px rgba(16, 185, 129, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.gap-tag-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.gap-tag-pill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+}
+
+.gap-tag-pill.primary {
+  background: rgba(16, 185, 129, 0.18);
+  color: var(--primary-light);
+  border: 1px solid rgba(52, 211, 153, 0.4);
+}
+
+.gap-tag-pill.rank {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+/* Dual Comparison Banner */
+.gap-comparison-banner {
+  display: flex;
+  align-items: stretch;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  margin: 1.25rem 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.gap-crop-col {
+  flex: 1;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.gap-crop-col.top-rank-col {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), transparent);
+  border-right: 1px dashed rgba(255, 255, 255, 0.12);
+}
+
+.gap-crop-col.tested-crop-col {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), transparent);
+}
+
+.gap-vs-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.5rem;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.vs-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(30, 41, 59, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--text-muted);
+}
+
+.col-meta-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.col-crop-title {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+}
+
+.col-score-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-sm);
+  width: fit-content;
+  margin: 0.35rem 0;
+}
+
+.col-score-badge.top-rank {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.col-score-badge.status-high {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.col-score-badge.status-moderate {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.col-score-badge.status-low {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.col-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Soil Health for Crop Banner */
+.gap-soil-health-card {
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.25rem;
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.gap-soil-health-card.optimal {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.gap-soil-health-card.hostile {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.health-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.health-card-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.health-card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.25rem 0;
+}
+
+.health-card-summary {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.gap-section-subheading {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  margin: 1.25rem 0 0.75rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Factors Grid */
+.gap-factors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
+.gap-factor-card {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.gap-factor-card.warn {
+  border-left: 3px solid #fbbf24;
+}
+
+.gap-factor-card.bad {
+  border-left: 3px solid #ef4444;
+}
+
+.gap-factor-card.ok {
+  border-left: 3px solid #10b981;
+}
+
+.gap-factor-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gap-factor-val {
+  font-size: 0.76rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+.gap-factor-val.warn {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+}
+
+.gap-factor-val.bad {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+}
+
+.gap-factor-val.ok {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+}
+
+.gap-factor-desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Actions List */
+.gap-actions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.gap-action-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  background: rgba(16, 185, 129, 0.05);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+}
+
+.gap-action-step-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.gap-action-content {
+  flex: 1;
+}
+
+.gap-action-head {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.2rem;
+}
+
+.gap-action-text {
+  font-size: 0.82rem;
+  color: #cbd5e1;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Action Toolbar */
+.gap-action-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.btn-gap-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.btn-gap-action.primary {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #ffffff;
+  border: 1px solid rgba(52, 211, 153, 0.4);
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+}
+
+.btn-gap-action.primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.45);
+}
+
+.btn-gap-action.secondary {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.btn-gap-action.secondary:hover {
+  background: rgba(245, 158, 11, 0.25);
+}
+
+.btn-gap-action.outline {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-muted);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn-gap-action.outline:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .gap-comparison-banner {
+    flex-direction: column;
+  }
+  .gap-crop-col.top-rank-col {
+    border-right: none;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+  }
+  .gap-action-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .btn-gap-action {
+    justify-content: center;
+  }
+}
+
