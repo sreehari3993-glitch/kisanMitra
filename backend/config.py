@@ -9,7 +9,7 @@ try:
 
     class Settings(BaseSettings):
         """Application configuration loaded from .env."""
-        DATABASE_URL: str = "mysql+pymysql://root:SREEHARI_99@localhost:3306/krishi_precision_db"
+        DATABASE_URL: str = "mysql+pymysql://root:password@localhost:3306/krishi_precision_db"
         GEMINI_API_KEY: str = ""
         CHROMA_DB_PATH: str = str(BASE_DIR / "chroma_db")
 
@@ -31,7 +31,7 @@ except ImportError:
     class FallbackSettings:
         DATABASE_URL: str = os.getenv(
             "DATABASE_URL",
-            "mysql+pymysql://root:SREEHARI_99@localhost:3306/krishi_precision_db",
+            "mysql+pymysql://root:password@localhost:3306/krishi_precision_db",
         )
         GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "")
         CHROMA_DB_PATH: str = os.getenv("CHROMA_DB_PATH", str(BASE_DIR / "chroma_db"))
