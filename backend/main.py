@@ -103,6 +103,13 @@ app.include_router(irrigation.router, prefix="/api", tags=["Irrigation Advisory"
 app.include_router(auth.router)
 
 
+@app.get("/health", tags=["System"])
+@app.get("/api/health", tags=["System"])
+async def health_check():
+    """Health check endpoint for Railway, Docker, and uptime monitors."""
+    return {"status": "ok", "app": "KrishiMitra", "version": "1.0.0"}
+
+
 # -------------------------------------------------------------
 # Kisan AI Multilingual RAG Copilot Endpoint
 # -------------------------------------------------------------
@@ -258,3 +265,9 @@ async def get_mobile_status():
 frontend_dir = Path(__file__).resolve().parent.parent / "frontend"
 if frontend_dir.exists():
     app.mount("/", StaticFiles(directory=str(frontend_dir), html=True), name="frontend")
+
+
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("backend.main:app", host="0.0.0.0", port=port)
