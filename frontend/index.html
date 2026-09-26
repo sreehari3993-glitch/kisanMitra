@@ -2,8 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KrishiMitra — Precision Soil Intelligence & Irrigation Advisory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0f0b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="KrishiMitra">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/icon-512.png">
+  <title>KrishiMitra — Precision Soil Intelligence &amp; Irrigation Advisory</title>
   
   <!-- Modern Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,12 +19,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=3.2">
   
   <!-- Chart.js CDN for gauges -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+
+  <!-- Framer Motion Engine (Active for entire web app) -->
+  <script src="libs/motion.js"></script>
 </head>
 <body>
+
+  <!-- Ambient Cinematic Botanical Background (Apple-Style Scroll Scrubbing) -->
+  <div id="ui-background-canvas-container" class="ui-bg-canvas-container" aria-hidden="true">
+    <canvas id="ui-bg-canvas"></canvas>
+    <div class="ui-bg-overlay"></div>
+  </div>
 
   <!-- Top App Navigation -->
   <header class="app-header">
@@ -29,13 +46,16 @@
         </div>
       </div>
       <div class="header-right-actions">
-        <div class="system-status">
-          <span class="status-indicator live" id="live-indicator"></span>
-          <span id="system-status-text">Connected: MySQL & AI Engine</span>
-        </div>
         <div class="user-header-widget" id="user-header-widget">
           <!-- Populated dynamically: farmer profile pill or login button -->
         </div>
+        <button type="button" class="btn-diagnostics-toggle" id="btn-open-diagnostics" title="System Settings & Engine Diagnostics" aria-label="System Diagnostics">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          <span>Diagnostics</span>
+        </button>
       </div>
     </div>
   </header>
@@ -68,7 +88,7 @@
             <span class="pulse-beacon-dot"></span>
           </div>
           <div class="test-meta-details">
-            <span class="test-meta-badge">IoT SENSOR TELEMETRY</span>
+            <span class="test-meta-badge">IoT Sensor Telemetry</span>
             <div class="test-timestamp-row">
               <span class="test-timestamp-label">Last Tested:</span>
               <strong class="test-timestamp-val" id="last-tested-time-val">Today at 21:55:00 • Palakkad IoT Field Station #04</strong>
@@ -184,26 +204,37 @@
         </div>
       </section>
 
+      <!-- SECTION 2: Top 3 Crop Cards (Moved Upwards) -->
+      <section class="dashboard-section card" id="section-crop-recommendations">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">2. Top 3 AI Recommended Crops</h2>
+            <p class="section-desc">AI-ranked crops matched to your current soil and climate profile</p>
+          </div>
+        </div>
+
+        <div class="crop-cards-grid" id="crop-cards-container">
+          <!-- Rendered dynamically by app.js -->
+          <div class="loading-placeholder">Evaluating soil telemetry with Random Forest model...</div>
+        </div>
+      </section>
+
       <!-- Two-Column Grid: AI Chatbot (Left) + Crop Recommendations & Soil Healing (Right) -->
       <div class="landing-split-grid">
         
-        <!-- Left Column: AI Chatbot -->
+        <!-- Left Column: AI Chatbot (Collapsed by default per progressive disclosure) -->
         <div class="landing-col-chatbot">
           <section class="dashboard-section card" id="kisan-chat-section">
-            <div class="section-header">
-              <div>
+            <div class="section-header chat-collapsible-header" id="kisan-chat-toggle-header" title="Click to open or collapse AI Chatbot">
+              <div class="chat-header-title-area" id="chat-header-clickable-area">
                 <div class="kisan-badge-row">
-                  <span class="copilot-badge">🌾 AI AGRONOMIC COPILOT</span>
-                  <span class="engine-badge live-gemini" id="kisan-engine-status">Gemini 1.5 Flash + Ollama</span>
-                  <span class="engine-badge resources-badge" id="resources-count-badge">📚 11 Research Documents &amp; Tables Indexed</span>
+                  <span class="copilot-badge">🌾 AI Agronomic Copilot</span>
+                  <button type="button" class="chat-status-pill" id="chat-header-toggle-indicator" aria-expanded="false" aria-controls="kisan-chat" title="Toggle chat thread">▾ Click to Open Chat</button>
                 </div>
                 <h2 class="section-title">AI Agronomic Chatbot</h2>
                 <p class="section-desc">Grounded in Research PDFs, FAO-56 Water Balance, Tables &amp; ICAR Database • 4-Stage Audited Reasoning with Live IoT Telemetry</p>
               </div>
               <div class="gdrive-actions">
-                <button type="button" class="btn-gemini-key" id="btn-configure-gemini" title="Set or Update Google Gemini API Key">
-                  <span>⚡ Configure Gemini API</span>
-                </button>
                 <a href="https://drive.google.com/drive/folders/1LdRwAKBybFYsijbMmOd2EdLRDqISTpI6?usp=drive_link" target="_blank" rel="noopener noreferrer" class="btn-gdrive" id="btn-gdrive-resources" title="Open Research Papers &amp; Tables Google Drive Folder">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
                   <span>Research Library</span>
@@ -215,26 +246,42 @@
               </div>
             </div>
 
-            <!-- Quick Prompts / Language Suggestions -->
+            <!-- Quick Prompts / Language Suggestions (Categorized by Group) -->
             <div class="quick-prompts-bar">
-              <span class="quick-prompt-label">Quick Prompts:</span>
-              <button type="button" class="quick-prompt-btn" data-query="Can I farm wheat with my current soil telemetry?">🌾 Wheat Feasibility Check</button>
-              <button type="button" class="quick-prompt-btn" data-query="धान की पत्तियों में पीलापन आ रहा है, क्या खाद डालें?">🇮🇳 धान में पीलापन (Hindi)</button>
-              <button type="button" class="quick-prompt-btn" data-query="നെല്ലിന്റെ ഇലകൾ മഞ്ഞളിക്കുന്നു, എന്ത് ചെയ്യണം?">🌴 നെല്ല് മഞ്ഞളിപ്പ് (Malayalam)</button>
-              <button type="button" class="quick-prompt-btn" data-query="What is the FAO-56 root zone depletion formula (Dr,i) from the water balance manual?">📘 FAO-56 Water Balance Eq. 85</button>
-              <button type="button" class="quick-prompt-btn" data-query="What does the 2025 Nature paper say about TabNet vs Random Forest for crop recommendation?">📄 Nature 2025 Paper Findings</button>
-              <button type="button" class="quick-prompt-btn" data-query="According to the FAO table, what are the Kc values and max height for Tomato?">📊 Tomato Kc &amp; Height Table</button>
-              <button type="button" class="quick-prompt-btn" data-query="According to the VFAST paper, how many bags of Urea and DAP are recommended for wheat?">🧪 VFAST Fertilizer Dosage</button>
+              <div class="quick-prompt-category">
+                <span class="quick-prompt-label">Crop Checks:</span>
+                <div class="quick-prompt-group-buttons">
+                  <button type="button" class="quick-prompt-btn" data-query="Can I farm wheat with my current soil telemetry?">🌾 Wheat Feasibility Check</button>
+                </div>
+              </div>
+
+              <div class="quick-prompt-category">
+                <span class="quick-prompt-label">Language Queries:</span>
+                <div class="quick-prompt-group-buttons">
+                  <button type="button" class="quick-prompt-btn" data-query="धान की पत्तियों में पीलापन आ रहा है, क्या खाद डालें?">🇮🇳 धान में पीलापन (Hindi)</button>
+                  <button type="button" class="quick-prompt-btn" data-query="നെല്ലിന്റെ ഇലകൾ മഞ്ഞളിക്കുന്നു, എന്ത് ചെയ്യണം?">🌴 നെല്ല് മഞ്ഞളിപ്പ് (Malayalam)</button>
+                </div>
+              </div>
+
+              <div class="quick-prompt-category">
+                <span class="quick-prompt-label">Reference Lookups:</span>
+                <div class="quick-prompt-group-buttons">
+                  <button type="button" class="quick-prompt-btn" data-query="What is the FAO-56 root zone depletion formula (Dr,i) from the water balance manual?">📘 FAO-56 Water Balance Eq. 85</button>
+                  <button type="button" class="quick-prompt-btn" data-query="What does the 2025 Nature paper say about TabNet vs Random Forest for crop recommendation?">📄 Nature 2025 Findings</button>
+                  <button type="button" class="quick-prompt-btn" data-query="According to the FAO table, what are the Kc values and max height for Tomato?">📊 Tomato Kc Table</button>
+                  <button type="button" class="quick-prompt-btn" data-query="According to the VFAST paper, how many bags of Urea and DAP are recommended for wheat?">🧪 VFAST Dosage</button>
+                </div>
+              </div>
             </div>
 
-            <!-- Active Telemetry Context Banner -->
-            <div class="chat-telemetry-banner" id="chat-telemetry-context">
-              <span class="ctx-indicator">📡 LIVE SOIL CONTEXT:</span>
-              <span id="ctx-telemetry-summary">Loading active sensor readings...</span>
-            </div>
+            <!-- Kisan Chat Widget Container (Collapsed by Default) -->
+            <div id="kisan-chat" class="chat-widget-box hidden">
+              <!-- Active Telemetry Context Banner -->
+              <div class="chat-telemetry-banner" id="chat-telemetry-context">
+                <span class="ctx-indicator">📡 Live soil context:</span>
+                <span id="ctx-telemetry-summary">Loading active sensor readings...</span>
+              </div>
 
-            <!-- Kisan Chat Widget Container -->
-            <div id="kisan-chat" class="chat-widget-box">
               <div class="chat-messages-container" id="chat-messages">
                 <!-- Initial Welcome Message -->
                 <div class="chat-msg ai-msg">
@@ -242,7 +289,7 @@
                   <div class="msg-bubble">
                     <div class="msg-header-meta">
                       <span class="msg-sender">Kisan AI Assistant</span>
-                      <span class="msg-source-tag gemini">ICAR &amp; FAO-56 Grounded</span>
+                      <span class="msg-source-tag neutral">ICAR &amp; FAO-56 Grounded</span>
                     </div>
                     <div class="msg-content">
                       <p>Namaste! I am your <strong>Kisan AI Copilot</strong>. I analyze your live IoT soil telemetry (N, P, K, pH, Moisture) alongside ICAR scientific agronomy guidelines and FAO-56 irrigation models to give you audited fertilizer and water recommendations.</p>
@@ -255,6 +302,10 @@
 
               <!-- Chat Input Form -->
               <form class="chat-input-row" id="chat-form">
+                <button type="button" id="btn-camera-upload" class="chat-camera-btn" title="Capture or Upload Leaf/Soil Photo for AI Diagnosis" aria-label="Attach Photo">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                </button>
+                <input type="file" id="camera-file-input" accept="image/*" class="hidden" aria-label="Upload crop or soil leaf photo" title="Upload Photo" />
                 <input 
                   type="text" 
                   id="chat-input" 
@@ -270,26 +321,53 @@
               </form>
             </div>
           </section>
+
+          <!-- SECTION 3: Fertilizer Prescription Table (Placed below AI Chatbot) -->
+          <section class="dashboard-section card" id="section-fertilizer">
+            <div class="section-header">
+              <div>
+                <h2 class="section-title">3. Stoichiometric Fertilizer Prescription</h2>
+                <p class="section-desc" id="fertilizer-subtitle">DAP, Urea, MOP &amp; Soil Amendment requirements per acre</p>
+              </div>
+              <div class="active-crop-badge" id="prescription-crop-badge">Selected: --</div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="prescription-table">
+                <thead>
+                  <tr>
+                    <th>Fertilizer / Amendment</th>
+                    <th>Composition</th>
+                    <th>Prescribed Dose</th>
+                    <th>Agronomic Purpose</th>
+                  </tr>
+                </thead>
+                <tbody id="fertilizer-table-body">
+                  <tr><td colspan="4" class="text-center">Awaiting telemetry computation...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
         </div>
 
-        <!-- Right Column: Crop Recommendations & Mandatory Soil Healing Needs -->
+        <!-- Right Column: Crop Recommendations, Deep-Dive & Mandatory Soil Healing Needs -->
         <div class="landing-col-healing">
-          
-          <div class="soil-healing-banner card">
-            <div class="healing-tag-row">
-              <span class="healing-tag">🌾 AI AGRONOMY PROTOCOL</span>
-              <span class="healing-tag live">Grounded in ICAR &amp; FAO-56</span>
-            </div>
-            <h2 class="healing-heading">Crop Recommendation &amp; Mandatory Soil Healing Needs</h2>
-            <p class="healing-subtitle">AI-guided crop matching with stoichiometric fertilizer dosing &amp; mineral amendments (DAP, Urea, MOP, Lime/Gypsum) to enrich and balance your soil</p>
-          </div>
 
           <!-- SECTION 2A: Target Crop Feasibility & Soil Gap Intelligence -->
           <section class="dashboard-section card target-crop-gap-card" id="section-target-crop-gap">
+            <div class="soil-healing-banner card" id="soil-healing-banner">
+              <div class="healing-tag-row">
+                <span class="healing-tag">🌾 AI agronomy protocol</span>
+                <span class="healing-tag live">Grounded in ICAR &amp; FAO-56</span>
+              </div>
+              <h2 class="healing-heading">Crop Deep-Dive &amp; Mandatory Soil Healing Needs</h2>
+              <p class="healing-subtitle">AI-guided crop matching with stoichiometric fertilizer dosing &amp; mineral amendments (DAP, Urea, MOP, Lime/Gypsum) to enrich and balance your soil</p>
+            </div>
+
             <div class="section-header">
               <div>
                 <div class="gap-tag-row">
-                  <span class="gap-tag-pill primary">🎯 TARGET CROP EVALUATION</span>
+                  <span class="gap-tag-pill primary">🎯 Target crop evaluation</span>
                   <span class="gap-tag-pill rank" id="gap-header-rank-pill">Top Rank: Rice (93%)</span>
                 </div>
                 <h2 class="section-title">Tested Crop vs. Top-Ranked Soil Compatibility</h2>
@@ -297,23 +375,25 @@
               </div>
             </div>
 
-            <!-- Tested vs Top Comparison Banner -->
+            <!-- Tested vs Top Comparison Banner (Container for both Split Comparison & Unified Merged Card) -->
             <div class="gap-comparison-banner" id="gap-comparison-banner">
-              <div class="gap-crop-col top-rank-col">
-                <span class="col-meta-label">🏆 TOP RANK AI MATCH</span>
+              <div class="gap-crop-col top-rank-col" id="gap-top-rank-box">
+                <span class="col-meta-label">🏆 Top rank AI match</span>
                 <h3 class="col-crop-title" id="gap-top-rank-name">Rice</h3>
                 <span class="col-score-badge top-rank" id="gap-top-rank-score">93.0% AI Compatibility</span>
+                <p class="col-score-explainer" id="gap-top-rank-explainer">AI multi-crop model probability (Rank #1 among 22 crops)</p>
                 <p class="col-desc" id="gap-top-rank-desc">Naturally thrives in current acidic, high-moisture wetland soil telemetry.</p>
               </div>
 
-              <div class="gap-vs-divider">
+              <div class="gap-vs-divider" id="gap-vs-divider">
                 <span class="vs-circle">VS</span>
               </div>
 
               <div class="gap-crop-col tested-crop-col" id="gap-tested-crop-box">
-                <span class="col-meta-label">🎯 YOUR TESTED CROP</span>
+                <span class="col-meta-label">🎯 Your tested crop</span>
                 <h3 class="col-crop-title" id="gap-tested-crop-name">Banana</h3>
                 <span class="col-score-badge" id="gap-tested-score-badge">54% Compatibility</span>
+                <p class="col-score-explainer" id="gap-tested-explainer">Field agronomic fit based on live soil NPK, pH &amp; moisture</p>
                 <p class="col-desc" id="gap-tested-status-desc">Conditionally viable with major soil amendments.</p>
               </div>
             </div>
@@ -353,74 +433,37 @@
 
             <!-- Quick Action Toolbar -->
             <div class="gap-action-toolbar" id="gap-action-toolbar">
-              <button type="button" class="btn-gap-action primary" id="btn-gap-apply-prescription">
-                <span>🌿 Apply Prescription &amp; Water Balance for <strong id="gap-btn-crop-name">Banana</strong></span>
+              <button type="button" class="btn-gap-action primary" id="btn-gap-apply-prescription" title="Apply fertilizer prescription and FAO-56 water balance for this crop">
+                <span id="gap-btn-apply-label">🌿 Apply Prescription &amp; Water Balance for <strong id="gap-btn-crop-name">Banana</strong></span>
               </button>
-              <button type="button" class="btn-gap-action secondary" id="btn-gap-switch-top-crop">
-                <span>🏆 Switch Back to Top Rank (<strong id="gap-btn-top-crop-name">Rice</strong>)</span>
+              <button type="button" class="btn-gap-action secondary" id="btn-gap-switch-top-crop" title="Switch back to Rank #1 AI recommended crop">
+                <span id="gap-btn-switch-label">🏆 Switch Back to Top Rank (<strong id="gap-btn-top-crop-name">Rice</strong>)</span>
               </button>
-              <button type="button" class="btn-gap-action outline" id="btn-gap-goto-sensor">
+              <button type="button" class="btn-gap-action outline" id="btn-gap-goto-sensor" title="Switch to Sensor Screen to re-test probe readings">
                 <span>📡 Re-test in Sensor Screen</span>
               </button>
             </div>
           </section>
 
-          <!-- SECTION 2: Top 3 Crop Cards -->
-          <section class="dashboard-section card" id="section-crop-recommendations">
-            <div class="section-header">
-              <div>
-                <h2 class="section-title">2. Top 3 AI Recommended Crops</h2>
-                <p class="section-desc">Ranked by Random Forest Classifier (100 Trees, 99.1% benchmark accuracy)</p>
-              </div>
-              <span class="info-pill">Click a card to switch fertilizer prescription</span>
-            </div>
-
-            <div class="crop-cards-grid" id="crop-cards-container">
-              <!-- Rendered dynamically by app.js -->
-              <div class="loading-placeholder">Evaluating soil telemetry with Random Forest model...</div>
-            </div>
-          </section>
-
-          <!-- SECTION 3: Fertilizer Prescription Table -->
-          <section class="dashboard-section card" id="section-fertilizer">
-            <div class="section-header">
-              <div>
-                <h2 class="section-title">3. Stoichiometric Fertilizer Prescription</h2>
-                <p class="section-desc" id="fertilizer-subtitle">DAP, Urea, MOP &amp; Soil Amendment requirements per acre</p>
-              </div>
-              <div class="active-crop-badge" id="prescription-crop-badge">Selected: --</div>
-            </div>
-
-            <div class="table-responsive">
-              <table class="prescription-table">
-                <thead>
-                  <tr>
-                    <th>Fertilizer / Amendment</th>
-                    <th>Composition</th>
-                    <th>Prescribed Dose</th>
-                    <th>Agronomic Purpose</th>
-                  </tr>
-                </thead>
-                <tbody id="fertilizer-table-body">
-                  <tr><td colspan="4" class="text-center">Awaiting telemetry computation...</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </section>
-
-          <!-- SECTION 4: Irrigation Status Banner -->
-          <section class="dashboard-section" id="section-irrigation">
+          <!-- SECTION 4: Simplified Irrigation Status Banner (Plain language headline & description; metrics behind toggle) -->
+          <section class="dashboard-section card" id="section-irrigation">
             <div class="irrigation-banner optimal" id="irrigation-banner">
               <div class="irrigation-status-icon" id="irrigation-icon">🟢</div>
               <div class="irrigation-details">
                 <div class="irrigation-headline-row">
-                  <h3 class="irrigation-status-title" id="irrigation-status-text">OPTIMAL — Soil Moisture Sufficient</h3>
+                  <h3 class="irrigation-status-title" id="irrigation-status-text">Optimal — Soil moisture sufficient</h3>
                   <span class="irrigation-fao-tag">FAO-56 Water Balance</span>
                 </div>
                 <p class="irrigation-desc" id="irrigation-description">
                   Soil water reservoir is comfortably above the Readily Available Water (RAW) depletion threshold.
                 </p>
-                <div class="irrigation-metrics-bar" id="irrigation-metrics">
+                <div class="irrigation-toggle-row">
+                  <button type="button" class="btn-toggle-water-details" id="btn-toggle-water-details" aria-expanded="false" aria-controls="irrigation-metrics">
+                    <span class="toggle-water-arrow" id="toggle-water-arrow">▾</span>
+                    <span id="toggle-water-label">Show water balance details</span>
+                  </button>
+                </div>
+                <div class="irrigation-metrics-bar hidden" id="irrigation-metrics">
                   <span class="metric-chip">ET0: <strong id="val-et0">--</strong> mm/day</span>
                   <span class="metric-chip">Crop Kc: <strong id="val-kc">--</strong></span>
                   <span class="metric-chip">ETc: <strong id="val-etc">--</strong> mm/day</span>
@@ -430,7 +473,6 @@
               </div>
             </div>
           </section>
-
         </div>
       </div>
 
@@ -439,358 +481,169 @@
     <!-- VIEW 2: Sensor Screen (IoT Prototype Soil Diagnostics & Manual Telemetry Console) -->
     <div id="view-sensor-screen" class="landing-view-pane hidden">
       
-      <!-- MAIN SENSOR SCREEN CARD (Reference Wireframe Interface) -->
-      <section class="dashboard-section card sensor-screen-main-card" id="section-testbench">
+      <!-- MAIN SENSOR SCREEN CARD (Ultra-Minimal IoT Terminal Hardware Screen) -->
+      <section class="dashboard-section card sensor-screen-main-card minimal-sensor-screen" id="section-testbench">
         
-        <div class="section-header sensor-calibration-header">
-          <div>
-            <h3 class="section-title">Manual Soil Health Input &amp; Probe Calibration</h3>
-            <p class="section-desc">Type exact values into the numeric inputs or use the fine-adjustment sliders</p>
+        <div class="section-header sensor-minimal-header">
+          <div class="sensor-header-title-group">
+            <span class="sensor-terminal-badge">📟 SENSOR TERMINAL</span>
+            <h3 class="section-title">Field Sensor Telemetry Input</h3>
+            <p class="section-desc">Direct raw probe inputs for IoT Field Station #04</p>
           </div>
-          <span class="debounce-tag" id="sync-status-indicator">⚡ Live Telemetry Synchronized</span>
-        </div>
-
-        <!-- Optional Target Crop Feasibility & Suitability Input -->
-        <div class="target-crop-evaluator-card" id="target-crop-evaluator">
-          <div class="crop-eval-header">
-            <div class="crop-eval-title-group">
-              <span class="crop-eval-icon">🎯</span>
-              <div>
-                <h4 class="crop-eval-title">Target Crop Feasibility &amp; Suitability Check <span class="badge-optional">(Optional Input)</span></h4>
-                <p class="crop-eval-desc">Choose an intended crop to evaluate its agronomic compatibility against the inputted soil parameters in real-time, or load its ideal soil preset.</p>
-              </div>
-            </div>
-            <div class="crop-eval-actions">
-              <button type="button" class="btn-load-crop-preset" id="btn-load-crop-ideal-preset" title="Fill the sensor sliders with this crop's ideal NPK, pH, and moisture parameters">
-                <span>⚡ Load Crop's Ideal Soil Preset</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Quick Crop Chips & Dropdown Row -->
-          <div class="crop-selector-row">
-            <div class="crop-select-wrapper">
-              <label for="sensor-target-crop-select" class="crop-select-label">Select Crop to Test:</label>
-              <select id="sensor-target-crop-select" class="crop-select-dropdown" aria-label="Select target crop for suitability assessment">
-                <option value="">-- Choose Any Crop to Test Suitability --</option>
-                <option value="rice">🌾 Rice (Paddy) [Oryza sativa]</option>
-                <option value="wheat">🚜 Wheat [Triticum aestivum]</option>
-                <option value="maize">🌽 Maize (Corn) [Zea mays]</option>
-                <option value="cotton">🌿 Cotton [Gossypium]</option>
-                <option value="banana">🍌 Banana [Musa]</option>
-                <option value="coffee">☕ Coffee [Coffea arabica]</option>
-                <option value="apple">🍎 Apple [Malus domestica]</option>
-                <option value="chickpea">🌱 Chickpea (Gram) [Cicer arietinum]</option>
-                <option value="kidneybeans">🫘 Kidney Beans (Rajma)</option>
-                <option value="pigeonpeas">🌾 Pigeonpeas (Arhar / Toor)</option>
-                <option value="mothbeans">🌾 Mothbeans</option>
-                <option value="mungbean">🌱 Mungbean (Green Gram)</option>
-                <option value="blackgram">🌱 Blackgram (Urad)</option>
-                <option value="lentil">🌱 Lentil (Masoor)</option>
-                <option value="pomegranate">🫐 Pomegranate</option>
-                <option value="mango">🥭 Mango</option>
-                <option value="grapes">🍇 Grapes</option>
-                <option value="watermelon">🍉 Watermelon</option>
-                <option value="muskmelon">🍈 Muskmelon</option>
-                <option value="orange">🍊 Orange / Citrus</option>
-                <option value="papaya">🍈 Papaya</option>
-                <option value="coconut">🥥 Coconut</option>
-                <option value="jute">🎋 Jute</option>
-              </select>
-            </div>
-
-            <!-- Quick Crop Chips -->
-            <div class="quick-crop-chips">
-              <button type="button" class="crop-chip-btn" data-crop="rice">🌾 Rice</button>
-              <button type="button" class="crop-chip-btn" data-crop="wheat">🚜 Wheat</button>
-              <button type="button" class="crop-chip-btn" data-crop="maize">🌽 Maize</button>
-              <button type="button" class="crop-chip-btn" data-crop="cotton">🌿 Cotton</button>
-              <button type="button" class="crop-chip-btn" data-crop="banana">🍌 Banana</button>
-              <button type="button" class="crop-chip-btn" data-crop="coffee">☕ Coffee</button>
-              <button type="button" class="crop-chip-btn" data-crop="apple">🍎 Apple</button>
-            </div>
-          </div>
-
-          <!-- Dynamic Real-time Suitability Evaluation Result Panel -->
-          <div class="crop-suitability-result" id="crop-suitability-result">
-            <div class="suitability-verdict-bar">
-              <div class="suitability-score-badge" id="crop-suitability-score-badge">
-                <span class="score-number" id="crop-suitability-score-num">--</span>
-                <div class="score-meta">
-                  <span class="score-title">Suitability Match</span>
-                  <strong class="score-verdict" id="crop-suitability-verdict">Select a crop above</strong>
-                </div>
-              </div>
-              <div class="suitability-quick-summary" id="crop-suitability-summary">
-                Select a crop from the dropdown or click a quick crop chip to test if your currently inputted soil and climate conditions can support it.
-              </div>
-            </div>
-
-            <!-- Detailed Parameter Breakdown Grid (Appears when crop is chosen) -->
-            <div class="suitability-breakdown-grid hidden" id="crop-suitability-breakdown">
-              <div class="suit-factor-card" id="suit-factor-npk">
-                <div class="factor-header">
-                  <span class="factor-icon">🧪</span>
-                  <strong>NPK Nutrients</strong>
-                </div>
-                <div class="factor-details" id="suit-npk-details">--</div>
-              </div>
-
-              <div class="suit-factor-card" id="suit-factor-ph">
-                <div class="factor-header">
-                  <span class="factor-icon">⚖️</span>
-                  <strong>Soil pH Tolerance</strong>
-                </div>
-                <div class="factor-details" id="suit-ph-details">--</div>
-              </div>
-
-              <div class="suit-factor-card" id="suit-factor-moisture">
-                <div class="factor-header">
-                  <span class="factor-icon">💧</span>
-                  <strong>Moisture &amp; Water</strong>
-                </div>
-                <div class="factor-details" id="suit-moisture-details">--</div>
-              </div>
-
-              <div class="suit-factor-card" id="suit-factor-climate">
-                <div class="factor-header">
-                  <span class="factor-icon">🌡️</span>
-                  <strong>Thermal Regime</strong>
-                </div>
-                <div class="factor-details" id="suit-climate-details">--</div>
-              </div>
-            </div>
-
-            <!-- Agronomic Recommendation / Amendment Advice -->
-            <div class="suitability-action-box hidden" id="crop-suitability-advice">
-              <div class="action-icon">💡</div>
-              <div class="action-text" id="crop-suitability-advice-text">--</div>
-            </div>
+          <div class="sensor-header-actions-group">
+            <button type="button" class="btn-gps-sync" id="btn-gps-sync" title="Detect GPS Field Coordinates &amp; Auto-Sync Climate">
+              <span>📍 GPS Field Sync</span>
+            </button>
+            <span class="debounce-tag" id="sync-status-indicator">⚡ Telemetry Synchronized</span>
           </div>
         </div>
 
-        <!-- Hidden span elements for full backwards compatibility with legacy labels -->
-        <span id="lbl-n" class="hidden-legacy-lbl">60 kg/ha</span>
-        <span id="lbl-p" class="hidden-legacy-lbl">45 kg/ha</span>
-        <span id="lbl-k" class="hidden-legacy-lbl">50 kg/ha</span>
-        <span id="lbl-ph" class="hidden-legacy-lbl">6.50</span>
-        <span id="lbl-moisture" class="hidden-legacy-lbl">26 %</span>
-        <span id="lbl-temp" class="hidden-legacy-lbl">28 °C</span>
-        <span id="lbl-humidity" class="hidden-legacy-lbl">65 %</span>
-        <span id="lbl-rainfall" class="hidden-legacy-lbl">180 mm</span>
+        <!-- Hidden Compatibility Container for crop evaluator elements referenced by JS -->
+        <div id="target-crop-evaluator" class="hidden-compat" aria-hidden="true">
+          <select id="sensor-target-crop-select"><option value=""></option></select>
+          <button type="button" id="btn-load-crop-ideal-preset"></button>
+          <div id="crop-suitability-result">
+            <span id="crop-suitability-score-num">--</span>
+            <strong id="crop-suitability-verdict">--</strong>
+            <div id="crop-suitability-score-badge"></div>
+            <div id="crop-suitability-summary"></div>
+            <div id="crop-suitability-breakdown" class="hidden"></div>
+            <div id="crop-suitability-advice" class="hidden"><span id="crop-suitability-advice-text"></span></div>
+          </div>
+        </div>
 
-        <!-- Inputs & Sliders Grid (Dual-Control Input System) -->
-        <div class="sensor-inputs-grid">
+        <!-- Sensor Terminal Critical Condition Warning Box -->
+        <div id="sensor-terminal-critical-warning" class="sensor-terminal-warning-box hidden" role="alert">
+          <div class="terminal-warning-top">
+            <span class="terminal-warning-sign" aria-hidden="true">⚠️</span>
+            <strong class="terminal-warning-title" id="terminal-warning-title">Soil Critical Warning</strong>
+          </div>
+          <p class="terminal-warning-brief" id="terminal-warning-brief">Soil conditions are currently critical for crop cultivation.</p>
+        </div>
+
+        <!-- Ultra-Minimal Raw Sensor Inputs Grid -->
+        <div class="raw-sensor-inputs-grid">
           
           <!-- 1. Nitrogen (N) -->
-          <div class="sensor-control-card">
-            <div class="control-header">
-              <div class="control-title-group">
-                <span class="control-icon">🧪</span>
-                <div>
-                  <label for="num-n" class="control-label">Nitrogen (N)</label>
-                  <span class="probe-spec">Optical Spectrometry A0</span>
-                </div>
-              </div>
-              <div class="control-input-wrapper">
-                <input type="number" id="num-n" class="sensor-num-input" min="0" max="140" step="1" value="60" aria-label="Nitrogen (N) in kg per hectare">
-                <span class="input-unit">kg/ha</span>
-              </div>
+          <div class="raw-sensor-cell">
+            <div class="raw-cell-top">
+              <span class="raw-cell-icon">🧪</span>
+              <label for="num-n" class="raw-cell-label">Nitrogen (N)</label>
             </div>
-            <input type="range" id="slider-n" class="sensor-range-slider" min="0" max="140" step="1" value="60" aria-label="Nitrogen slider" title="Nitrogen slider">
-            <div class="range-bounds">
-              <span>0 kg/ha</span>
-              <span class="optimal-target">Optimal: 50–100 kg/ha</span>
-              <span>140 kg/ha</span>
+            <div class="raw-input-row">
+              <input type="number" id="num-n" class="raw-num-input" min="0" max="140" step="1" value="60" aria-label="Nitrogen (N)">
+              <span class="raw-unit">kg/ha</span>
             </div>
-            <div class="channel-telemetry-tag">Channel: ADS1115_CH0 • 1.62V</div>
+            <input type="hidden" id="slider-n" value="60">
           </div>
 
           <!-- 2. Phosphorus (P) -->
-          <div class="sensor-control-card">
-            <div class="control-header">
-              <div class="control-title-group">
-                <span class="control-icon">🔬</span>
-                <div>
-                  <label for="num-p" class="control-label">Phosphorus (P)</label>
-                  <span class="probe-spec">Colorimetric Probe A1</span>
-                </div>
-              </div>
-              <div class="control-input-wrapper">
-                <input type="number" id="num-p" class="sensor-num-input" min="5" max="145" step="1" value="45" aria-label="Phosphorus (P) in kg per hectare">
-                <span class="input-unit">kg/ha</span>
-              </div>
+          <div class="raw-sensor-cell">
+            <div class="raw-cell-top">
+              <span class="raw-cell-icon">🔬</span>
+              <label for="num-p" class="raw-cell-label">Phosphorus (P)</label>
             </div>
-            <input type="range" id="slider-p" class="sensor-range-slider" min="5" max="145" step="1" value="45" aria-label="Phosphorus slider" title="Phosphorus slider">
-            <div class="range-bounds">
-              <span>5 kg/ha</span>
-              <span class="optimal-target">Optimal: 30–60 kg/ha</span>
-              <span>145 kg/ha</span>
+            <div class="raw-input-row">
+              <input type="number" id="num-p" class="raw-num-input" min="5" max="145" step="1" value="45" aria-label="Phosphorus (P)">
+              <span class="raw-unit">kg/ha</span>
             </div>
-            <div class="channel-telemetry-tag">Channel: ADS1115_CH1 • 1.45V</div>
+            <input type="hidden" id="slider-p" value="45">
           </div>
 
           <!-- 3. Potassium (K) -->
-          <div class="sensor-control-card">
-            <div class="control-header">
-              <div class="control-title-group">
-                <span class="control-icon">⚡</span>
-                <div>
-                  <label for="num-k" class="control-label">Potassium (K)</label>
-                  <span class="probe-spec">Ion-Selective ISE A2</span>
-                </div>
-              </div>
-              <div class="control-input-wrapper">
-                <input type="number" id="num-k" class="sensor-num-input" min="5" max="205" step="1" value="50" aria-label="Potassium (K) in kg per hectare">
-                <span class="input-unit">kg/ha</span>
-              </div>
+          <div class="raw-sensor-cell">
+            <div class="raw-cell-top">
+              <span class="raw-cell-icon">⚡</span>
+              <label for="num-k" class="raw-cell-label">Potassium (K)</label>
             </div>
-            <input type="range" id="slider-k" class="sensor-range-slider" min="5" max="205" step="1" value="50" aria-label="Potassium slider" title="Potassium slider">
-            <div class="range-bounds">
-              <span>5 kg/ha</span>
-              <span class="optimal-target">Optimal: 40–80 kg/ha</span>
-              <span>205 kg/ha</span>
+            <div class="raw-input-row">
+              <input type="number" id="num-k" class="raw-num-input" min="5" max="205" step="1" value="50" aria-label="Potassium (K)">
+              <span class="raw-unit">kg/ha</span>
             </div>
-            <div class="channel-telemetry-tag">Channel: ADS1115_CH2 • 1.88V</div>
+            <input type="hidden" id="slider-k" value="50">
           </div>
 
           <!-- 4. Soil pH -->
-          <div class="sensor-control-card">
-            <div class="control-header">
-              <div class="control-title-group">
-                <span class="control-icon">🧪</span>
-                <div>
-                  <label for="num-ph" class="control-label">Soil pH</label>
-                  <span class="probe-spec">ISFET Glass Electrode A3</span>
-                </div>
-              </div>
-              <div class="control-input-wrapper">
-                <input type="number" id="num-ph" class="sensor-num-input" min="3.5" max="9.5" step="0.05" value="6.50" aria-label="Soil pH value">
-                <span class="input-unit">pH</span>
-              </div>
+          <div class="raw-sensor-cell">
+            <div class="raw-cell-top">
+              <span class="raw-cell-icon">🧪</span>
+              <label for="num-ph" class="raw-cell-label">Soil pH</label>
             </div>
-            <input type="range" id="slider-ph" class="sensor-range-slider" min="3.5" max="9.5" step="0.05" value="6.50" aria-label="Soil pH slider" title="Soil pH slider">
-            <div class="range-bounds">
-              <span>3.5 (Acidic)</span>
-              <span class="optimal-target">Optimal: 6.0–7.5</span>
-              <span>9.5 (Alkaline)</span>
+            <div class="raw-input-row">
+              <input type="number" id="num-ph" class="raw-num-input" min="3.5" max="9.5" step="0.05" value="6.50" aria-label="Soil pH">
+              <span class="raw-unit">pH</span>
             </div>
-            <div class="channel-telemetry-tag" id="ph-state-chip">Condition: Neutral • Temp Compensated: 25°C</div>
+            <input type="hidden" id="slider-ph" value="6.50">
           </div>
 
           <!-- 5. Soil Moisture -->
-          <div class="sensor-control-card">
-            <div class="control-header">
-              <div class="control-title-group">
-                <span class="control-icon">💧</span>
-                <div>
-                  <label for="num-moisture" class="control-label">Soil Moisture (VWC)</label>
-                  <span class="probe-spec">FDR/TDR Modbus RS485</span>
-                </div>
-              </div>
-              <div class="control-input-wrapper">
-                <input type="number" id="num-moisture" class="sensor-num-input" min="10" max="90" step="1" value="26" aria-label="Soil moisture volumetric percentage">
-                <span class="input-unit">%</span>
-              </div>
+          <div class="raw-sensor-cell">
+            <div class="raw-cell-top">
+              <span class="raw-cell-icon">💧</span>
+              <label for="num-moisture" class="raw-cell-label">Soil Moisture</label>
             </div>
-            <input type="range" id="slider-moisture" class="sensor-range-slider" min="10" max="90" step="1" value="26" aria-label="Soil moisture slider" title="Soil moisture slider">
-            <div class="range-bounds">
-              <span>10% (Dry)</span>
-              <span class="optimal-target">RAW: 22% | FC: 32%</span>
-              <span>90% (Saturated)</span>
+            <div class="raw-input-row">
+              <input type="number" id="num-moisture" class="raw-num-input" min="10" max="90" step="1" value="26" aria-label="Soil Moisture">
+              <span class="raw-unit">%</span>
             </div>
-            <div class="channel-telemetry-tag">Sensor: RS485 Modbus RTU Addr 0x01</div>
+            <input type="hidden" id="slider-moisture" value="26">
           </div>
 
           <!-- 6. Ambient Temperature -->
-          <div class="sensor-control-card">
-            <div class="control-header">
-              <div class="control-title-group">
-                <span class="control-icon">🌡️</span>
-                <div>
-                  <label for="num-temp" class="control-label">Ambient Temperature</label>
-                  <span class="probe-spec">SHT31-D Digital I2C</span>
-                </div>
-              </div>
-              <div class="control-input-wrapper">
-                <input type="number" id="num-temp" class="sensor-num-input" min="10" max="50" step="0.5" value="28" aria-label="Ambient temperature in degrees Celsius">
-                <span class="input-unit">°C</span>
-              </div>
+          <div class="raw-sensor-cell">
+            <div class="raw-cell-top">
+              <span class="raw-cell-icon">🌡️</span>
+              <label for="num-temp" class="raw-cell-label">Temperature</label>
             </div>
-            <input type="range" id="slider-temp" class="sensor-range-slider" min="10" max="50" step="0.5" value="28" aria-label="Ambient temperature slider" title="Ambient temperature slider">
-            <div class="range-bounds">
-              <span>10 °C</span>
-              <span class="optimal-target">Standard: 20–32 °C</span>
-              <span>50 °C</span>
+            <div class="raw-input-row">
+              <input type="number" id="num-temp" class="raw-num-input" min="10" max="50" step="0.5" value="28" aria-label="Ambient Temperature">
+              <span class="raw-unit">°C</span>
             </div>
-            <div class="channel-telemetry-tag">Sensor: SHT31-D I2C Addr 0x44</div>
+            <input type="hidden" id="slider-temp" value="28">
           </div>
 
           <!-- 7. Relative Humidity -->
-          <div class="sensor-control-card">
-            <div class="control-header">
-              <div class="control-title-group">
-                <span class="control-icon">💨</span>
-                <div>
-                  <label for="num-humidity" class="control-label">Relative Humidity</label>
-                  <span class="probe-spec">Capacitive Polymer</span>
-                </div>
-              </div>
-              <div class="control-input-wrapper">
-                <input type="number" id="num-humidity" class="sensor-num-input" min="20" max="100" step="1" value="65" aria-label="Relative humidity percentage">
-                <span class="input-unit">%</span>
-              </div>
+          <div class="raw-sensor-cell">
+            <div class="raw-cell-top">
+              <span class="raw-cell-icon">💨</span>
+              <label for="num-humidity" class="raw-cell-label">Humidity</label>
             </div>
-            <input type="range" id="slider-humidity" class="sensor-range-slider" min="20" max="100" step="1" value="65" aria-label="Relative humidity slider" title="Relative humidity slider">
-            <div class="range-bounds">
-              <span>20% (Dry)</span>
-              <span class="optimal-target">Avg: 60–80%</span>
-              <span>100% (High)</span>
+            <div class="raw-input-row">
+              <input type="number" id="num-humidity" class="raw-num-input" min="20" max="100" step="1" value="65" aria-label="Relative Humidity">
+              <span class="raw-unit">%</span>
             </div>
-            <div class="channel-telemetry-tag">Sensor: SHT31-D I2C Humidity</div>
+            <input type="hidden" id="slider-humidity" value="65">
           </div>
 
-          <!-- 8. Rainfall / Precipitation -->
-          <div class="sensor-control-card">
-            <div class="control-header">
-              <div class="control-title-group">
-                <span class="control-icon">🌧️</span>
-                <div>
-                  <label for="num-rainfall" class="control-label">Precipitation (Forecast)</label>
-                  <span class="probe-spec">Tipping Bucket Gauge</span>
-                </div>
-              </div>
-              <div class="control-input-wrapper">
-                <input type="number" id="num-rainfall" class="sensor-num-input" min="0" max="400" step="1" value="180" aria-label="Precipitation rainfall in millimeters">
-                <span class="input-unit">mm</span>
-              </div>
+          <!-- 8. Precipitation / Rainfall -->
+          <div class="raw-sensor-cell">
+            <div class="raw-cell-top">
+              <span class="raw-cell-icon">🌧️</span>
+              <label for="num-rainfall" class="raw-cell-label">Precipitation</label>
             </div>
-            <input type="range" id="slider-rainfall" class="sensor-range-slider" min="0" max="400" step="1" value="180" aria-label="Rainfall precipitation slider" title="Rainfall precipitation slider">
-            <div class="range-bounds">
-              <span>0 mm (Drought)</span>
-              <span class="optimal-target">Seasonal: 100–250 mm</span>
-              <span>400 mm</span>
+            <div class="raw-input-row">
+              <input type="number" id="num-rainfall" class="raw-num-input" min="0" max="400" step="1" value="180" aria-label="Precipitation">
+              <span class="raw-unit">mm</span>
             </div>
-            <div class="channel-telemetry-tag">Station: AgroMet Rain Gauge Pulse</div>
+            <input type="hidden" id="slider-rainfall" value="180">
           </div>
 
         </div>
 
-        <!-- BOTTOM FOOTER ROW OF SENSOR SCREEN CARD (With "Test Now" Button in the bottom right corner) -->
-        <div class="sensor-screen-footer-bar">
+        <!-- Sensor Screen Action Bar -->
+        <div class="sensor-screen-footer-bar minimal-footer">
           <div class="sensor-footer-meta">
             <div class="sensor-packet-indicator">
               <span class="sensor-status-dot"></span>
               <div>
-                <div class="sensor-packet-title">Telemetry Packet Buffer: <strong id="telemetry-buffer-state">Buffered &amp; Ready</strong></div>
-                <div class="sensor-packet-sub">Payload Size: 56 Bytes • Checksum CRC32: 0x9E4B12 • Node: ESP32-S3-KRISHI-01</div>
+                <div class="sensor-packet-title">Telemetry Buffer: <strong id="telemetry-buffer-state">Buffered &amp; Ready</strong></div>
+                <div class="sensor-packet-sub">Direct probe registers synchronized</div>
               </div>
             </div>
           </div>
 
-          <!-- Prominent "Test Now" Button (As in User's Drawing) -->
           <div class="sensor-footer-action">
-            <button type="button" class="btn-test-now btn-test-now-sensor" id="btn-test-now-sensor" title="Execute IoT sensor transmission and trigger AI analysis">
+            <button type="button" class="btn-test-now btn-test-now-sensor" id="btn-test-now-sensor" title="Transmit sensor telemetry to AI Advisory Engine">
               <span class="btn-test-icon">⚡</span>
               <span class="btn-test-label">Test Now</span>
             </button>
@@ -806,11 +659,11 @@
             <span class="terminal-dot red"></span>
             <span class="terminal-dot yellow"></span>
             <span class="terminal-dot green"></span>
-            <span class="terminal-label">LIVE SENSOR TELEMETRY LOG / PACKET STREAM</span>
+            <span class="terminal-label">Live Telemetry Feed (JSON Payload)</span>
           </div>
-          <span class="console-status" id="console-stream-status">● Streaming 1.0 Hz</span>
+          <span class="console-status" id="console-stream-status">● Live Stream</span>
         </div>
-        <pre class="console-body" id="raw-telemetry-output">Initializing IoT sensor telemetry feed...</pre>
+        <pre class="console-body" id="raw-telemetry-output">Initializing sensor telemetry feed...</pre>
       </div>
 
     </div>
@@ -818,7 +671,7 @@
   </main>
 
   <!-- Farmer Authentication Screen / Login Gateway -->
-  <div class="auth-modal-overlay" id="auth-modal-overlay">
+  <div class="auth-modal-overlay hidden" id="auth-modal-overlay">
     <div class="auth-modal-card" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
       <button type="button" class="btn-auth-close" id="btn-auth-close" title="Close" aria-label="Close login dialog">✕</button>
 
@@ -905,7 +758,78 @@
         <button type="button" class="btn-guest-continue" id="btn-guest-continue">
           Skip for now (Continue as Guest Viewer) →
         </button>
-        <span class="security-note">🔒 ICAR &amp; Ministry of Agriculture Precision Farming Gateway</span>
+        <span class="security-note">🔒 ICAR-referenced agronomy data</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings / Diagnostics Modal (Relocated implementation details out of main header) -->
+  <div class="auth-modal-overlay hidden" id="diagnostics-modal-overlay">
+    <div class="auth-modal-card diagnostics-modal-card" role="dialog" aria-modal="true" aria-labelledby="diagnostics-modal-title">
+      <button type="button" class="btn-auth-close" id="btn-diagnostics-close" title="Close Diagnostics" aria-label="Close diagnostics dialog">✕</button>
+
+      <div class="auth-brand-row">
+        <div class="auth-logo diag-logo">⚙️</div>
+        <div>
+          <h2 class="auth-title" id="diagnostics-modal-title">System Diagnostics &amp; Telemetry Status</h2>
+          <p class="auth-subtitle">Backend infrastructure &amp; connection telemetry</p>
+        </div>
+      </div>
+
+      <div class="diagnostics-card-content">
+        <div class="diagnostics-status-box">
+          <div class="diagnostics-status-header-row">
+            <div class="system-status debug-panel-status" id="diagnostics-system-status">
+              <span class="status-indicator live" id="live-indicator"></span>
+              <span id="system-status-text">Connected: MySQL &amp; AI Engine</span>
+            </div>
+            <div class="diagnostics-engine-badges-row">
+              <span class="diag-badge-pill" id="kisan-engine-status">Gemini 1.5 Flash + Ollama</span>
+              <span class="diag-badge-pill" id="resources-count-badge">📚 11 Research Documents &amp; Tables Indexed</span>
+            </div>
+          </div>
+          <p class="diagnostics-note">Live telemetry synchronization pipeline actively bound to MySQL database, FastAPI engine, and scientific reasoning services.</p>
+        </div>
+
+        <div class="diagnostics-grid">
+          <div class="diag-meta-card">
+            <span class="diag-meta-label">Primary AI Reasoning</span>
+            <strong class="diag-meta-value">Google Gemini 1.5 Flash</strong>
+          </div>
+          <div class="diag-meta-card">
+            <span class="diag-meta-label">Offline Edge LLM</span>
+            <strong class="diag-meta-value">Ollama (Llama-3.2:3b)</strong>
+          </div>
+          <div class="diag-meta-card">
+            <span class="diag-meta-label">Soil Intelligence ML</span>
+            <strong class="diag-meta-value">Random Forest (100 Trees, 99.1% benchmark accuracy)</strong>
+          </div>
+          <div class="diag-meta-card">
+            <span class="diag-meta-label">Water Balance Model</span>
+            <strong class="diag-meta-value">FAO-56 Dual Kc Soil Depletion</strong>
+            <div class="diag-sub-metrics">
+              <span>ET₀: <strong id="diag-val-et0" class="diag-metric-val">--</strong> mm/day • </span>
+              <span>Crop K꜀: <strong id="diag-val-kc" class="diag-metric-val">--</strong> • </span>
+              <span>ET꜀: <strong id="diag-val-etc" class="diag-metric-val">--</strong> mm/day • </span>
+              <span>RAW: <strong id="diag-val-raw" class="diag-metric-val">--</strong>%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile & Network Configuration -->
+        <div class="diagnostics-mobile-box">
+          <div class="diag-meta-label">📱 Mobile App &amp; Network Configuration</div>
+          <div class="mobile-host-input-row">
+            <input type="text" id="input-api-host" class="mobile-host-input" placeholder="http://192.168.x.x:8000 (LAN API Host)" aria-label="Mobile API Host Address" />
+            <button type="button" id="btn-save-api-host" class="btn-save-host">Set Host</button>
+            <button type="button" id="btn-reset-api-host" class="btn-reset-host">Reset</button>
+          </div>
+          <div class="mobile-app-pills-row">
+            <span class="mobile-status-pill pwa">PWA Offline Capable</span>
+            <span class="mobile-status-pill cap">Capacitor Native Bridge</span>
+            <span class="mobile-status-pill gps">GPS Live Sync</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -914,7 +838,18 @@
   <div id="toast-container" class="toast-container"></div>
 
   <!-- Application Logic -->
-  <script src="app.js?v=2.4"></script>
+  <script src="app.js?v=3.2"></script>
+
+  <!-- Service Worker Registration for PWA Mobile Offline -->
+  <script>
+    if ('serviceWorker' in navigator && (window.location.protocol === 'http:' || window.location.protocol === 'https:')) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('./sw.js')
+          .then(function(reg) { console.log('KrishiMitra PWA Service Worker registered:', reg.scope); })
+          .catch(function(err) { console.warn('SW registration warning:', err); });
+      });
+    }
+  </script>
 </body>
 </html>
 

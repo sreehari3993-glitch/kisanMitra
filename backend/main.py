@@ -82,10 +82,11 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# Enable permissive CORS for local development
+# Enable permissive CORS for local dev, Vercel frontend, and mobile native apps
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
+    allow_origin_regex=r"https?://.*",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -229,6 +230,28 @@ def set_gemini_api_key(payload: Dict[str, str]):
         "has_gemini_key": True,
     }
 
+
+@app.get("/api/mobile/status")
+async def get_mobile_status():
+    """Return backend status, local IP discovery addresses, and mobile features."""
+    import socket
+    local_ips = []
+    try:
+        hostname = socket.gethostname()
+        local_ips.append(socket.gethostbyname(hostname))
+    except Exception:
+        pass
+
+    return {
+        "status": "online",
+        "app_name": "KrishiMitra Mobile",
+        "version": "1.0.0",
+        "pwa_ready": True,
+        "capacitor_ready": True,
+        "local_hostnames": local_ips,
+        "server_port": 8000,
+        "supported_plugins": ["camera", "geolocation", "haptics", "notifications"]
+    }
 
 
 # Mount frontend directory as static files at "/" AFTER all /api routes are registered

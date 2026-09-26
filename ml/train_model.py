@@ -48,6 +48,8 @@ SYNTHETIC_CROP_PROFILES = {
     "onion": {"N": (110, 10), "P": (50, 6), "K": (60, 6), "temperature": (22, 2), "humidity": (65, 5), "ph": (6.6, 0.3), "rainfall": (70, 8)},
     "tomato": {"N": (90, 8), "P": (60, 6), "K": (70, 6), "temperature": (24, 2), "humidity": (68, 5), "ph": (6.5, 0.3), "rainfall": (80, 10)},
     "sugarcane": {"N": (135, 12), "P": (60, 7), "K": (70, 6), "temperature": (30, 2), "humidity": (78, 4), "ph": (7.0, 0.3), "rainfall": (200, 20)},
+    # Degraded / Uncultivable Soil Benchmark (Soil Health Score < 35, Severe Toxicities & Depletion)
+    "no_crop": {"N": (10, 4), "P": (6, 3), "K": (8, 3), "temperature": (35, 6), "humidity": (25, 8), "ph": (4.2, 0.4), "rainfall": (18, 6)},
 }
 
 
@@ -70,6 +72,44 @@ def generate_synthetic_dataset(output_path: Path, samples_per_crop: int = 100) -
             }
             rows.append(row)
 
+    # Additional degraded soil variations for 'no_crop' (extreme acidity, alkalinity, nutrient starvation)
+    for _ in range(samples_per_crop * 2):
+        mode = rng.integers(0, 3)
+        if mode == 0:  # Severe acidity & low nutrients
+            row = {
+                "N": float(rng.uniform(2.0, 14.0)),
+                "P": float(rng.uniform(1.0, 8.0)),
+                "K": float(rng.uniform(2.0, 12.0)),
+                "temperature": float(rng.uniform(22.0, 38.0)),
+                "humidity": float(rng.uniform(20.0, 60.0)),
+                "ph": float(rng.uniform(3.4, 4.6)),
+                "rainfall": float(rng.uniform(10.0, 60.0)),
+                "label": "no_crop",
+            }
+        elif mode == 1:  # Severe alkalinity / sodicity
+            row = {
+                "N": float(rng.uniform(5.0, 25.0)),
+                "P": float(rng.uniform(2.0, 12.0)),
+                "K": float(rng.uniform(5.0, 20.0)),
+                "temperature": float(rng.uniform(25.0, 42.0)),
+                "humidity": float(rng.uniform(15.0, 50.0)),
+                "ph": float(rng.uniform(8.7, 10.2)),
+                "rainfall": float(rng.uniform(10.0, 50.0)),
+                "label": "no_crop",
+            }
+        else:  # Severe desiccation / drought & nutrient exhaustion
+            row = {
+                "N": float(rng.uniform(1.0, 12.0)),
+                "P": float(rng.uniform(1.0, 7.0)),
+                "K": float(rng.uniform(1.0, 10.0)),
+                "temperature": float(rng.uniform(32.0, 46.0)),
+                "humidity": float(rng.uniform(10.0, 30.0)),
+                "ph": float(rng.uniform(5.0, 7.5)),
+                "rainfall": float(rng.uniform(3.0, 22.0)),
+                "label": "no_crop",
+            }
+        rows.append(row)
+
     df = pd.DataFrame(rows)
     df.to_csv(output_path, index=False)
     return df
@@ -81,14 +121,11 @@ def train() -> None:
     Hyperparameters follow the Nature Scientific Reports (2025) baseline:
     n_estimators=100, max_depth=20, min_samples_split=2, criterion='gini', random_state=42.
     """
-    if not DATASET_PATH.exists():
-        print(
-            "\n[NOTICE] Building dataset grounded in uploaded papers and ICAR benchmarks...\n"
-        )
-        df = generate_synthetic_dataset(DATASET_PATH, samples_per_crop=100)
-    else:
-        print(f"Loading dataset from {DATASET_PATH}...")
-        df = pd.read_csv(DATASET_PATH)
+    print(
+        "\n[NOTICE] Building dataset grounded in uploaded papers, ICAR benchmarks, and uncultivable soil thresholds...\n"
+    )
+    df = generate_synthetic_dataset(DATASET_PATH, samples_per_crop=100)
+
 
     # Validate columns
     missing_cols = set(FEATURE_NAMES + ["label"]) - set(df.columns)

@@ -9,6 +9,7 @@ from backend.agronomy import (
     calculate_fertilizer_prescription,
     calculate_npk_deficit,
     calculate_ph_remediation,
+    calculate_soil_health_index,
 )
 from backend.database import get_db
 from backend.kisan_ai import get_gemini_api_key
@@ -63,9 +64,9 @@ CROP_OPTIMAL_NPK: Dict[str, Dict[str, float]] = {
     summary="Predict top 3 recommended crops from telemetry",
 )
 def recommend_crops(payload: RecommendCropsRequest, db: Session = Depends(get_db)):
-    """Loads the telemetry reading, invokes the Random Forest classifier to obtain the top-3
-
-    recommended crops, and records the recommendation with secondary crops stored as JSON.
+    """Loads the telemetry reading, evaluates the composite Soil Health Score, invokes
+    the Random Forest model, and strictly blocks all crop recommendations if the soil health
+    score is below 35 (indicating unviable/severely degraded soil).
     """
     telemetry = (
         db.query(TelemetryLog).filter(TelemetryLog.id == payload.telemetry_id).first()
@@ -76,6 +77,40 @@ def recommend_crops(payload: RecommendCropsRequest, db: Session = Depends(get_db
             detail=f"Telemetry record with id {payload.telemetry_id} not found.",
         )
 
+    # 1. HARD AGRONOMIC THRESHOLD CHECK: Soil Health Score < 35 = Quarantine / Zero Crops Recommended
+    health_index = calculate_soil_health_index(
+        n=telemetry.n,
+        p=telemetry.p,
+        k=telemetry.k,
+        ph=telemetry.ph,
+        moisture=telemetry.moisture,
+    )
+
+    if health_index < 35.0:
+        logger.info(
+            f"Soil Health Score {health_index} < 35 for Telemetry #{telemetry.id}. "
+            "Enforcing strict agronomic cultivation quarantine: zero crops recommended."
+        )
+        crop_rec = CropRecommendation(
+            telemetry_id=telemetry.id,
+            top_crop="none",
+            confidence=0.0,
+            secondary_crops=[],
+        )
+        db.add(crop_rec)
+        db.commit()
+        db.refresh(crop_rec)
+
+        return CropRecommendationResponse(
+            recommendation_id=crop_rec.id,
+            telemetry_id=crop_rec.telemetry_id,
+            top_crop="none",
+            confidence=0.0,
+            secondary_crops=[],
+            created_at=crop_rec.created_at,
+        )
+
+    # 2. Invoke Machine Learning prediction
     try:
         recommendations = predict_top_crops(
             n=telemetry.n,
@@ -85,7 +120,7 @@ def recommend_crops(payload: RecommendCropsRequest, db: Session = Depends(get_db
             temp=telemetry.temperature,
             humidity=telemetry.humidity,
             rainfall=telemetry.rainfall,
-            top_k=3,
+            top_k=4,
         )
     except RuntimeError as e:
         raise HTTPException(
@@ -93,9 +128,37 @@ def recommend_crops(payload: RecommendCropsRequest, db: Session = Depends(get_db
             detail=str(e),
         )
 
-    top_crop = recommendations[0]["crop"]
-    confidence = recommendations[0]["confidence"]
-    secondary_crops = recommendations[1:]
+    # Check if ML model predicted degraded/uncultivable soil
+    if recommendations and recommendations[0]["crop"] == "no_crop":
+        crop_rec = CropRecommendation(
+            telemetry_id=telemetry.id,
+            top_crop="none",
+            confidence=0.0,
+            secondary_crops=[],
+        )
+        db.add(crop_rec)
+        db.commit()
+        db.refresh(crop_rec)
+
+        return CropRecommendationResponse(
+            recommendation_id=crop_rec.id,
+            telemetry_id=crop_rec.telemetry_id,
+            top_crop="none",
+            confidence=0.0,
+            secondary_crops=[],
+            created_at=crop_rec.created_at,
+        )
+
+    # Filter out any internal 'no_crop' labels from candidate list
+    filtered_recs = [r for r in recommendations if r["crop"] != "no_crop"][:3]
+    if not filtered_recs:
+        top_crop = "none"
+        confidence = 0.0
+        secondary_crops = []
+    else:
+        top_crop = filtered_recs[0]["crop"]
+        confidence = filtered_recs[0]["confidence"]
+        secondary_crops = filtered_recs[1:]
 
     crop_rec = CropRecommendation(
         telemetry_id=telemetry.id,
@@ -160,22 +223,25 @@ def generate_fertilizer_prescription(
     crop_name = payload.selected_crop.lower().strip()
     optimal = CROP_OPTIMAL_NPK.get(crop_name, {"n": 80.0, "p": 40.0, "k": 40.0})
 
-    # Deficit calculation
-    deficit = calculate_npk_deficit(
-        n_current=telemetry.n,
-        p_current=telemetry.p,
-        k_current=telemetry.k,
-        n_optimal=optimal["n"],
-        p_optimal=optimal["p"],
-        k_optimal=optimal["k"],
-    )
+    if crop_name in ["none", "no_crop"]:
+        fert = {"urea_kg": 0.0, "dap_kg": 0.0, "mop_kg": 0.0}
+    else:
+        # Deficit calculation
+        deficit = calculate_npk_deficit(
+            n_current=telemetry.n,
+            p_current=telemetry.p,
+            k_current=telemetry.k,
+            n_optimal=optimal["n"],
+            p_optimal=optimal["p"],
+            k_optimal=optimal["k"],
+        )
 
-    # Fertilizer prescription
-    fert = calculate_fertilizer_prescription(
-        n_deficit=deficit["n_deficit"],
-        p_deficit=deficit["p_deficit"],
-        k_deficit=deficit["k_deficit"],
-    )
+        # Fertilizer prescription
+        fert = calculate_fertilizer_prescription(
+            n_deficit=deficit["n_deficit"],
+            p_deficit=deficit["p_deficit"],
+            k_deficit=deficit["k_deficit"],
+        )
 
     # pH remediation
     remed = calculate_ph_remediation(telemetry.ph)

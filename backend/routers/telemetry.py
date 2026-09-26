@@ -2,6 +2,7 @@ from typing import Dict
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
+from backend.agronomy import calculate_soil_health_index
 from backend.database import get_db
 from backend.models import TelemetryLog
 from backend.schemas import (
@@ -118,15 +119,10 @@ def get_soil_health_card(
         moisture_status = "High"
         moisture_score = max(0.0, 100.0 - (row.moisture - 35.0) * 2.0)
 
-    # Weighted composite index
-    health_index = (
-        0.25 * n_score
-        + 0.20 * p_score
-        + 0.20 * k_score
-        + 0.20 * ph_score
-        + 0.15 * moisture_score
+    # Weighted composite index from unified agronomy intelligence engine
+    health_index = calculate_soil_health_index(
+        n=row.n, p=row.p, k=row.k, ph=row.ph, moisture=row.moisture
     )
-    health_index = round(min(100.0, max(0.0, health_index)), 1)
 
     if health_index >= 80.0:
         rating = "Excellent"

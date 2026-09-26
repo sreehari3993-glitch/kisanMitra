@@ -1,0 +1,32 @@
+{
+  "name": "KrishiMitra: AI Precision Soil & Irrigation",
+  "short_name": "KrishiMitra",
+  "description": "Precision agriculture dashboard with FAO-56 water balance, Random Forest crop recommendation, and multilingual AI agronomy copilot.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0a0f0b",
+  "theme_color": "#0a0f0b",
+  "categories": ["agriculture", "utilities", "productivity"],
+  "icons": [
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/maskable-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

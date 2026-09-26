@@ -5,6 +5,7 @@ import re
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
+from backend.agronomy import calculate_soil_health_index
 from backend.chat_history import append_chat_entry
 from backend.config import BASE_DIR, settings
 from backend import rag as rag_service
@@ -604,6 +605,63 @@ def generate_expert_agronomic_response(
     temp_val = telemetry.get("temperature", 28.0)
     hum_val = telemetry.get("humidity", 65.0)
 
+    # Calculate unified soil health score
+    health_index = calculate_soil_health_index(n_val, p_val, k_val, ph_val, moist_val)
+
+    # ---------------- INTENT 0: Soil Health Score Below 35 / Cultivation Prohibition ----------------
+    is_health_score_low_query = (
+        ("35" in q_lower and any(w in q_lower for w in ["health", "score", "soil", "below", "under", "less", "कम", "താഴെ"]))
+        or ("below 35" in q_lower or "< 35" in q_lower or "less than 35" in q_lower)
+    )
+    is_cultivation_request = any(w in q_lower for w in ["grow", "plant", "farm", "cultivate", "crop", "suitab", "rec", "उगा", "बो", "കൃഷി"])
+
+    if is_health_score_low_query or (is_cultivation_request and health_index < 35.0):
+        if language == "Hindi":
+            ctx_hi = f"आपके खेत का वर्तमान मृदा स्वास्थ्य स्कोर **{health_index:.1f}/100** है, जो **अत्यधिक संकटग्रस्त / गंभीर रूप से अवक्रमित (Critically Degraded)** श्रेणी में आता है:" if health_index < 35.0 else "ICAR एवं राष्ट्रीय मृदा सर्वेक्षण ब्यूरो के अनुसार 35 से कम मृदा स्वास्थ्य स्कोर **अत्यधिक संकटग्रस्त / गंभीर रूप से अवक्रमित** श्रेणी में आता है:"
+            return (
+                f"⛔ **सख्त कृषि वैज्ञानिक नियम: 35 से कम मृदा स्वास्थ्य स्कोर में कोई भी फसल उगाना वर्जित है (Zero Crops Recommended)**\n\n"
+                f"{ctx_hi}\n\n"
+                f"**1. फसल न उगाने का वैज्ञानिक कारण:**\n"
+                f"- जब मिट्टी का स्वास्थ्य स्कोर 35 से नीचे होता है, तो मिट्टी में आवश्यक नमी (स्थायी म्लानि बिंदु), गंभीर अम्लता (pH < 4.8) या प्राथमिक पोषक तत्वों (NPK) का पूर्ण अभाव होता है।\n"
+                f"- इस स्थिति में कोई भी बीज अंकुरित नहीं हो सकता या अंकुरण के बाद सूख जाएगा, जिससे किसान को 100% आर्थिक नुकसान होगा।\n\n"
+                f"**2. आवश्यक मृदा सुधार प्रोटोकॉल (Soil Rehabilitation Protocol):**\n"
+                f"- **गहरी सिंचाई**: बुवाई से पहले खेत में गहरी सिंचाई (पलेवा) करें ताकि मिट्टी की नमी 25% से ऊपर आए।\n"
+                f"- **रासायनिक सुधार**: यदि मिट्टी अम्लीय है तो कृषि चूना (Agricultural Lime) तथा क्षारीय होने पर जिप्सम (Gypsum) डालें।\n"
+                f"- **जैविक सुधार**: प्रति एकड़ 3–4 टन सड़ा हुआ गोबर की खाद (FYM) डालें या हरी खाद के रूप में **ढैंचा (Sesbania)** बोकर 45 दिन बाद मिट्टी में पलट दें।\n\n"
+                f"🌱 *जब तक मृदा स्वास्थ्य स्कोर सुधरकर 45–50 से ऊपर न आ जाए, तब तक किसी भी व्यावसायिक फसल की बुवाई न करें।*\n\n"
+                f"📚 *स्रोत: ICAR Soil Health Card Guidelines & National Bureau of Soil Survey (NBSS&LUP)*"
+            )
+        elif language == "Malayalam":
+            ctx_ml = f"നിങ്ങളുടെ പാടത്തെ തത്സമയ സോയിൽ ഹെൽത്ത് സ്കോർ **{health_index:.1f}/100** ആണ്. ഇത് **ഗുരുതരമായി നശിച്ച മണ്ണ് (Critically Degraded Soil)** എന്ന വിഭാഗത്തിലാണ് ഉൾപ്പെടുന്നത്:" if health_index < 35.0 else "ICAR മാനദണ്ഡങ്ങൾ പ്രകാരം 35-ൽ താഴെയുള്ള സോയിൽ ഹെൽത്ത് സ്കോർ **ഗുരുതരമായി നശിച്ച മണ്ണ്** എന്ന വിഭാഗത്തിലാണ് വരുന്നത്:"
+            return (
+                f"⛔ **കർശനമായ കാർഷിക നിർദ്ദേശം: സോയിൽ ഹെൽത്ത് സ്കോർ 35-ൽ താഴെയുള്ള മണ്ണിൽ ഒരു വിളയും കൃഷി ചെയ്യാൻ പാടില്ല (Cultivation Not Viable)**\n\n"
+                f"{ctx_ml}\n\n"
+                f"**1. കൃഷി ഒഴിവാക്കാനുള്ള ശാസ്ത്രീയ കാരണം:**\n"
+                f"- സ്കോർ 35-ൽ താഴെയുള്ള മണ്ണിൽ ഈർപ്പമില്ലായ്മയോ, കഠിനമായ അമ്ലത്വമോ (pH < 4.8), അല്ലെങ്കിൽ പ്രാഥമിക പോഷകങ്ങളുടെ (NPK) പൂർണ്ണമായ അഭാവമോ ഉണ്ടാകും.\n"
+                f"- ഈ അവസ്ഥയിൽ വിത്തുകൾ മുളയ്ക്കില്ല, മുളച്ചാൽത്തന്നെ വേരുകൾ കരിഞ്ഞുപോകും. ഇത് പൂർണ്ണ വിളനാശത്തിന് കാരണമാകും.\n\n"
+                f"**2. ഉടനടി ചെയ്യേണ്ട മണ്ണ് പുനരുദ്ധാരണ പ്രവർത്തനങ്ങൾ (Soil Healing Protocol):**\n"
+                f"- **നനയ്ക്കൽ**: മണ്ണിലെ ഈർപ്പം 25% ന് മുകളിലെത്തിക്കാൻ ആവശ്യത്തിന് നനയ്ക്കുക.\n"
+                f"- **കുമ്മായ പ്രയോഗം**: അസിഡിറ്റി പരിഹരിക്കാൻ ശുപാർശ ചെയ്ത അളവിൽ കൃഷി കുമ്മായം (Agricultural Lime) ചേർക്കുക.\n"
+                f"- **ജൈവവള പ്രയോഗം**: ഏക്കറിന് 3–4 ടൺ ഉണങ്ങിപ്പൊടിഞ്ഞ ചാണകപ്പൊടിയോ കമ്പോസ്റ്റോ ചേർക്കുക, അല്ലെങ്കിൽ **പച്ചിലവളമായി (ധൈഞ്ച / ചണ)** നട്ടുപിടിപ്പിച്ച് മണ്ണിൽ ഉഴുതുചേർക്കുക.\n\n"
+                f"🌱 *മണ്ണിന്റെ ഹെൽത്ത് സ്കോർ 45–50 ന് മുകളിൽ എത്തിയതിനു ശേഷം മാത്രം പുതിയ വിളകൾ കൃഷി ചെയ്യുക.*\n\n"
+                f"📚 *അവലംബം: ICAR & Kerala Agricultural University (KAU) Soil Management Guidelines*"
+            )
+        else:
+            ctx_en = f"Your active soil health score is **{health_index:.1f}/100**, which falls in the **Critical / Severely Degraded** category (< 35)." if health_index < 35.0 else "Under verified ICAR agronomy guidelines, a soil health score below 35 falls into the **Critical / Severely Degraded** category."
+            return (
+                f"⛔ **Strict Agronomic Ruling: Zero Crop Cultivation Permitted (Score < 35)**\n\n"
+                f"{ctx_en} Under ICAR agronomic standards, **NO commercial crop or plant cultivation can be recommended on soil with a health score below 35**.\n\n"
+                f"### Why Crop Cultivation is Strictly Prohibited:\n"
+                f"1. **Guaranteed Seedling Mortality**: Soil in this state suffers from severe biological, chemical, or moisture trauma (e.g. moisture below permanent wilting point, extreme acidity pH < 4.8 inducing aluminum toxicity, or exhausted NPK reserves).\n"
+                f"2. **Root Osmotic Shock**: Young seedlings cannot extract moisture or uptake essential nutrients, leading to rapid desiccation and 100% economic crop failure.\n\n"
+                f"### Mandatory Soil Rehabilitation Protocol (Execute Before Sowing):\n"
+                f"- 💧 **Pre-sowing Saturation (Paleva / Leaching)**: Heavy irrigation to restore root-zone moisture above 25%.\n"
+                f"- 🧪 **Reaction Amendment**: Broadcast Agricultural Lime ($CaCO_3$) if acidic (pH < 6.0), or Gypsum ($CaSO_4$) if alkaline (pH > 7.5).\n"
+                f"- 🌿 **Regenerative Green Manuring**: Broadcast **Dhaincha (*Sesbania aculeata*)** or Sunn hemp, and plough biomass into the soil at 45 days along with 3–4 tonnes/acre Farm Yard Manure (FYM).\n\n"
+                f"🌱 *Once restorative practices elevate your Soil Health Score above 45–50, commercial crop cultivation can safely resume.*\n\n"
+                f"📚 *Source: ICAR Soil Health Card Management Manual & USDA-NRCS Soil Quality Indicators*"
+            )
+
     # ---------------- INTENT 1: Leaf Yellowing / Chlorosis ----------------
     is_yellowing_query = (
         any(k in query for k in ["पील", "മഞ്ഞ", "மஞ்சள்"])
@@ -654,7 +712,7 @@ def generate_expert_agronomic_response(
                 f"- Soil Moisture: **{moist_val:.1f}%** | Soil pH: **{ph_val:.1f}**\n\n"
                 f"**2. Immediate Corrective Measures:**\n"
                 f"- **Foliar Spray for Quick Relief**: Spray a **1%–2% aqueous Urea solution** (10–20 g per liter of water) during cool evening hours to reverse vegetative chlorosis.\n"
-                f"- **Zinc Deficiency Remediation**: If bronze/rusty pigmentation appears alongside yellowing, spray **0.5% Zinc Sulfate ($ZnSO_4 \cdot 7H_2O$) neutralized with 0.25% slaked lime**.\n\n"
+                f"- **Zinc Deficiency Remediation**: If bronze/rusty pigmentation appears alongside yellowing, spray **0.5% Zinc Sulfate ($ZnSO_4 \\cdot 7H_2O$) neutralized with 0.25% slaked lime**.\n\n"
                 f"**3. Soil Application**: Topdress with **25–35 kg/acre Urea** under adequate soil moisture conditions (never apply on severely dry soil).\n\n"
                 f"**Scientific Research Citations:**\n"
                 f"[Research Resource: s41598-025-26910-4.pdf | Page 4]\n\n"
@@ -1490,13 +1548,17 @@ You have access to live IoT sensor telemetry from the farmer's active field and 
 
 Instructions:
 1. **GREETING DETECTION (HIGHEST PRIORITY)**: If the farmer's question is a casual greeting, salutation, or conversational opener (e.g., "hi", "hello", "hey", "ഹായ്", "നമസ്കാരം", "नमस्ते", "வணக்கம்", or similar in ANY language), respond ONLY with a warm, friendly, culturally-appropriate greeting in {language}. Do NOT dump soil telemetry data, NPK values, or technical agricultural information for greetings. Simply welcome the farmer, introduce yourself briefly as Kisan AI, and invite them to ask an agricultural question.
-2. For genuine agricultural questions, provide a precise, scientific, and practical agronomic recommendation grounded in the live telemetry and research documents above.
-3. For crop suitability / feasibility questions (e.g., "Can I farm wheat?", "Can I grow paddy?"):
+2. **STRICT AGRONOMIC CULTIVATION RULE (HEALTH SCORE < 35)**: If the farmer asks whether they can cultivate or farm any crop when the soil health score is below 35, or if live telemetry shows a composite Soil Health Score below 35 (or critically degraded parameters):
+   - You MUST ALWAYS answer with an unequivocal "NO". State clearly and firmly that NO commercial crop or plant can be cultivated in soil with a health score below 35.
+   - Explain that planting in this soil guarantees severe seedling mortality, osmotic trauma, and total economic loss.
+   - Direct the farmer to first execute regenerative soil rehabilitation (deep pre-sowing irrigation to exceed permanent wilting point, lime/gypsum amendments, green manuring with Dhaincha/Sesbania, and 3–4 tonnes/acre organic FYM) until the Soil Health Score recovers above 45–50 before attempting any commercial sowing.
+3. For genuine agricultural questions, provide a precise, scientific, and practical agronomic recommendation grounded in the live telemetry and research documents above.
+4. For crop suitability / feasibility questions (e.g., "Can I farm wheat?", "Can I grow paddy?"):
    - Explicitly evaluate Soil pH, available Nitrogen, Phosphorus, Potassium, Moisture, and Temperature against optimal crop benchmarks.
    - Provide a clear Feasibility Verdict (Optimal / Conditional with Soil Amendment / Not Recommended).
    - Prescribe actionable pre-sowing soil amendments (e.g., agricultural lime for acid soil, pre-sowing irrigation / Paleva, and basal fertilizer dosage in kg/acre).
-4. Whenever citing research papers, manuals, or tables from the context, preserve citation format e.g. [Research Resource: filename.pdf | Page X] or [Agronomic Table: filename.txt | Page X].
-5. Answer in fluent, natural, respectful, and authoritative {language}.
+5. Whenever citing research papers, manuals, or tables from the context, preserve citation format e.g. [Research Resource: filename.pdf | Page X] or [Agronomic Table: filename.txt | Page X].
+6. Answer in fluent, natural, respectful, and authoritative {language}.
 """
                 def _call_gemini():
                     model_candidates = [

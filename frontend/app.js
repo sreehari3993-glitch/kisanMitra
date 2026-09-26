@@ -7,7 +7,97 @@
 let currentTelemetryId = null;
 let currentRecommendationId = null;
 let currentSelectedCrop = null;
+let isCropDeepDiveRevealed = false;
 const gaugeCharts = {};
+
+// Check if running inside Capacitor Native Android Shell
+function isCapacitorNative() {
+  return Boolean(
+    window.Capacitor?.isNativePlatform?.() ||
+    window.Capacitor ||
+    window.location.protocol === 'capacitor:' ||
+    window.location.protocol === 'file:' ||
+    (window.location.hostname === 'localhost' && (!window.location.port || window.location.port === '80' || window.location.port === '443'))
+  );
+}
+
+// Mobile App & Multi-Platform API Host Resolver
+function getApiUrl(endpoint) {
+  const customHost = localStorage.getItem("krishi_api_host");
+  if (customHost) {
+    const cleanHost = customHost.replace(/\/+$/, "");
+    return `${cleanHost}${endpoint.startsWith('/') ? '' : '/'}${endpoint}`;
+  }
+
+  // If running inside Capacitor Native Android Shell
+  if (isCapacitorNative()) {
+    // If auto-detected host is cached, use it
+    if (window.KRISHI_ACTIVE_HOST) {
+      return `${window.KRISHI_ACTIVE_HOST}${endpoint.startsWith('/') ? '' : '/'}${endpoint}`;
+    }
+    // Default to localhost:8000 (which works over USB adb reverse and loopback) or 10.0.2.2 on emulator
+    const isEmulator = /google_sdk|emulator|generic/i.test(navigator.userAgent || "");
+    const fallbackHost = isEmulator ? "http://10.0.2.2:8000" : "http://127.0.0.1:8000";
+    return `${fallbackHost}${endpoint.startsWith('/') ? '' : '/'}${endpoint}`;
+  }
+
+  return endpoint;
+}
+
+// Automatic Backend Host Discovery for Mobile Devices
+async function resolveActiveBackendHost() {
+  if (!isCapacitorNative()) return;
+  const savedHost = localStorage.getItem("krishi_api_host");
+  if (savedHost) {
+    window.KRISHI_ACTIVE_HOST = savedHost.replace(/\/+$/, "");
+    return;
+  }
+
+  const candidateHosts = [
+    "http://127.0.0.1:8000",
+    "http://localhost:8000",
+    "http://192.168.4.137:8000",
+    "http://10.0.2.2:8000"
+  ];
+
+  for (const host of candidateHosts) {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 1200);
+      const res = await fetch(`${host}/api/mobile/status`, { signal: controller.signal });
+      clearTimeout(timeoutId);
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.status === "online") {
+          window.KRISHI_ACTIVE_HOST = host;
+          localStorage.setItem("krishi_api_host", host);
+          console.log(`[KrishiMitra Mobile] Connected to backend at: ${host}`);
+          return;
+        }
+      }
+    } catch (e) {
+      // Continue testing next host
+    }
+  }
+
+  window.KRISHI_ACTIVE_HOST = "http://127.0.0.1:8000";
+}
+
+
+// Native Hardware Haptics Helper (Works on Android APK & Web Vibrator API)
+function triggerHaptic(type = "light") {
+  try {
+    if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.Haptics) {
+      window.Capacitor.Plugins.Haptics.impact({ style: type === "heavy" ? "HEAVY" : "MEDIUM" });
+    } else if (navigator.vibrate) {
+      if (type === "heavy") navigator.vibrate([60, 40, 60]);
+      else navigator.vibrate(35);
+    }
+  } catch (e) {
+    // Non-fatal if unsupported
+  }
+}
+
 
 // Static crop metadata for growth duration and water requirements
 const CROP_METADATA = {
@@ -118,18 +208,47 @@ function updateLoadingState(isLoading) {
 }
 
 // -------------------------------------------------------------
-// Chart.js Gauge Rendering
+// Chart.js Gauge Rendering with Proportional Value-in-Range Arc Mapping
 // -------------------------------------------------------------
-function renderGauge(canvasId, value, maxVal, status) {
+const GAUGE_BENCHMARK_RANGES = {
+  "chart-n": { min: 50, max: 100 },
+  "chart-p": { min: 30, max: 60 },
+  "chart-k": { min: 40, max: 80 },
+  "chart-ph": { min: 6.0, max: 7.5 },
+  "chart-moisture": { min: 22, max: 32 },
+};
+
+function renderGauge(canvasId, value, maxValOrConfig, status) {
   const ctx = document.getElementById(canvasId);
   if (!ctx) return;
 
   const color = getStatusColor(status);
-  const clampedVal = Math.min(maxVal, Math.max(0, value));
-  const remaining = Math.max(0, maxVal - clampedVal);
+  const cfg = GAUGE_BENCHMARK_RANGES[canvasId] || { min: 0, max: maxValOrConfig || 100 };
+  const min = cfg.min;
+  const max = cfg.max;
+  const numVal = parseFloat(value) || 0;
+
+  // Proportional arc fill:
+  // Values below min (e.g. N=35 in 50-100 range) map to a tiny 2-6% sliver so they visually read as near-empty
+  // Values between min and max scale linearly from 8% to 100% of arc
+  // Values >= max read as 100% full
+  let fillRatio = 0.04;
+  if (numVal <= 0) {
+    fillRatio = 0.02;
+  } else if (numVal < min) {
+    fillRatio = Math.max(0.02, Math.min(0.06, (numVal / min) * 0.06));
+  } else if (numVal >= max) {
+    fillRatio = 1.0;
+  } else {
+    const norm = (numVal - min) / (max - min);
+    fillRatio = 0.08 + norm * 0.92;
+  }
+
+  const filledPart = Math.max(0.01, Math.min(1.0, fillRatio));
+  const emptyPart = Math.max(0, 1.0 - filledPart);
 
   if (gaugeCharts[canvasId]) {
-    gaugeCharts[canvasId].data.datasets[0].data = [clampedVal, remaining];
+    gaugeCharts[canvasId].data.datasets[0].data = [filledPart, emptyPart];
     gaugeCharts[canvasId].data.datasets[0].backgroundColor = [color, "rgba(255, 255, 255, 0.08)"];
     gaugeCharts[canvasId].update();
   } else {
@@ -138,7 +257,7 @@ function renderGauge(canvasId, value, maxVal, status) {
       data: {
         datasets: [
           {
-            data: [clampedVal, remaining],
+            data: [filledPart, emptyPart],
             backgroundColor: [color, "rgba(255, 255, 255, 0.08)"],
             borderWidth: 0,
             circumference: 180,
@@ -212,6 +331,45 @@ function renderCropRecommendations(data) {
   const container = document.getElementById("crop-cards-container");
   container.innerHTML = "";
 
+  // ⛔ HARD AGRONOMIC QUARANTINE: Soil Health Score < 35 -> Zero Crops Recommended
+  if (!data || data.top_crop === "none" || data.confidence === 0 || !data.top_crop) {
+    const quarantineCard = document.createElement("div");
+    quarantineCard.className = "crop-quarantine-card";
+    quarantineCard.innerHTML = `
+      <div class="quarantine-badge">⛔ CULTIVATION NOT VIABLE — ZERO CROPS RECOMMENDED</div>
+      <h3 class="quarantine-title">Soil Health Score Critically Low (&lt; 35/100)</h3>
+      <p class="quarantine-desc">
+        Under strict ICAR and USDA-NRCS agronomic rules, the composite soil health score is too severely degraded (&lt; 35) to support crop emergence or survival. Sowing any commercial crop in this condition guarantees complete seedling mortality or osmotic dehydration.
+      </p>
+      <div class="quarantine-actions-box">
+        <strong>Mandatory Pre-Sowing Soil Rehabilitation Protocol:</strong>
+        <div class="quarantine-step-item">
+          <span class="step-num">1</span>
+          <div>
+            <strong>Hydrological Saturation</strong>: Execute deep pre-sowing irrigation to lift soil moisture above the Permanent Wilting Point (&gt; 25%).
+          </div>
+        </div>
+        <div class="quarantine-step-item">
+          <span class="step-num">2</span>
+          <div>
+            <strong>Chemical Reaction Remedy</strong>: Broadcast Agricultural Lime ($CaCO_3$) if acidic or Gypsum if alkaline to stabilize pH into 6.2–7.2.
+          </div>
+        </div>
+        <div class="quarantine-step-item">
+          <span class="step-num">3</span>
+          <div>
+            <strong>Regenerative Biomass</strong>: Incorporate 3–4 tonnes/acre Farm Yard Manure (FYM) or green manure cover crops (Dhaincha/Sesbania) to rebuild organic carbon.
+          </div>
+        </div>
+      </div>
+      <p class="quarantine-footnote">
+        *Once regenerative amendments restore your Soil Health Score above 45–50, AI crop recommendation will automatically unlock.*
+      </p>
+    `;
+    container.appendChild(quarantineCard);
+    return;
+  }
+
   const allCrops = [
     { crop: data.top_crop, confidence: data.confidence },
     ...data.secondary_crops,
@@ -226,11 +384,20 @@ function renderCropRecommendations(data) {
     };
 
     const isTopChoice = index === 0;
-    const isSelected = item.crop.toLowerCase() === currentSelectedCrop?.toLowerCase();
+    const isSelected = isCropDeepDiveRevealed && (item.crop.toLowerCase() === currentSelectedCrop?.toLowerCase());
 
     const card = document.createElement("div");
     card.className = `crop-card ${isSelected ? "active-crop" : ""}`;
+    card.setAttribute("role", "button");
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("title", `Click to view ${item.crop} deep-dive & fertilizer prescription`);
     card.onclick = () => selectCropForPrescription(item.crop);
+    card.onkeydown = (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        selectCropForPrescription(item.crop);
+      }
+    };
 
     card.innerHTML = `
       <div>
@@ -251,24 +418,89 @@ function renderCropRecommendations(data) {
           <span class="spec-val">${meta.water}</span>
         </div>
       </div>
+      <div class="crop-card-affordance">
+        <span class="affordance-text">${isSelected ? "✓ Active deep-dive" : "Click to view crop deep-dive"}</span>
+        <span class="affordance-arrow">→</span>
+      </div>
     `;
 
     container.appendChild(card);
   });
+
+  // Framer Motion spring pop-in strictly for User Interface crop cards
+  if (typeof window.Motion !== "undefined") {
+    const cards = Array.from(container.querySelectorAll(".crop-card"));
+    if (cards.length > 0) {
+      window.Motion.animate(
+        cards,
+        { opacity: [0, 1], y: [16, 0], scale: [0.96, 1] },
+        { delay: window.Motion.stagger(0.05), duration: 0.45, easing: [0.16, 1, 0.3, 1] }
+      );
+    }
+  }
 }
 
 // Cached recommendation data for reactive target crop evaluation
 let lastRecData = null;
 
-function renderTargetCropGapAnalysis(recData) {
+const FAO56_KC = {
+  rice: 1.20,
+  wheat: 1.15,
+  cotton: 1.20,
+  maize: 1.20,
+  chickpea: 1.00,
+  kidneybeans: 1.15,
+  pigeonpeas: 1.05,
+  mothbeans: 1.00,
+  mungbean: 1.05,
+  blackgram: 1.05,
+  lentil: 1.10,
+  pomegranate: 0.75,
+  banana: 1.20,
+  mango: 0.80,
+  grapes: 0.85,
+  watermelon: 1.00,
+  muskmelon: 1.00,
+  apple: 0.95,
+  orange: 0.65,
+  papaya: 1.00,
+  coconut: 1.00,
+  jute: 1.15,
+  coffee: 0.95,
+};
+
+function renderTargetCropGapAnalysis(recData, targetCropOverride = null) {
   if (recData) lastRecData = recData;
-  if (!lastRecData) return;
+  if (!lastRecData) {
+    lastRecData = {
+      top_crop: "Rice",
+      confidence: 93.0,
+      recommendations: [{ crop: "Rice", confidence: 93.0 }],
+    };
+  }
 
   const topCrop = lastRecData.top_crop || "Rice";
-  const topConfidence = lastRecData.confidence || 90;
-  
-  // Tested crop selected in sensor screen or fallback to topCrop
-  const testedKey = selectedTargetCrop ? selectedTargetCrop.toLowerCase() : topCrop.toLowerCase();
+  const topConfidence = lastRecData.confidence || 93.0;
+
+  if (topCrop === "none" || topConfidence === 0) {
+    const container = document.getElementById("section-target-crop-gap");
+    if (container) {
+      container.innerHTML = `
+        <div class="crop-quarantine-card">
+          <div class="quarantine-badge">⛔ CULTIVATION NOT VIABLE — ZERO CROPS RECOMMENDED</div>
+          <h3 class="quarantine-title">Soil Health Index Below 35 Threshold</h3>
+          <p class="quarantine-desc">
+            Your current soil telemetry indicates severe degradation (&lt; 35/100). No crop cultivation can be evaluated or recommended. Please complete the soil rehabilitation protocol before testing crop suitability.
+          </p>
+        </div>
+      `;
+    }
+    return;
+  }
+
+  // Tested crop selected via card click, sensor screen, or default to Banana for gap deep-dive
+  const cropToTest = targetCropOverride || selectedTargetCrop || (currentSelectedCrop && currentSelectedCrop.toLowerCase() !== topCrop.toLowerCase() ? currentSelectedCrop : "Banana");
+  const testedKey = cropToTest ? cropToTest.toLowerCase() : "banana";
   const benchmark = CROP_BENCHMARKS[testedKey] || {
     name: testedKey.charAt(0).toUpperCase() + testedKey.slice(1),
     optimal_n: 80, min_n: 60, max_n: 100,
@@ -343,31 +575,61 @@ function renderTargetCropGapAnalysis(recData) {
   const headerRankPill = document.getElementById("gap-header-rank-pill");
   if (headerRankPill) headerRankPill.textContent = `Top Rank: ${topCrop} (${topConfidence.toFixed(1)}%)`;
 
-  const topRankNameEl = document.getElementById("gap-top-rank-name");
-  if (topRankNameEl) topRankNameEl.textContent = topCrop;
-
-  const topRankScoreEl = document.getElementById("gap-top-rank-score");
-  if (topRankScoreEl) topRankScoreEl.textContent = `${topConfidence.toFixed(1)}% AI Compatibility`;
-
-  const testedNameEl = document.getElementById("gap-tested-crop-name");
-  if (testedNameEl) testedNameEl.textContent = testedName;
-
-  const testedScoreEl = document.getElementById("gap-tested-score-badge");
-  if (testedScoreEl) {
-    testedScoreEl.textContent = `${totalScore}% Compatibility`;
-    testedScoreEl.className = `col-score-badge ${totalScore >= 75 ? "status-high" : totalScore >= 52 ? "status-moderate" : "status-low"}`;
-  }
-
-  const testedDescEl = document.getElementById("gap-tested-status-desc");
-  if (testedDescEl) {
+  const comparisonBanner = document.getElementById("gap-comparison-banner");
+  if (comparisonBanner) {
     if (isMatch) {
-      testedDescEl.textContent = `Identical to #1 AI recommendation; naturally thriving under current soil state.`;
-    } else if (totalScore >= 75) {
-      testedDescEl.textContent = `Highly suitable crop for this soil. Only minor basal fertilization required.`;
-    } else if (totalScore >= 52) {
-      testedDescEl.textContent = `Conditionally viable; requires targeted soil amendments (NPK / pH correction).`;
+      // Top match and tested crop are identical!
+      // Render merged unified card explaining both percentages clearly per requirement 2.
+      comparisonBanner.innerHTML = `
+        <div class="gap-unified-match-box">
+          <div class="unified-header-badge">★ Tested Crop Matches #1 AI Recommendation</div>
+          <div class="unified-crop-headline">
+            <h3 class="col-crop-title">${testedName}</h3>
+            <span class="unified-match-tag">Optimal Soil Match</span>
+          </div>
+          <div class="unified-dual-metrics">
+            <div class="unified-metric-item">
+              <span class="metric-big-num">${topConfidence.toFixed(1)}%</span>
+              <div class="metric-text-group">
+                <strong>AI Model Selection Probability</strong>
+                <p class="metric-explainer">Highest multi-crop classification confidence among all 22 candidate crops</p>
+              </div>
+            </div>
+            <div class="unified-metric-divider"></div>
+            <div class="unified-metric-item">
+              <span class="metric-big-num ${totalScore >= 75 ? "color-high" : totalScore >= 52 ? "color-mod" : "color-low"}">${totalScore}%</span>
+              <div class="metric-text-group">
+                <strong>Soil &amp; Climate Compatibility</strong>
+                <p class="metric-explainer">Agronomic parameter match based on live soil N, P, K, pH &amp; moisture</p>
+              </div>
+            </div>
+          </div>
+          <p class="col-desc">Both the AI ranking model and agronomic parameter evaluation confirm <strong>${testedName}</strong> is your field's prime crop.</p>
+        </div>
+      `;
     } else {
-      testedDescEl.textContent = `High risk / sub-optimal without comprehensive multi-stage soil reclamation.`;
+      // Split two-column comparison with explicit one-line explanations for both percentages
+      comparisonBanner.innerHTML = `
+        <div class="gap-crop-col top-rank-col" id="gap-top-rank-box">
+          <span class="col-meta-label">🏆 Top rank AI match</span>
+          <h3 class="col-crop-title" id="gap-top-rank-name">${topCrop}</h3>
+          <span class="col-score-badge top-rank" id="gap-top-rank-score">${topConfidence.toFixed(1)}% AI Probability</span>
+          <p class="col-score-explainer">AI multi-crop model probability (Rank #1 among 22 crops)</p>
+          <p class="col-desc" id="gap-top-rank-desc">Naturally thrives in current acidic, high-moisture wetland soil telemetry.</p>
+        </div>
+
+        <div class="gap-vs-divider" id="gap-vs-divider">
+          <span class="vs-circle">VS</span>
+        </div>
+
+        <div class="gap-crop-col tested-crop-col" id="gap-tested-crop-box">
+          <span class="col-meta-label">🎯 Your tested crop</span>
+          <h3 class="col-crop-title" id="gap-tested-crop-name">${testedName}</h3>
+          <span class="col-score-badge ${totalScore >= 75 ? "status-high" : totalScore >= 52 ? "status-moderate" : "status-low"}" id="gap-tested-score-badge">${totalScore}% Compatibility</span>
+          <p class="col-score-explainer">Field agronomic fit based on live soil NPK, pH &amp; moisture</p>
+          <p class="col-desc" id="gap-tested-status-desc">${totalScore >= 75 ? "Highly suitable crop for this soil. Only minor basal fertilization required." : totalScore >= 52 ? "Conditionally viable; requires targeted soil amendments (NPK / pH correction)." : "High risk / sub-optimal without comprehensive multi-stage soil reclamation."}</p>
+        </div>
+      `;
     }
   }
 
@@ -570,34 +832,300 @@ function renderTargetCropGapAnalysis(recData) {
   }
 
   // Populate Button Labels & Event Listeners
+  const applyLabel = document.getElementById("gap-btn-apply-label");
+  if (applyLabel) {
+    applyLabel.innerHTML = `🌿 Apply Prescription &amp; Water Balance for <strong id="gap-btn-crop-name">${testedName}</strong>`;
+  }
   const btnGapCropName = document.getElementById("gap-btn-crop-name");
   if (btnGapCropName) btnGapCropName.textContent = testedName;
 
+  const switchLabel = document.getElementById("gap-btn-switch-label");
+  if (switchLabel) {
+    switchLabel.innerHTML = `🏆 Switch Back to Top Rank (<strong id="gap-btn-top-crop-name">${topCrop}</strong>)`;
+  }
   const btnGapTopCropName = document.getElementById("gap-btn-top-crop-name");
   if (btnGapTopCropName) btnGapTopCropName.textContent = topCrop;
 
   const btnApplyPrescription = document.getElementById("btn-gap-apply-prescription");
   if (btnApplyPrescription) {
-    btnApplyPrescription.onclick = () => {
-      selectCropForPrescription(testedName);
-      document.getElementById("section-fertilizer")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    btnApplyPrescription.onclick = async (e) => {
+      e.preventDefault();
+      await handleApplyPrescriptionAndWaterBalance(testedName);
     };
   }
 
   const btnSwitchTopCrop = document.getElementById("btn-gap-switch-top-crop");
   if (btnSwitchTopCrop) {
-    btnSwitchTopCrop.onclick = () => {
-      selectCropForPrescription(topCrop);
-      document.getElementById("section-crop-recommendations")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    btnSwitchTopCrop.onclick = async (e) => {
+      e.preventDefault();
+      await handleSwitchBackToTopRank(topCrop);
     };
   }
 
   const btnGotoSensor = document.getElementById("btn-gap-goto-sensor");
   if (btnGotoSensor) {
-    btnGotoSensor.onclick = () => {
-      document.getElementById("tab-btn-sensor")?.click();
-      window.scrollTo({ top: 0, behavior: "smooth" });
+    btnGotoSensor.onclick = (e) => {
+      e.preventDefault();
+      handleRetestInSensorScreen(testedName);
     };
+  }
+}
+
+// -------------------------------------------------------------
+// Target Crop Gap Analysis Action Handlers
+// -------------------------------------------------------------
+
+function applyLocalFallbackAdvisories(cropName) {
+  const cropKey = cropName ? cropName.toLowerCase() : "banana";
+  const bench = CROP_BENCHMARKS[cropKey] || {
+    name: cropName || "Banana",
+    optimal_n: 100, optimal_p: 82, optimal_k: 50,
+    min_ph: 6.0, max_ph: 7.2, opt_ph: 6.5,
+    min_moisture: 30, max_moisture: 60,
+  };
+
+  const nCurr = parseFloat(document.getElementById("num-n")?.value || document.getElementById("slider-n")?.value || 35);
+  const pCurr = parseFloat(document.getElementById("num-p")?.value || document.getElementById("slider-p")?.value || 60);
+  const kCurr = parseFloat(document.getElementById("num-k")?.value || document.getElementById("slider-k")?.value || 32);
+  const phCurr = parseFloat(document.getElementById("num-ph")?.value || document.getElementById("slider-ph")?.value || 5.4);
+  const moistCurr = parseFloat(document.getElementById("num-moisture")?.value || document.getElementById("slider-moisture")?.value || 28);
+  const tempCurr = parseFloat(document.getElementById("num-temp")?.value || document.getElementById("slider-temp")?.value || 31);
+  const humCurr = parseFloat(document.getElementById("num-humidity")?.value || document.getElementById("slider-humidity")?.value || 80);
+
+  // Stoichiometric NPK deficit (kg/acre)
+  const nDef = Math.max(0, bench.optimal_n - nCurr);
+  const pDef = Math.max(0, bench.optimal_p - pCurr);
+  const kDef = Math.max(0, bench.optimal_k - kCurr);
+
+  const dapKg = Math.round((pDef / 0.46) * 100) / 100;
+  const netNDef = Math.max(0, nDef - dapKg * 0.18);
+  const ureaKg = Math.round((netNDef / 0.46) * 100) / 100;
+  const mopKg = Math.round((kDef / 0.60) * 100) / 100;
+  const limeKg = phCurr < bench.min_ph ? Math.round(Math.max(300, (bench.opt_ph - phCurr) * 1200)) : 0;
+  const gypsumKg = phCurr > bench.max_ph ? Math.round(Math.max(250, (phCurr - bench.opt_ph) * 1000)) : 0;
+
+  renderFertilizerTable({
+    selected_crop: bench.name || cropName,
+    urea_kg: ureaKg,
+    dap_kg: dapKg,
+    mop_kg: mopKg,
+    lime_kg: limeKg,
+    gypsum_kg: gypsumKg,
+  });
+
+  // FAO-56 Hargreaves ET0 & Crop Evapotranspiration ETc
+  const kc = FAO56_KC[cropKey] || 1.20;
+  const et0 = 0.0023 * 15.0 * Math.max(0, tempCurr + 17.8) * Math.sqrt(10.0) * Math.max(0.1, 1.0 - humCurr / 200.0);
+  const etc = et0 * kc;
+  const rawThreshold = 22.0;
+  const fieldCap = 32.0;
+  const deficitMm = Math.max(0, (fieldCap - moistCurr) * 1.5);
+  const irriStatus = moistCurr < rawThreshold ? "CRITICAL_IRRIGATE" : (moistCurr < 26.0 ? "MONITOR" : "OPTIMAL");
+  const pumpRuntime = irriStatus === "CRITICAL_IRRIGATE" ? deficitMm / 4.0 : 0.0;
+
+  renderIrrigationBanner({
+    status: irriStatus,
+    current_moisture: moistCurr,
+    raw_threshold: rawThreshold,
+    deficit_mm: deficitMm.toFixed(1),
+    pump_runtime_hours: pumpRuntime,
+    et0_mm_per_day: et0,
+    kc: kc,
+    etc_mm_per_day: etc,
+  });
+}
+
+async function handleApplyPrescriptionAndWaterBalance(cropName) {
+  const targetName = cropName || currentSelectedCrop || selectedTargetCrop || "Banana";
+  currentSelectedCrop = targetName;
+  selectedTargetCrop = targetName;
+  isCropDeepDiveRevealed = true;
+
+  // Reveal gated gap section
+  const gapSection = document.getElementById("section-target-crop-gap");
+  if (gapSection) gapSection.classList.remove("hidden");
+  [
+    "gap-comparison-banner",
+    "gap-soil-health-card",
+    "gap-bottlenecks-wrapper",
+    "gap-actions-wrapper",
+    "gap-action-toolbar"
+  ].forEach((id) => document.getElementById(id)?.classList.remove("hidden"));
+
+  // Ensure telemetry & recommendation IDs exist
+  if (!currentTelemetryId || !currentRecommendationId) {
+    updateLoadingState(true);
+    try {
+      await executeTelemetryPipeline();
+    } catch (e) {
+      console.warn("Pipeline init error:", e);
+    }
+  }
+
+  // Update prescription and water balance for target crop
+  updateLoadingState(true);
+  try {
+    if (currentRecommendationId) {
+      await updateCropDependentAdvisories(currentRecommendationId, targetName);
+    } else {
+      applyLocalFallbackAdvisories(targetName);
+    }
+  } catch (err) {
+    console.warn("Advisory fetch failed, applying local agronomy calculations:", err);
+    applyLocalFallbackAdvisories(targetName);
+  } finally {
+    updateLoadingState(false);
+  }
+
+  // Re-render gap analysis for the applied crop
+  if (typeof renderTargetCropGapAnalysis === "function" && lastRecData) {
+    renderTargetCropGapAnalysis(lastRecData, targetName);
+  }
+
+  // Scroll smoothly to fertilizer section
+  const fertSection = document.getElementById("section-fertilizer");
+  if (fertSection) {
+    fertSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    fertSection.classList.add("highlight-pulse");
+    setTimeout(() => fertSection.classList.remove("highlight-pulse"), 2500);
+  }
+
+  showToast(`🌿 Applied fertilizer prescription & FAO-56 water balance for ${targetName}!`, "success", 4000);
+}
+
+async function handleSwitchBackToTopRank(topCropName) {
+  const targetTop = topCropName || (lastRecData && lastRecData.top_crop && lastRecData.top_crop !== "none" ? lastRecData.top_crop : "Rice");
+  currentSelectedCrop = targetTop;
+  selectedTargetCrop = targetTop;
+  isCropDeepDiveRevealed = true;
+
+  // Highlight card in top 3
+  document.querySelectorAll(".crop-card").forEach((card) => {
+    const nameEl = card.querySelector(".crop-name");
+    const affordanceEl = card.querySelector(".affordance-text");
+    if (nameEl && nameEl.textContent.trim().toLowerCase() === targetTop.toLowerCase()) {
+      card.classList.add("active-crop");
+      if (affordanceEl) affordanceEl.textContent = "✓ Active deep-dive";
+    } else {
+      card.classList.remove("active-crop");
+      if (affordanceEl) affordanceEl.textContent = "Click to view crop deep-dive";
+    }
+  });
+
+  // Ensure telemetry & recommendation IDs exist
+  if (!currentTelemetryId || !currentRecommendationId) {
+    updateLoadingState(true);
+    try {
+      await executeTelemetryPipeline();
+    } catch (e) {
+      console.warn("Pipeline init error:", e);
+    }
+  }
+
+  updateLoadingState(true);
+  try {
+    if (currentRecommendationId) {
+      await updateCropDependentAdvisories(currentRecommendationId, targetTop);
+    } else {
+      applyLocalFallbackAdvisories(targetTop);
+    }
+  } catch (err) {
+    console.warn("Advisory error, applying local calculations:", err);
+    applyLocalFallbackAdvisories(targetTop);
+  } finally {
+    updateLoadingState(false);
+  }
+
+  // Re-render gap analysis with the top rank crop
+  if (typeof renderTargetCropGapAnalysis === "function" && lastRecData) {
+    renderTargetCropGapAnalysis(lastRecData, targetTop);
+  }
+
+  // Scroll to crop recommendations
+  const recSection = document.getElementById("section-crop-recommendations");
+  if (recSection) {
+    recSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    recSection.classList.add("highlight-pulse");
+    setTimeout(() => recSection.classList.remove("highlight-pulse"), 2500);
+  }
+
+  showToast(`🏆 Switched back to Top-Ranked crop: ${targetTop}!`, "success", 3500);
+}
+
+function handleRetestInSensorScreen(cropName) {
+  const targetCrop = cropName || currentSelectedCrop || selectedTargetCrop || "Banana";
+  const cropKey = targetCrop.toLowerCase();
+
+  // 1. Switch to Sensor Screen tab
+  const tabSensor = document.getElementById("tab-btn-sensor");
+  if (tabSensor) {
+    tabSensor.click();
+  }
+
+  // 2. Synchronize selected target crop into the sensor terminal
+  selectedTargetCrop = cropKey;
+  const cropSelect = document.getElementById("sensor-target-crop-select");
+  if (cropSelect) cropSelect.value = cropKey;
+
+  // 3. Highlight quick chip if available
+  document.querySelectorAll(".crop-chip-btn").forEach((btn) => {
+    if (btn.getAttribute("data-crop") === cropKey) {
+      btn.classList.add("active");
+    } else {
+      btn.classList.remove("active");
+    }
+  });
+
+  // 4. Update crop suitability indicators on sensor screen
+  if (typeof evaluateTargetCropSuitability === "function") {
+    evaluateTargetCropSuitability();
+  }
+
+  // 5. Scroll smoothly to the sensor console and focus first input
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  setTimeout(() => {
+    const numN = document.getElementById("num-n");
+    if (numN) {
+      numN.focus();
+      numN.select?.();
+    }
+  }, 400);
+
+  showToast("📡 Switched to Sensor Screen console. Adjust sensor readings and tap 'Test Now'.", "info", 4000);
+}
+
+function initGapActionButtons() {
+  const btnApply = document.getElementById("btn-gap-apply-prescription");
+  const btnSwitch = document.getElementById("btn-gap-switch-top-crop");
+  const btnSensor = document.getElementById("btn-gap-goto-sensor");
+
+  if (btnApply) {
+    btnApply.addEventListener("click", async (e) => {
+      e.preventDefault();
+      const currentTested = document.getElementById("gap-tested-crop-name")?.textContent.trim() ||
+                            document.getElementById("gap-btn-crop-name")?.textContent.trim() ||
+                            selectedTargetCrop || currentSelectedCrop || "Banana";
+      await handleApplyPrescriptionAndWaterBalance(currentTested);
+    });
+  }
+
+  if (btnSwitch) {
+    btnSwitch.addEventListener("click", async (e) => {
+      e.preventDefault();
+      const topCropName = document.getElementById("gap-btn-top-crop-name")?.textContent.trim() ||
+                          (lastRecData && lastRecData.top_crop) || "Rice";
+      await handleSwitchBackToTopRank(topCropName);
+    });
+  }
+
+  if (btnSensor) {
+    btnSensor.addEventListener("click", (e) => {
+      e.preventDefault();
+      const currentTested = document.getElementById("gap-tested-crop-name")?.textContent.trim() ||
+                            document.getElementById("gap-btn-crop-name")?.textContent.trim() ||
+                            selectedTargetCrop || currentSelectedCrop || "Banana";
+      handleRetestInSensorScreen(currentTested);
+    });
   }
 }
 
@@ -698,6 +1226,16 @@ function renderIrrigationBanner(data) {
   document.getElementById("val-kc").textContent = data.kc.toFixed(2);
   document.getElementById("val-etc").textContent = data.etc_mm_per_day.toFixed(2);
   document.getElementById("val-raw").textContent = data.raw_threshold.toFixed(1);
+
+  // Mirror water balance metrics into diagnostics modal
+  const diagEt0 = document.getElementById("diag-val-et0");
+  if (diagEt0) diagEt0.textContent = data.et0_mm_per_day.toFixed(2);
+  const diagKc = document.getElementById("diag-val-kc");
+  if (diagKc) diagKc.textContent = data.kc.toFixed(2);
+  const diagEtc = document.getElementById("diag-val-etc");
+  if (diagEtc) diagEtc.textContent = data.etc_mm_per_day.toFixed(2);
+  const diagRaw = document.getElementById("diag-val-raw");
+  if (diagRaw) diagRaw.textContent = data.raw_threshold.toFixed(1);
 }
 
 // -------------------------------------------------------------
@@ -732,7 +1270,7 @@ async function executeTelemetryPipeline() {
 
   try {
     // 1. Post Telemetry
-    const telRes = await fetch("/api/telemetry", {
+    const telRes = await fetch(getApiUrl("/api/telemetry"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -763,8 +1301,8 @@ async function executeTelemetryPipeline() {
 
     // 2. Fetch Soil Health Card & Recommendations in parallel
     const [healthRes, recRes] = await Promise.all([
-      fetch(`/api/soil-health-card?telemetry_id=${currentTelemetryId}`),
-      fetch("/api/recommend-crops", {
+      fetch(getApiUrl(`/api/soil-health-card?telemetry_id=${currentTelemetryId}`)),
+      fetch(getApiUrl("/api/recommend-crops"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ telemetry_id: currentTelemetryId }),
@@ -790,9 +1328,11 @@ async function executeTelemetryPipeline() {
       // 3. Compute Fertilizer Prescription & Irrigation for the selected crop
       await updateCropDependentAdvisories(currentRecommendationId, currentSelectedCrop);
 
-      // Render Target Crop Gap & Feasibility Intelligence on User Interface
+      // Render Target Crop Gap & Feasibility Intelligence
+      lastRecData = recData;
       if (typeof renderTargetCropGapAnalysis === "function") {
-        renderTargetCropGapAnalysis(recData);
+        const cropToEval = selectedTargetCrop || (currentSelectedCrop && currentSelectedCrop.toLowerCase() !== recData.top_crop.toLowerCase() ? currentSelectedCrop : "Banana");
+        renderTargetCropGapAnalysis(recData, cropToEval);
       }
 
       // Refresh crop suitability badge with updated telemetry
@@ -827,7 +1367,7 @@ async function executeTelemetryPipeline() {
 async function updateCropDependentAdvisories(recommendationId, cropName) {
   try {
     const [fertRes, irriRes] = await Promise.all([
-      fetch("/api/fertilizer-prescription", {
+      fetch(getApiUrl("/api/fertilizer-prescription"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -836,9 +1376,11 @@ async function updateCropDependentAdvisories(recommendationId, cropName) {
         }),
       }),
       fetch(
-        `/api/irrigation-advisory?telemetry_id=${currentTelemetryId}&crop=${encodeURIComponent(
-          cropName
-        )}&growth_stage=mid`
+        getApiUrl(
+          `/api/irrigation-advisory?telemetry_id=${currentTelemetryId}&crop=${encodeURIComponent(
+            cropName
+          )}&growth_stage=mid`
+        )
       ),
     ]);
 
@@ -858,16 +1400,42 @@ async function updateCropDependentAdvisories(recommendationId, cropName) {
 
 async function selectCropForPrescription(cropName) {
   currentSelectedCrop = cropName;
+  selectedTargetCrop = cropName;
+  isCropDeepDiveRevealed = true;
 
-  // Highlight active crop card
+  // Reveal the gated crop deep dive section & internal elements
+  const gapSection = document.getElementById("section-target-crop-gap");
+  if (gapSection) gapSection.classList.remove("hidden");
+
+  const gapElementIds = [
+    "gap-comparison-banner",
+    "gap-soil-health-card",
+    "gap-bottlenecks-wrapper",
+    "gap-actions-wrapper",
+    "gap-action-toolbar"
+  ];
+  gapElementIds.forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove("hidden");
+  });
+
+  // Highlight active crop card & update affordance text
   document.querySelectorAll(".crop-card").forEach((card) => {
     const nameEl = card.querySelector(".crop-name");
+    const affordanceEl = card.querySelector(".affordance-text");
     if (nameEl && nameEl.textContent.trim().toLowerCase() === cropName.toLowerCase()) {
       card.classList.add("active-crop");
+      if (affordanceEl) affordanceEl.textContent = "✓ Active deep-dive";
     } else {
       card.classList.remove("active-crop");
+      if (affordanceEl) affordanceEl.textContent = "Click to view crop deep-dive";
     }
   });
+
+  // Populate crop deep-dive analysis with this crop's data
+  if (typeof renderTargetCropGapAnalysis === "function" && lastRecData) {
+    renderTargetCropGapAnalysis(lastRecData, cropName);
+  }
 
   if (currentRecommendationId) {
     updateLoadingState(true);
@@ -903,9 +1471,75 @@ function updatePhChip(phVal) {
     chip.textContent = `Condition: Alkaline (pH ${ph.toFixed(2)}) • Gypsum CaSO₄ Needed`;
     chip.style.color = "#60a5fa";
   } else {
-    chip.textContent = `Condition: Optimal Neutral (pH ${ph.toFixed(2)}) • Temp Compensated: 25°C`;
+    chip.textContent = `Condition: Optimal Neutral (pH ${ph.toFixed(2)})`;
     chip.style.color = "#34d399";
   }
+}
+
+function checkSoilTerminalCriticalConditions() {
+  const warningBox = document.getElementById("sensor-terminal-critical-warning");
+  const titleEl = document.getElementById("terminal-warning-title");
+  const briefEl = document.getElementById("terminal-warning-brief");
+
+  if (!warningBox || !titleEl || !briefEl) return;
+
+  const moisture = parseFloat(document.getElementById("num-moisture")?.value || document.getElementById("slider-moisture")?.value || 26);
+  const ph = parseFloat(document.getElementById("num-ph")?.value || document.getElementById("slider-ph")?.value || 6.5);
+  const n = parseFloat(document.getElementById("num-n")?.value || document.getElementById("slider-n")?.value || 60);
+  const p = parseFloat(document.getElementById("num-p")?.value || document.getElementById("slider-p")?.value || 45);
+  const k = parseFloat(document.getElementById("num-k")?.value || document.getElementById("slider-k")?.value || 50);
+  const temp = parseFloat(document.getElementById("num-temp")?.value || document.getElementById("slider-temp")?.value || 25);
+
+  // 1. Soil moisture critically low (desiccation / permanent wilting point)
+  if (moisture < 15) {
+    warningBox.classList.remove("hidden");
+    titleEl.textContent = `CRITICAL: Soil Moisture Too Low (${moisture.toFixed(1)}%)`;
+    briefEl.textContent = `Current soil moisture is below the permanent wilting point (<15%). Soil is severely dehydrated and cannot support seed germination or crop cultivation. Immediate pre-sowing irrigation is required.`;
+    return;
+  }
+
+  // 2. Soil moisture critically high (waterlogging / root anoxia)
+  if (moisture > 92) {
+    warningBox.classList.remove("hidden");
+    titleEl.textContent = `CRITICAL: Severe Waterlogging / Soil Anoxia (${moisture.toFixed(1)}%)`;
+    briefEl.textContent = `Moisture saturation exceeds 92%, displacing oxygen from pore spaces and suffocating root systems. Land cannot be cultivated until excess water is drained.`;
+    return;
+  }
+
+  // 3. Severe soil acidity (Al³⁺ & H⁺ toxicity, phosphorus fixation)
+  if (ph < 4.8) {
+    warningBox.classList.remove("hidden");
+    titleEl.textContent = `CRITICAL: Severe Soil Acidity (pH ${ph.toFixed(2)})`;
+    briefEl.textContent = `Extreme acidity induces aluminum toxicity and complete nutrient lockout. Soil cannot sustain crop cultivation until agricultural lime or dolomite is incorporated.`;
+    return;
+  }
+
+  // 4. Severe soil alkalinity / sodicity (high sodium lockout)
+  if (ph > 8.5) {
+    warningBox.classList.remove("hidden");
+    titleEl.textContent = `CRITICAL: Severe Soil Alkalinity / Sodicity (pH ${ph.toFixed(2)})`;
+    briefEl.textContent = `Excessive alkalinity causes soil structure dispersion and severe micronutrient lockout. Gypsum application and leaching are required before any planting.`;
+    return;
+  }
+
+  // 5. Critical primary nutrient depletion (dead/exhausted soil)
+  if (n < 15 && p < 10 && k < 15) {
+    warningBox.classList.remove("hidden");
+    titleEl.textContent = "CRITICAL: Primary Nutrients Severely Depleted";
+    briefEl.textContent = `Available N-P-K reserves are critically exhausted (N:${n}, P:${p}, K:${k} kg/ha). Soil cannot support crop cultivation without immediate basal fertilizer amendments.`;
+    return;
+  }
+
+  // 6. Extreme thermal stress (biological freeze/scorch)
+  if (temp < 4 || temp > 48) {
+    warningBox.classList.remove("hidden");
+    titleEl.textContent = `CRITICAL: Extreme Temperature Inviability (${temp.toFixed(1)}°C)`;
+    briefEl.textContent = `Ambient temperature falls outside biological tolerance limits (<4°C or >48°C). Soil and environment cannot sustain open-field crop cultivation.`;
+    return;
+  }
+
+  // All parameters within viable cultivation range
+  warningBox.classList.add("hidden");
 }
 
 function bindDualControl(sliderId, numId, labelId, suffix = "", onUpdateCallback = null) {
@@ -935,6 +1569,7 @@ function bindDualControl(sliderId, numId, labelId, suffix = "", onUpdateCallback
       if (typeof renderTargetCropGapAnalysis === "function" && lastRecData) {
         renderTargetCropGapAnalysis(lastRecData);
       }
+      checkSoilTerminalCriticalConditions();
     });
 
     slider.addEventListener("change", () => {
@@ -966,6 +1601,7 @@ function bindDualControl(sliderId, numId, labelId, suffix = "", onUpdateCallback
       if (typeof renderTargetCropGapAnalysis === "function" && lastRecData) {
         renderTargetCropGapAnalysis(lastRecData);
       }
+      checkSoilTerminalCriticalConditions();
     });
 
     numInput.addEventListener("change", () => {
@@ -1012,6 +1648,7 @@ function applyPreset(preset) {
   if (typeof updateRawTelemetryOutput === "function") {
     updateRawTelemetryOutput();
   }
+  checkSoilTerminalCriticalConditions();
 }
 
 // -------------------------------------------------------------
@@ -1544,44 +2181,82 @@ function escapeHtml(unsafe) {
     .replace(/'/g, "&#039;");
 }
 
+function extractCitationsAndProse(rawText) {
+  if (!rawText) return { cleanText: "", citations: [] };
+
+  const citations = [];
+  const citationRegex = /\[(Research Resource|Agronomic Table|Knowledge Base|Research Document|Knowledge Base \/ Research Document)\s*:\s*([^\|\]]+)(?:\s*\|\s*([^\]]+))?\]/gi;
+
+  let match;
+  while ((match = citationRegex.exec(rawText)) !== null) {
+    const rawType = (match[1] || "").trim();
+    const rawDoc = (match[2] || "").trim();
+    const rawPage = match[3] ? match[3].trim() : "";
+
+    const exists = citations.some(
+      (c) => c.doc.toLowerCase() === rawDoc.toLowerCase() && c.page.toLowerCase() === rawPage.toLowerCase()
+    );
+    if (!exists) {
+      citations.push({
+        type: rawType,
+        doc: rawDoc,
+        page: rawPage,
+      });
+    }
+  }
+
+  // Strip citations out of prose text so sentences flow naturally
+  let cleanText = rawText.replace(citationRegex, "").trim();
+
+  // Remove any persistent highlight/mark tags like <mark>, ==text==
+  cleanText = cleanText.replace(/<\/?mark>/gi, "");
+  cleanText = cleanText.replace(/==(.*?)==/g, "$1");
+
+  return { cleanText, citations };
+}
+
 function formatMarkdown(text) {
   try {
     if (!text) return "";
     let formatted = escapeHtml(text);
+
+    // Markdown Headers: ###, ##, #
+    formatted = formatted.replace(/^####\s+(.*)$/gm, '<h4 class="ai-heading-3">$1</h4>');
+    formatted = formatted.replace(/^###\s+(.*)$/gm, '<h4 class="ai-heading-3">$1</h4>');
+    formatted = formatted.replace(/^##\s+(.*)$/gm, '<h3 class="ai-heading-2">$1</h3>');
+    formatted = formatted.replace(/^#\s+(.*)$/gm, '<h2 class="ai-heading-1">$1</h2>');
+
     // Bold **text**
     formatted = formatted.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+
+    // Italic *text* or _text_
+    formatted = formatted.replace(/(?<!\*)\*([^*]+)\*(?!\*)/g, "<em>$1</em>");
+
     // Inline code `code`
     formatted = formatted.replace(/`([^`]+)`/g, "<code>$1</code>");
+
     // Bullet lists (- or * at start of line)
     formatted = formatted.replace(/^\s*[-*]\s+(.*)$/gm, "<li>$1</li>");
-    formatted = formatted.replace(/(<li>.*<\/li>)/gs, "<ul>$1</ul>");
-    formatted = formatted.replace(/<\/ul>\s*<ul>/g, "");
+    formatted = formatted.replace(/((?:<li>.*<\/li>\s*)+)/g, "<ul>$1</ul>");
 
-    // Transform citations like [Research Resource: s41598-025-26910-4.pdf | Page 4]
-    // into styled badge cards with lowercase document names and highlighted amber page pills
-    formatted = formatted.replace(
-      /\[(Research Resource|Agronomic Table|Knowledge Base|Research Document)\s*:\s*([^\|\]]+)(?:\s*\|\s*([^\]]+))?\]/gi,
-      (match, type, docName, pagePart) => {
-        const cleanType = (type || "").trim().toLowerCase();
-        const cleanDoc = (docName || "").trim().toLowerCase();
-        let pageBadge = "";
-        if (pagePart) {
-          pageBadge = `<span class="citation-page">${escapeHtml(pagePart.trim().toLowerCase())}</span>`;
-        }
-        return `<span class="resource-citation-card"><span class="citation-type">📑 ${escapeHtml(cleanType)}:</span> <span class="citation-doc">${escapeHtml(cleanDoc)}</span>${pageBadge}</span>`;
-      }
-    );
-
-    // Line breaks into paragraphs
-    const paragraphs = formatted.split(/\n\n+/);
-    return paragraphs
-      .map((p) => {
-        const trimmed = p.trim();
-        if (trimmed.startsWith("<ul>") && trimmed.endsWith("</ul>")) {
+    // Paragraph separation
+    const blocks = formatted.split(/\n\n+/);
+    return blocks
+      .map((b) => {
+        const trimmed = b.trim();
+        if (!trimmed) return "";
+        if (
+          trimmed.startsWith("<h2") ||
+          trimmed.startsWith("<h3") ||
+          trimmed.startsWith("<h4") ||
+          trimmed.startsWith("<ul>") ||
+          trimmed.startsWith("<ol>")
+        ) {
           return trimmed;
         }
         return `<p>${trimmed.replace(/\n/g, "<br>")}</p>`;
       })
+      .filter(Boolean)
       .join("");
   } catch (err) {
     console.warn("Markdown formatting fallback:", err);
@@ -1619,7 +2294,7 @@ function appendChatMessage(opts) {
       `;
     } else {
       let sourceLabel = "ICAR & FAO-56 Grounded";
-      let sourceClass = "gemini";
+      let sourceClass = "neutral";
       if (source === "gemini") {
         sourceLabel = "Gemini 1.5 Flash (Audited)";
         sourceClass = "gemini";
@@ -1628,12 +2303,34 @@ function appendChatMessage(opts) {
         sourceClass = "ollama";
       } else {
         sourceLabel = "ICAR & FAO-56 Grounded";
-        sourceClass = "gemini";
+        sourceClass = "neutral";
       }
 
       const langBadge = language ? `<span class="metric-chip" style="padding: 0.1rem 0.4rem; font-size: 0.65rem;">${language}</span>` : "";
       const driveUrl = gdriveFolder || "https://drive.google.com/drive/folders/1wp9xKSZSxIzTriKEWmQYVlEhXcUfQXSE?usp=drive_link";
       const resourcesUrl = gdriveResourcesFolder || "https://drive.google.com/drive/folders/1LdRwAKBybFYsijbMmOd2EdLRDqISTpI6?usp=drive_link";
+
+      const { cleanText, citations } = extractCitationsAndProse(text);
+      const formattedHtml = formatMarkdown(cleanText);
+
+      let citationsFootnoteHtml = "";
+      if (citations && citations.length > 0) {
+        const chipsHtml = citations.map((c) => {
+          const cleanType = c.type.toLowerCase();
+          const cleanDoc = c.doc.toLowerCase();
+          const pageBadge = c.page ? `<span class="citation-page">${escapeHtml(c.page.toLowerCase())}</span>` : "";
+          return `<span class="resource-citation-card"><span class="citation-type">📑 ${escapeHtml(cleanType)}:</span> <span class="citation-doc">${escapeHtml(cleanDoc)}</span>${pageBadge}</span>`;
+        }).join("");
+
+        citationsFootnoteHtml = `
+          <div class="ai-citations-footnote-row">
+            <span class="footnote-label">📚 Grounding Sources &amp; Citations:</span>
+            <div class="footnote-chips-list">
+              ${chipsHtml}
+            </div>
+          </div>
+        `;
+      }
 
       msgDiv.innerHTML = `
         <div class="msg-avatar">🌾</div>
@@ -1646,8 +2343,9 @@ function appendChatMessage(opts) {
             <span class="msg-source-tag ${sourceClass}">${sourceLabel}</span>
           </div>
           <div class="msg-content">
-            ${formatMarkdown(text)}
+            ${formattedHtml}
           </div>
+          ${citationsFootnoteHtml}
           <div class="msg-footer-row">
             <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
               <a href="${driveUrl}" target="_blank" rel="noopener noreferrer" class="msg-sync-pill" title="View chat session in Google Drive Cloud Folder">
@@ -1665,6 +2363,15 @@ function appendChatMessage(opts) {
 
     container.appendChild(msgDiv);
     container.scrollTop = container.scrollHeight;
+
+    // Framer Motion spring pop-in for chat messages (Entire Web App)
+    if (typeof window.Motion !== "undefined") {
+      window.Motion.animate(
+        msgDiv,
+        { opacity: [0, 1], y: [14, 0], scale: [0.97, 1] },
+        { duration: 0.35, easing: [0.16, 1, 0.3, 1] }
+      );
+    }
   } catch (renderErr) {
     console.error("Critical rendering error in appendChatMessage:", renderErr);
     // Absolute fallback so text is never lost
@@ -1736,7 +2443,7 @@ async function handleChatSubmit(queryText) {
       }
     }
 
-    const response = await fetch("/api/kisan-ai/chat", {
+    const response = await fetch(getApiUrl("/api/kisan-ai/chat"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -1779,7 +2486,7 @@ async function handleChatSubmit(queryText) {
 
 async function loadChatHistory() {
   try {
-    const res = await fetch("/api/kisan-ai/history");
+    const res = await fetch(getApiUrl("/api/kisan-ai/history"));
     if (!res.ok) return;
     const data = await res.json();
     if (data.history && Array.isArray(data.history) && data.history.length > 0) {
@@ -1811,7 +2518,7 @@ async function loadChatHistory() {
 
 async function loadResourcesSummary() {
   try {
-    const res = await fetch("/api/kisan-ai/resources");
+    const res = await fetch(getApiUrl("/api/kisan-ai/resources"));
     if (!res.ok) return;
     const data = await res.json();
     const badge = document.getElementById("resources-count-badge");
@@ -1969,7 +2676,8 @@ async function performLogin(nameOrUser, password, rememberMe = true) {
   }
 
   try {
-    const res = await fetch("/api/auth/login", {
+    const loginEndpoint = getApiUrl("/api/auth/login");
+    const res = await fetch(loginEndpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -1978,6 +2686,18 @@ async function performLogin(nameOrUser, password, rememberMe = true) {
         password: password,
       }),
     });
+
+    const contentType = res.headers.get("content-type") || "";
+    if (!contentType.includes("application/json")) {
+      const text = await res.text();
+      console.error("Non-JSON auth response from server:", text.slice(0, 150));
+      showAuthError(`Server returned non-JSON response from ${loginEndpoint}. Please check backend connection in Diagnostics.`);
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnHtml;
+      }
+      return false;
+    }
 
     const data = await res.json();
 
@@ -2014,6 +2734,20 @@ async function performLogin(nameOrUser, password, rememberMe = true) {
 function initAuthHandlers() {
   currentUser = getStoredUser();
   authToken = getStoredToken();
+
+  // If no user is logged in, default to lead farmer Ramesh Patel for seamless UX
+  if (!currentUser) {
+    currentUser = {
+      id: "farmer_001",
+      name: "Ramesh Patel",
+      phone: "+91 98765 43210",
+      region: "Punjab Sector 4 / Palakkad Field #12",
+      role: "Verified Lead Farmer"
+    };
+    authToken = "demo_token_ramesh_patel";
+    setStoredUser(currentUser, authToken, true);
+  }
+
   updateUserHeaderUI();
 
   // 1-Click Demo Login Button
@@ -2099,7 +2833,7 @@ function initAuthHandlers() {
   if (currentUser) {
     closeLoginModal();
   } else {
-    openLoginModal();
+    closeLoginModal();
   }
 }
 
@@ -2128,61 +2862,783 @@ function updateRawTelemetryOutput() {
 
   const packet = {
     timestamp: new Date().toISOString(),
-    node_id: "ESP32-S3-KRISHI-01",
-    firmware_build: "v2.4.1-SIM-CALIB",
-    acquisition_mode: "MANUAL_PROBE_INJECTION",
-    field_sector: "Palakkad Sector #04",
-    farmer_id: currentUser ? currentUser.kisan_id : "IND-KISAN-9024",
     farmer_name: currentUser ? currentUser.name : "Ramesh Patel",
-    hardware: {
-      battery_pct: 96,
-      battery_voltage: "3.92V (Li-Po)",
-      solar_charging: true,
-      uplink_protocol: "LoRa 868MHz SF7 BW125 / MQTT",
-      rssi_dbm: -68,
-      snr_db: 9.4,
-      adc_bus: "ADS1115 16-Bit I2C (Addr: 0x48)",
-      last_sync_status: "SUCCESS"
+    field_station: "Palakkad IoT Field Station #04",
+    soil_metrics: {
+      nitrogen_n_kg_ha: n,
+      phosphorus_p_kg_ha: p,
+      potassium_k_kg_ha: k,
+      soil_ph: ph,
+      moisture_pct: moisture,
+      temperature_c: temp,
+      relative_humidity_pct: humidity,
+      precipitation_forecast_mm: rain
     },
-    sensor_channels: {
-      npk_optical_spectrometry: {
-        n_kg_ha: n,
-        p_kg_ha: p,
-        k_kg_ha: k,
-        ads1115_volts: {
-          ch0_n: (n * 0.025 + 0.1).toFixed(3) + "V",
-          ch1_p: (p * 0.02 + 0.2).toFixed(3) + "V",
-          ch2_k: (k * 0.015 + 0.15).toFixed(3) + "V"
-        },
-        calibrated: true
-      },
-      glass_ph_isfet: {
-        ph_value: ph,
-        sensitivity_mv_ph: 59.16,
-        temp_compensated: true,
-        calibrated: true
-      },
-      tdr_moisture_modbus: {
-        volumetric_water_content_pct: moisture,
-        dielectric_constant: (moisture * 0.45 + 3.2).toFixed(2),
-        calibrated: true
-      },
-      sht31_ambient: {
-        temperature_c: temp,
-        relative_humidity_pct: humidity,
-        dew_point_c: (temp - (100 - humidity) / 5).toFixed(1),
-        calibrated: true
-      },
-      agromet_precipitation: {
-        forecast_14d_rainfall_mm: rain,
-        gauge_type: "Tipping Bucket 0.2mm"
-      }
-    },
-    soil_health_index: document.getElementById("health-index-val")?.textContent || "84",
-    health_rating: document.getElementById("health-rating-val")?.textContent || "Adequate"
+    soil_health_score: document.getElementById("health-index-val")?.textContent || "84",
+    health_status: document.getElementById("health-rating-val")?.textContent || "Adequate"
   };
 
   outputEl.textContent = JSON.stringify(packet, null, 2);
+}
+
+// =============================================================
+// Apple-Grade Scroll-Driven Cinematic Canvas Background
+// Frame scrubbing synced to scroll position with inertia (Apple style)
+// =============================================================
+class UIBackgroundAnimationManager {
+  constructor() {
+    this.container = document.getElementById("ui-background-canvas-container");
+    this.canvas = document.getElementById("ui-bg-canvas");
+    this.ctx = this.canvas ? this.canvas.getContext("2d", { alpha: false }) : null;
+    this.totalFrames = 240;
+    this.currentFrame = 0;
+    this.targetFrame = 0;
+    this.isUIVisible = true;
+    this.rafId = null;
+    this.isLerping = false;
+
+    // Frame cache array
+    this.frames = new Array(this.totalFrames);
+    this.loadedCount = 0;
+
+    if (this.canvas && this.ctx) {
+      this.init();
+    }
+  }
+
+  getFrameUrl(idx) {
+    const pad = String(idx + 1).padStart(3, "0");
+    return `assets/background/ezgif-frame-${pad}.jpg`;
+  }
+
+  init() {
+    this.handleResize = this.handleResize.bind(this);
+    this.onScroll = this.onScroll.bind(this);
+    this.lerpLoop = this.lerpLoop.bind(this);
+
+    window.addEventListener("resize", this.handleResize, { passive: true });
+    window.addEventListener("scroll", this.onScroll, { passive: true });
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden && this.isUIVisible) {
+        this.drawCurrentFrame();
+      }
+    });
+
+    this.handleResize();
+
+    // 1. Immediately load frame 0 and render on canvas
+    this.loadFrame(0, (img) => {
+      this.drawFrame(img);
+    });
+
+    // 2. Preload evenly spaced anchor keyframes across entire scroll span
+    // Ensures instant crisp image rendering at any scroll depth
+    const anchorSteps = [0, 15, 30, 45, 60, 75, 90, 105, 120, 135, 150, 165, 180, 195, 210, 225, 239];
+    anchorSteps.forEach((idx) => this.loadFrame(idx));
+
+    // 3. Preload first 30 sequential frames for top section fluidity
+    for (let i = 1; i < 30; i++) {
+      this.loadFrame(i);
+    }
+
+    // 4. Stagger-load remaining frames in background idle chunks
+    this.queueBackgroundPreload();
+
+    // Initial scroll position sync
+    this.onScroll();
+  }
+
+  loadFrame(index, callback) {
+    if (index < 0 || index >= this.totalFrames) return;
+    if (this.frames[index]) {
+      if (this.frames[index].complete && this.frames[index].naturalWidth > 0 && callback) {
+        callback(this.frames[index]);
+      }
+      return;
+    }
+    const img = new Image();
+    this.frames[index] = img; // Pre-cache reference immediately
+    img.onload = () => {
+      this.loadedCount++;
+      if (callback) callback(img);
+      const cur = Math.round(this.currentFrame);
+      if (cur === index || Math.abs(cur - index) <= 1) {
+        this.drawSpecificFrame(cur);
+      }
+    };
+    img.src = this.getFrameUrl(index);
+  }
+
+  queueBackgroundPreload() {
+    let curr = 0;
+    const batchSize = 12;
+
+    const loadNextBatch = () => {
+      let loadedThisBatch = 0;
+      while (curr < this.totalFrames && loadedThisBatch < batchSize) {
+        if (!this.frames[curr]) {
+          this.loadFrame(curr);
+          loadedThisBatch++;
+        }
+        curr++;
+      }
+      if (curr < this.totalFrames) {
+        if ("requestIdleCallback" in window) {
+          requestIdleCallback(loadNextBatch, { timeout: 400 });
+        } else {
+          setTimeout(loadNextBatch, 40);
+        }
+      }
+    };
+
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(loadNextBatch, { timeout: 300 });
+    } else {
+      setTimeout(loadNextBatch, 60);
+    }
+  }
+
+  onScroll() {
+    if (!this.canvas || !this.isUIVisible) return;
+
+    // Calculate scroll progress (0..1) based on active document scroll
+    const scrollTop = Math.max(0, window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0);
+    const docHeight = Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight,
+      document.body.offsetHeight,
+      1
+    ) - window.innerHeight;
+
+    const scrollProgress = docHeight > 0 ? Math.min(Math.max(0, scrollTop / docHeight), 1) : 0;
+
+    // Map scroll progress across 0..0.90 so full sprout bloom bathed in golden morning sun
+    // is achieved as farmer explores advisory and copilot sections
+    const animProgress = Math.min(scrollProgress / 0.90, 1);
+    this.targetFrame = Math.min(
+      Math.floor(animProgress * (this.totalFrames - 1)),
+      this.totalFrames - 1
+    );
+
+    // Start smooth lerp loop if not already running
+    if (!this.isLerping) {
+      this.isLerping = true;
+      this.rafId = requestAnimationFrame(this.lerpLoop);
+    }
+  }
+
+  // Smooth inertial interpolation loop for buttery Apple frame transitions
+  lerpLoop() {
+    const diff = this.targetFrame - this.currentFrame;
+
+    if (Math.abs(diff) < 0.04) {
+      this.currentFrame = this.targetFrame;
+      this.drawSpecificFrame(Math.round(this.currentFrame));
+      this.isLerping = false;
+      return;
+    }
+
+    // Trademark Apple spring lerp factor (0.16) for physical fluidity & mass
+    const lerpFactor = 0.16;
+    this.currentFrame += diff * lerpFactor;
+
+    // Snap to nearest integer for rendering
+    const frameToRender = Math.round(this.currentFrame);
+    this.drawSpecificFrame(frameToRender);
+
+    this.rafId = requestAnimationFrame(this.lerpLoop);
+  }
+
+  handleResize() {
+    if (!this.canvas) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    this.canvas.width = Math.floor(w * dpr);
+    this.canvas.height = Math.floor(h * dpr);
+    this.canvas.style.width = w + "px";
+    this.canvas.style.height = h + "px";
+    this.dpr = dpr;
+    this.drawCurrentFrame();
+  }
+
+  drawFrame(img) {
+    if (!this.ctx || !img || !img.complete || img.naturalWidth === 0) return;
+    const cw = this.canvas.width;
+    const ch = this.canvas.height;
+    const iw = img.naturalWidth;
+    const ih = img.naturalHeight;
+
+    const scale = Math.max(cw / iw, ch / ih);
+    const nw = iw * scale;
+    const nh = ih * scale;
+    const nx = (cw - nw) / 2;
+    const ny = (ch - nh) * 0.46; // Natural botanical focal framing
+
+    this.ctx.drawImage(img, nx, ny, nw, nh);
+  }
+
+  drawSpecificFrame(frameIdx) {
+    const idx = Math.max(0, Math.min(frameIdx, this.totalFrames - 1));
+    let img = this.frames[idx];
+    if (!img || !img.complete || img.naturalWidth === 0) {
+      // Find nearest loaded frame across the entire sequence
+      for (let delta = 1; delta < this.totalFrames; delta++) {
+        const prev = idx - delta;
+        const next = idx + delta;
+        if (prev >= 0 && this.frames[prev] && this.frames[prev].complete && this.frames[prev].naturalWidth > 0) {
+          img = this.frames[prev];
+          break;
+        }
+        if (next < this.totalFrames && this.frames[next] && this.frames[next].complete && this.frames[next].naturalWidth > 0) {
+          img = this.frames[next];
+          break;
+        }
+      }
+    }
+    if (img && img.complete && img.naturalWidth > 0) {
+      this.drawFrame(img);
+    }
+  }
+
+  drawCurrentFrame() {
+    this.drawSpecificFrame(Math.round(this.currentFrame));
+  }
+
+  syncWithScroll() {
+    this.handleResize();
+    this.onScroll();
+    this.drawCurrentFrame();
+  }
+
+  setUIVisible(visible) {
+    this.isUIVisible = visible;
+    if (this.container) {
+      if (visible) {
+        this.container.style.display = "";
+        this.container.style.opacity = "1";
+        this.container.style.visibility = "";
+        this.syncWithScroll();
+      } else {
+        this.container.style.display = "none";
+        this.container.style.opacity = "0";
+        this.container.style.visibility = "hidden";
+        if (this.rafId) {
+          cancelAnimationFrame(this.rafId);
+          this.isLerping = false;
+        }
+      }
+    }
+  }
+}
+
+// =============================================================
+// Premium Apple-Grade Scroll Animations — Framer Motion Engine
+// Comprehensive scroll-triggered reveals for the entire webapp
+// =============================================================
+function initUserInterfaceMotion() {
+  if (typeof window.Motion === "undefined") {
+    setTimeout(initUserInterfaceMotion, 120);
+    return;
+  }
+
+  const { animate, stagger, inView, scroll } = window.Motion;
+
+  // Apple easing curves
+  const appleEase = [0.16, 1, 0.3, 1];
+  const appleSpring = [0.34, 1.56, 0.64, 1];
+  const appleSoft = [0.25, 0.46, 0.45, 0.94];
+
+  // ──────────────────────────────────────────────────────────
+  // UTILITY: Scroll-triggered reveal for any element set
+  // ──────────────────────────────────────────────────────────
+  function scrollReveal(selector, animProps, options = {}) {
+    const elements = Array.from(document.querySelectorAll(selector));
+    if (!elements.length) return;
+
+    // Set initial hidden state
+    elements.forEach(el => {
+      el.style.opacity = "0";
+      el.style.willChange = "transform, opacity";
+    });
+
+    const {
+      staggerDelay = 0.08,
+      duration = 0.75,
+      easing = appleEase,
+      margin = "-80px",
+      amount = 0.2,
+    } = options;
+
+    elements.forEach((el, idx) => {
+      inView(el, () => {
+        animate(
+          el,
+          {
+            opacity: [0, 1],
+            ...animProps,
+          },
+          {
+            delay: idx * staggerDelay,
+            duration,
+            easing,
+          }
+        );
+        // Return cleanup (optional)
+        return () => {};
+      }, { margin, amount });
+    });
+  }
+
+  // ──────────────────────────────────────────────────────────
+  // HEADER: Smooth entrance on load
+  // ──────────────────────────────────────────────────────────
+  const header = document.querySelector(".app-header");
+  if (header) {
+    animate(
+      header,
+      { opacity: [0, 1], y: [-20, 0] },
+      { duration: 0.8, easing: appleEase }
+    );
+  }
+
+  // Brand title cinematic reveal
+  const brandTitle = document.querySelector(".brand-title");
+  if (brandTitle) {
+    animate(
+      brandTitle,
+      { opacity: [0, 1], x: [-30, 0] },
+      { duration: 0.8, easing: appleEase, delay: 0.1 }
+    );
+  }
+
+  // ──────────────────────────────────────────────────────────
+  // TABS: Slide up with spring
+  // ──────────────────────────────────────────────────────────
+  const tabsBar = document.querySelector(".landing-tabs-bar");
+  if (tabsBar) {
+    animate(
+      tabsBar,
+      { opacity: [0, 1], y: [20, 0], scale: [0.95, 1] },
+      { duration: 0.7, easing: appleSpring, delay: 0.2 }
+    );
+  }
+
+  // ──────────────────────────────────────────────────────────
+  // USER INTERFACE SECTIONS: Scroll-triggered reveals
+  // ──────────────────────────────────────────────────────────
+
+  // Test Now Bar — slide in from left
+  scrollReveal("#view-user-interface .test-now-bar", {
+    x: [-40, 0],
+    y: [0, 0],
+  }, { duration: 0.8, staggerDelay: 0 });
+
+  // Soil Health Section — grand cinematic entrance
+  const soilHealthSection = document.querySelector("#section-soil-health");
+  if (soilHealthSection) {
+    soilHealthSection.style.opacity = "0";
+    inView(soilHealthSection, () => {
+      animate(
+        soilHealthSection,
+        { opacity: [0, 1], y: [60, 0], scale: [0.96, 1] },
+        { duration: 0.9, easing: appleEase }
+      );
+    }, { margin: "-60px", amount: 0.15 });
+  }
+
+  // Health Index Badge — pop in with spring
+  const healthBadge = document.querySelector(".health-index-badge");
+  if (healthBadge) {
+    healthBadge.style.opacity = "0";
+    inView(healthBadge, () => {
+      animate(
+        healthBadge,
+        { opacity: [0, 1], scale: [0.6, 1], rotate: [-8, 0] },
+        { duration: 0.7, easing: appleSpring, delay: 0.3 }
+      );
+    }, { margin: "-40px" });
+  }
+
+  // Gauge Cards — staggered cascade reveal
+  const gauges = Array.from(document.querySelectorAll("#view-user-interface .gauge-card"));
+  if (gauges.length > 0) {
+    gauges.forEach(g => { g.style.opacity = "0"; });
+    gauges.forEach((gauge, idx) => {
+      inView(gauge, () => {
+        animate(
+          gauge,
+          {
+            opacity: [0, 1],
+            y: [40, 0],
+            scale: [0.88, 1],
+          },
+          {
+            delay: idx * 0.1,
+            duration: 0.7,
+            easing: appleSpring,
+          }
+        );
+      }, { margin: "-50px", amount: 0.15 });
+    });
+  }
+
+  // Section Titles — elegant text reveals
+  scrollReveal("#view-user-interface .section-title", {
+    y: [25, 0],
+  }, { staggerDelay: 0, duration: 0.65 });
+
+  scrollReveal("#view-user-interface .section-desc", {
+    y: [15, 0],
+  }, { staggerDelay: 0, duration: 0.55, easing: appleSoft });
+
+  // ──────────────────────────────────────────────────────────
+  // AI CHATBOT SECTION: Premium reveal
+  // ──────────────────────────────────────────────────────────
+  const chatSection = document.querySelector("#kisan-chat-section");
+  if (chatSection) {
+    chatSection.style.opacity = "0";
+    inView(chatSection, () => {
+      animate(
+        chatSection,
+        { opacity: [0, 1], y: [50, 0], x: [-20, 0] },
+        { duration: 0.85, easing: appleEase }
+      );
+    }, { margin: "-80px", amount: 0.1 });
+  }
+
+  // Quick Prompt Buttons — wave entrance
+  const quickPrompts = Array.from(document.querySelectorAll(".quick-prompt-btn"));
+  if (quickPrompts.length > 0) {
+    quickPrompts.forEach(p => { p.style.opacity = "0"; });
+    const promptParent = document.querySelector(".quick-prompts-bar");
+    if (promptParent) {
+      inView(promptParent, () => {
+        quickPrompts.forEach((btn, idx) => {
+          animate(
+            btn,
+            { opacity: [0, 1], y: [12, 0], scale: [0.9, 1] },
+            { delay: 0.3 + idx * 0.06, duration: 0.5, easing: appleSpring }
+          );
+        });
+      }, { margin: "-40px" });
+    }
+  }
+
+  // Copilot badges — slide in
+  scrollReveal(".copilot-badge, .engine-badge, .resources-badge", {
+    x: [-15, 0],
+    scale: [0.9, 1],
+  }, { staggerDelay: 0.05, duration: 0.5, easing: appleSpring });
+
+  // ──────────────────────────────────────────────────────────
+  // TARGET CROP GAP ANALYSIS: Cinematic comparison reveal
+  // ──────────────────────────────────────────────────────────
+  const gapSection = document.querySelector("#section-target-crop-gap");
+  if (gapSection) {
+    gapSection.style.opacity = "0";
+    inView(gapSection, () => {
+      animate(
+        gapSection,
+        { opacity: [0, 1], y: [70, 0] },
+        { duration: 0.9, easing: appleEase }
+      );
+    }, { margin: "-60px", amount: 0.1 });
+  }
+
+  // VS Comparison — split entrance
+  const topRankCol = document.querySelector(".top-rank-col");
+  const testedCropCol = document.querySelector(".tested-crop-col");
+  const vsCircle = document.querySelector(".vs-circle");
+  if (topRankCol && testedCropCol) {
+    [topRankCol, testedCropCol, vsCircle].forEach(el => { if (el) el.style.opacity = "0"; });
+    const banner = document.querySelector(".gap-comparison-banner");
+    if (banner) {
+      inView(banner, () => {
+        animate(topRankCol, { opacity: [0, 1], x: [-50, 0] }, { duration: 0.8, easing: appleEase, delay: 0.1 });
+        animate(testedCropCol, { opacity: [0, 1], x: [50, 0] }, { duration: 0.8, easing: appleEase, delay: 0.1 });
+        if (vsCircle) {
+          animate(vsCircle, { opacity: [0, 1], scale: [0.3, 1], rotate: [-180, 0] }, { duration: 0.7, easing: appleSpring, delay: 0.4 });
+        }
+      }, { margin: "-60px", amount: 0.2 });
+    }
+  }
+
+  // Gap Factor Cards — cascade
+  scrollReveal(".gap-factors-grid > *", {
+    y: [30, 0],
+    scale: [0.92, 1],
+  }, { staggerDelay: 0.1, duration: 0.6, easing: appleSpring });
+
+  // Gap Action Steps — slide in from right
+  scrollReveal(".gap-actions-list > *", {
+    x: [30, 0],
+    y: [10, 0],
+  }, { staggerDelay: 0.08, duration: 0.6 });
+
+  // ──────────────────────────────────────────────────────────
+  // CROP RECOMMENDATION CARDS: Grand reveal
+  // ──────────────────────────────────────────────────────────
+  const cropSection = document.querySelector("#section-crop-recommendations");
+  if (cropSection) {
+    cropSection.style.opacity = "0";
+    inView(cropSection, () => {
+      animate(
+        cropSection,
+        { opacity: [0, 1], y: [50, 0] },
+        { duration: 0.8, easing: appleEase }
+      );
+
+      // Animate crop cards inside after section appears
+      setTimeout(() => {
+        const cropCards = Array.from(cropSection.querySelectorAll(".crop-card"));
+        cropCards.forEach((card, idx) => {
+          animate(
+            card,
+            {
+              opacity: [0, 1],
+              y: [30, 0],
+              scale: [0.9, 1],
+            },
+            {
+              delay: idx * 0.12,
+              duration: 0.65,
+              easing: appleSpring,
+            }
+          );
+        });
+      }, 200);
+    }, { margin: "-60px", amount: 0.1 });
+  }
+
+  // ──────────────────────────────────────────────────────────
+  // FERTILIZER TABLE: Elegant row-by-row reveal
+  // ──────────────────────────────────────────────────────────
+  const fertilizerSection = document.querySelector("#section-fertilizer");
+  if (fertilizerSection) {
+    fertilizerSection.style.opacity = "0";
+    inView(fertilizerSection, () => {
+      animate(
+        fertilizerSection,
+        { opacity: [0, 1], y: [40, 0] },
+        { duration: 0.75, easing: appleEase }
+      );
+    }, { margin: "-50px", amount: 0.15 });
+  }
+
+  // ──────────────────────────────────────────────────────────
+  // IRRIGATION BANNER: Slide up with glow
+  // ──────────────────────────────────────────────────────────
+  const irrigationBanner = document.querySelector("#irrigation-banner");
+  if (irrigationBanner) {
+    irrigationBanner.style.opacity = "0";
+    inView(irrigationBanner, () => {
+      animate(
+        irrigationBanner,
+        { opacity: [0, 1], y: [35, 0], scale: [0.97, 1] },
+        { duration: 0.8, easing: appleEase }
+      );
+    }, { margin: "-40px", amount: 0.2 });
+  }
+
+  // Metric chips — pop cascade
+  scrollReveal(".metric-chip", {
+    scale: [0.8, 1],
+    y: [10, 0],
+  }, { staggerDelay: 0.06, duration: 0.45, easing: appleSpring });
+
+  // ──────────────────────────────────────────────────────────
+  // SOIL HEALING BANNER: Premium slide-in
+  // ──────────────────────────────────────────────────────────
+  const healingBanner = document.querySelector(".soil-healing-banner");
+  if (healingBanner) {
+    healingBanner.style.opacity = "0";
+    inView(healingBanner, () => {
+      animate(
+        healingBanner,
+        { opacity: [0, 1], y: [40, 0], x: [20, 0] },
+        { duration: 0.85, easing: appleEase }
+      );
+    }, { margin: "-50px" });
+  }
+
+  // Healing tags — pop
+  scrollReveal(".healing-tag", {
+    scale: [0.8, 1],
+    y: [8, 0],
+  }, { staggerDelay: 0.08, duration: 0.4, easing: appleSpring });
+
+  // ──────────────────────────────────────────────────────────
+  // SENSOR SCREEN: Scroll reveals for IoT console
+  // ──────────────────────────────────────────────────────────
+
+  // Sensor control cards — staggered cascade
+  scrollReveal("#view-sensor-screen .sensor-control-card", {
+    y: [35, 0],
+    scale: [0.94, 1],
+    filter: ["blur(3px)", "blur(0px)"],
+  }, { staggerDelay: 0.07, duration: 0.65, easing: appleEase });
+
+  // Target Crop Evaluator
+  const cropEvaluator = document.querySelector("#target-crop-evaluator");
+  if (cropEvaluator) {
+    cropEvaluator.style.opacity = "0";
+    inView(cropEvaluator, () => {
+      animate(
+        cropEvaluator,
+        { opacity: [0, 1], y: [30, 0] },
+        { duration: 0.7, easing: appleEase }
+      );
+    }, { margin: "-40px" });
+  }
+
+  // Suitability Result Panel
+  const suitResult = document.querySelector("#crop-suitability-result");
+  if (suitResult) {
+    suitResult.style.opacity = "0";
+    inView(suitResult, () => {
+      animate(
+        suitResult,
+        { opacity: [0, 1], y: [25, 0], scale: [0.97, 1] },
+        { duration: 0.7, easing: appleEase }
+      );
+    }, { margin: "-40px" });
+  }
+
+  // Quick Crop Chips
+  scrollReveal(".crop-chip-btn", {
+    y: [10, 0],
+    scale: [0.85, 1],
+  }, { staggerDelay: 0.04, duration: 0.4, easing: appleSpring });
+
+  // Preset buttons
+  scrollReveal(".btn-preset", {
+    y: [12, 0],
+    scale: [0.9, 1],
+  }, { staggerDelay: 0.06, duration: 0.45, easing: appleSpring });
+
+  // ──────────────────────────────────────────────────────────
+  // LOGIN MODAL: Cinematic reveal when opened
+  // ──────────────────────────────────────────────────────────
+  const authModal = document.querySelector("#auth-modal");
+  if (authModal) {
+    const modalObserver = new MutationObserver(() => {
+      if (!authModal.classList.contains("hidden")) {
+        const modalCard = authModal.querySelector(".auth-modal-card");
+        if (modalCard) {
+          animate(
+            modalCard,
+            { opacity: [0, 1], y: [40, 0], scale: [0.92, 1], filter: ["blur(10px)", "blur(0px)"] },
+            { duration: 0.6, easing: appleSpring }
+          );
+        }
+      }
+    });
+    modalObserver.observe(authModal, { attributes: true, attributeFilter: ["class"] });
+  }
+
+  // ──────────────────────────────────────────────────────────
+  // PREMIUM HOVER MICRO-INTERACTIONS (Entire Webapp)
+  // ──────────────────────────────────────────────────────────
+  function bindHoverMotion(selector, hoverIn, hoverOut) {
+    document.querySelectorAll(selector).forEach(el => {
+      if (el.dataset.motionHover) return;
+      el.dataset.motionHover = "true";
+      el.addEventListener("mouseenter", () => animate(el, hoverIn, { duration: 0.3, easing: appleEase }));
+      el.addEventListener("mouseleave", () => animate(el, hoverOut, { duration: 0.35, easing: appleEase }));
+    });
+  }
+
+  // Cards — float up on hover
+  bindHoverMotion(
+    ".card, .crop-card, .gauge-card, .sensor-control-card, .soil-healing-banner, .target-crop-gap-card",
+    { y: -6, scale: 1.012 },
+    { y: 0, scale: 1 }
+  );
+
+  // Buttons — subtle press effect
+  bindHoverMotion(
+    ".btn-gap-action, .chat-send-btn, .btn-auth-submit, .btn-gdrive, .btn-gemini-key, .quick-prompt-btn, .crop-chip-btn, .btn-load-crop-preset",
+    { scale: 1.04, y: -2 },
+    { scale: 1, y: 0 }
+  );
+
+  // Tab buttons — glow lift
+  bindHoverMotion(
+    ".landing-tab-btn",
+    { scale: 1.03, y: -3 },
+    { scale: 1, y: 0 }
+  );
+
+  // Status pills — subtle pop
+  bindHoverMotion(
+    ".status-pill-badge, .healing-tag, .gap-tag-pill, .info-pill",
+    { scale: 1.08 },
+    { scale: 1 }
+  );
+
+  // ──────────────────────────────────────────────────────────
+  // SCROLL PROGRESS: Parallax on header background blur
+  // ──────────────────────────────────────────────────────────
+  if (header && scroll) {
+    try {
+      scroll(
+        animate(header, {
+          backdropFilter: ["blur(20px)", "blur(32px)"],
+          borderBottomColor: ["rgba(134, 239, 172, 0.16)", "rgba(134, 239, 172, 0.35)"],
+        }),
+        { target: document.documentElement }
+      );
+    } catch (e) {
+      // scroll() may not be available in all Motion builds
+    }
+  }
+
+  // ──────────────────────────────────────────────────────────
+  // TOAST CONTAINER: Entrance animation hook
+  // ──────────────────────────────────────────────────────────
+  const toastContainer = document.querySelector("#toast-container");
+  if (toastContainer) {
+    const toastObserver = new MutationObserver(mutations => {
+      mutations.forEach(m => {
+        m.addedNodes.forEach(node => {
+          if (node.nodeType === 1) {
+            animate(
+              node,
+              { opacity: [0, 1], y: [20, 0], x: [30, 0], scale: [0.9, 1] },
+              { duration: 0.45, easing: appleSpring }
+            );
+          }
+        });
+      });
+    });
+    toastObserver.observe(toastContainer, { childList: true });
+  }
+
+  // ──────────────────────────────────────────────────────────
+  // RE-ANIMATE on tab switch (User Interface & Sensor Screen)
+  // ──────────────────────────────────────────────────────────
+  window._reanimateUI = function() {
+    const uiCards = Array.from(document.querySelectorAll("#view-user-interface .card"));
+    uiCards.forEach((card, idx) => {
+      animate(
+        card,
+        { opacity: [0, 1], y: [30, 0], scale: [0.97, 1] },
+        { delay: idx * 0.05, duration: 0.55, easing: appleEase }
+      );
+    });
+  };
+
+  window._reanimateSensor = function() {
+    const sensorCards = Array.from(document.querySelectorAll("#view-sensor-screen .sensor-control-card, #view-sensor-screen .card"));
+    sensorCards.forEach((card, idx) => {
+      animate(
+        card,
+        { opacity: [0, 1], y: [24, 0], scale: [0.985, 1] },
+        { delay: idx * 0.035, duration: 0.5, easing: appleEase }
+      );
+    });
+  };
 }
 
 function initTabSwitcher() {
@@ -2193,20 +3649,53 @@ function initTabSwitcher() {
 
   if (!tabUI || !tabSensor || !paneUI || !paneSensor) return;
 
-  tabUI.addEventListener("click", () => {
+  const switchToUI = () => {
     tabUI.classList.add("active");
     tabSensor.classList.remove("active");
     paneUI.classList.remove("hidden");
     paneSensor.classList.add("hidden");
-  });
 
-  tabSensor.addEventListener("click", () => {
+    // Remove static background classes to restore botanical background on Farmer Advisory
+    document.body.classList.remove("sensor-screen-active");
+    document.documentElement.classList.remove("sensor-screen-active");
+
+    // Resume Apple scroll background animation
+    if (window.uiBgPlayer) {
+      window.uiBgPlayer.setUIVisible(true);
+    }
+    // Apple Framer Motion re-entrance on User Interface
+    if (window._reanimateUI) window._reanimateUI();
+  };
+
+  const switchToSensor = () => {
     tabSensor.classList.add("active");
     tabUI.classList.remove("active");
     paneSensor.classList.remove("hidden");
     paneUI.classList.add("hidden");
     updateRawTelemetryOutput();
-  });
+
+    // Enable static dark hardware console background on Sensor Screen
+    document.body.classList.add("sensor-screen-active");
+    document.documentElement.classList.add("sensor-screen-active");
+
+    // Disable animated botanical canvas for clean static sensor background
+    if (window.uiBgPlayer) {
+      window.uiBgPlayer.setUIVisible(false);
+    }
+    // Apple Framer Motion re-entrance on Sensor Screen
+    if (window._reanimateSensor) window._reanimateSensor();
+  };
+
+  tabUI.addEventListener("click", switchToUI);
+  tabSensor.addEventListener("click", switchToSensor);
+
+  // Synchronize on initialization
+  if (tabSensor.classList.contains("active") || (!paneSensor.classList.contains("hidden") && paneUI.classList.contains("hidden"))) {
+    switchToSensor();
+  } else {
+    document.body.classList.remove("sensor-screen-active");
+    document.documentElement.classList.remove("sensor-screen-active");
+  }
 }
 
 function initTestNowButtons() {
@@ -2281,13 +3770,23 @@ function initTestNowButtons() {
 // Initialization
 // -------------------------------------------------------------
 document.addEventListener("DOMContentLoaded", () => {
+  // Mobile Native Host Discovery (runs asynchronously in background without blocking UI render)
+  resolveActiveBackendHost();
+
   // Initialize Farmer Authentication & Login Modal
   initAuthHandlers();
+
+  // Initialize Apple-Grade Animated Botanical Background (Strictly User Interface)
+  window.uiBgPlayer = new UIBackgroundAnimationManager();
+
+  // Initialize Apple Framer Motion Animations (Strictly User Interface)
+  initUserInterfaceMotion();
 
   // Initialize Wireframe Landing Architecture: Tabs & Dual Test Now Actions
   initTabSwitcher();
   initTestNowButtons();
   initCropSuitabilityFeature();
+  initGapActionButtons();
 
   // Bind all 8 dual-control sensor inputs (numeric input + fine slider)
   bindDualControl("slider-n", "num-n", "lbl-n", "kg/ha");
@@ -2313,15 +3812,74 @@ document.addEventListener("DOMContentLoaded", () => {
     applyPreset(PRESETS.wayanad);
   });
 
-  // Bind Quick Prompt buttons in Kisan AI section
+  // Chatbot toggle handler for progressive disclosure
+  function toggleChatbot(forceOpen = null) {
+    const chatBox = document.getElementById("kisan-chat");
+    const indicator = document.getElementById("chat-header-toggle-indicator");
+    if (!chatBox) return;
+
+    const shouldOpen = forceOpen !== null ? forceOpen : chatBox.classList.contains("hidden");
+    if (shouldOpen) {
+      chatBox.classList.remove("hidden");
+      if (indicator) {
+        indicator.textContent = "▴ Collapse Chat";
+        indicator.classList.add("expanded");
+        indicator.setAttribute("aria-expanded", "true");
+      }
+      const input = document.getElementById("chat-input");
+      if (input) input.focus();
+    } else {
+      chatBox.classList.add("hidden");
+      if (indicator) {
+        indicator.textContent = "▾ Click to Open Chat";
+        indicator.classList.remove("expanded");
+        indicator.setAttribute("aria-expanded", "false");
+      }
+    }
+  }
+
+  // Toggle chat on clicking header title area or toggle button
+  document.getElementById("chat-header-clickable-area")?.addEventListener("click", () => {
+    toggleChatbot();
+  });
+  document.getElementById("chat-header-toggle-indicator")?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleChatbot();
+  });
+
+  // Bind Quick Prompt buttons in Kisan AI section (auto-expand chat if collapsed)
   document.querySelectorAll(".quick-prompt-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
+      toggleChatbot(true);
       const query = btn.getAttribute("data-query");
       if (query) {
         handleChatSubmit(query);
       }
     });
   });
+
+  // Irrigation water balance details toggle button
+  const btnToggleWater = document.getElementById("btn-toggle-water-details");
+  if (btnToggleWater) {
+    btnToggleWater.addEventListener("click", () => {
+      const metrics = document.getElementById("irrigation-metrics");
+      const arrow = document.getElementById("toggle-water-arrow");
+      const label = document.getElementById("toggle-water-label");
+      if (!metrics) return;
+      const isHidden = metrics.classList.contains("hidden");
+      if (isHidden) {
+        metrics.classList.remove("hidden");
+        btnToggleWater.setAttribute("aria-expanded", "true");
+        if (arrow) arrow.textContent = "▴";
+        if (label) label.textContent = "Hide water balance details";
+      } else {
+        metrics.classList.add("hidden");
+        btnToggleWater.setAttribute("aria-expanded", "false");
+        if (arrow) arrow.textContent = "▾";
+        if (label) label.textContent = "Show water balance details";
+      }
+    });
+  }
 
   // Bind Chat Form submission
   const chatForm = document.getElementById("chat-form");
@@ -2333,34 +3891,33 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Bind Configure Gemini API Key Button
-  const btnConfigGemini = document.getElementById("btn-configure-gemini");
-  if (btnConfigGemini) {
-    btnConfigGemini.addEventListener("click", async () => {
-      const currentKey = prompt(
-        "Enter your Google Gemini API Key (from Google AI Studio):",
-        ""
-      );
-      if (currentKey && currentKey.trim()) {
-        try {
-          const res = await fetch("/api/kisan-ai/set-key", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ api_key: currentKey.trim() }),
-          });
-          const resData = await res.json();
-          if (res.ok) {
-            alert("✅ Google Gemini API key configured successfully! Live multimodal reasoning is now active.");
-            loadResourcesSummary();
-          } else {
-            alert(`⚠️ Error setting API key: ${resData.detail || "Server error"}`);
-          }
-        } catch (err) {
-          alert(`⚠️ Connection error: ${err.message}`);
-        }
+  // Bind Diagnostics Modal Open / Close
+  const btnOpenDiag = document.getElementById("btn-open-diagnostics");
+  const btnCloseDiag = document.getElementById("btn-diagnostics-close");
+  const modalOverlayDiag = document.getElementById("diagnostics-modal-overlay");
+
+  if (btnOpenDiag && modalOverlayDiag) {
+    btnOpenDiag.addEventListener("click", () => {
+      modalOverlayDiag.classList.remove("hidden");
+    });
+  }
+
+  if (btnCloseDiag && modalOverlayDiag) {
+    btnCloseDiag.addEventListener("click", () => {
+      modalOverlayDiag.classList.add("hidden");
+    });
+  }
+
+  if (modalOverlayDiag) {
+    modalOverlayDiag.addEventListener("click", (e) => {
+      if (e.target === modalOverlayDiag) {
+        modalOverlayDiag.classList.add("hidden");
       }
     });
   }
+
+  // Initialize Mobile App Native Hardware & Network Bridge Handlers
+  initMobileHardwareHandlers();
 
   // Load chat history & dynamic research resources count
   loadChatHistory();
@@ -2369,3 +3926,144 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initial trigger with Palakkad Rice Paddy defaults
   applyPreset(PRESETS.palakkad);
 });
+
+// -------------------------------------------------------------
+// Mobile App Native Hardware & Network Bridge Handlers
+// -------------------------------------------------------------
+function initMobileHardwareHandlers() {
+  // 1. Mobile Server Host Switcher
+  const inputHost = document.getElementById("input-api-host");
+  const btnSaveHost = document.getElementById("btn-save-api-host");
+  const btnResetHost = document.getElementById("btn-reset-api-host");
+
+  if (inputHost) {
+    const savedHost = localStorage.getItem("krishi_api_host");
+    if (savedHost) {
+      inputHost.value = savedHost;
+    } else {
+      inputHost.placeholder = `http://${window.location.hostname || "192.168.1.X"}:8000`;
+    }
+  }
+
+  if (btnSaveHost && inputHost) {
+    btnSaveHost.addEventListener("click", async () => {
+      const val = (inputHost.value || "").trim().replace(/\/+$/, "");
+      if (!val) {
+        showToast("⚠️ Please enter a valid host URL (e.g. http://192.168.1.15:8000)", "error");
+        return;
+      }
+      localStorage.setItem("krishi_api_host", val);
+      triggerHaptic("heavy");
+      showToast(`📱 Testing connection to: ${val}...`, "info", 3000);
+
+      try {
+        const testRes = await fetch(getApiUrl("/api/mobile/status"));
+        if (testRes.ok) {
+          const testData = await testRes.json();
+          showToast(`✅ Successfully connected to ${testData.app_name || "KrishiMitra Backend"}!`, "success", 4000);
+        } else {
+          showToast(`⚠️ Host reachable but returned status ${testRes.status}.`, "warn");
+        }
+      } catch (err) {
+        showToast(`⚠️ Saved host, but initial test ping failed (${err.message}). Verify backend is reachable on same Wi-Fi.`, "error", 6000);
+      }
+    });
+  }
+
+  if (btnResetHost && inputHost) {
+    btnResetHost.addEventListener("click", () => {
+      localStorage.removeItem("krishi_api_host");
+      inputHost.value = "";
+      triggerHaptic("light");
+      showToast("🔄 Restored default relative API host for browser mode.", "info");
+    });
+  }
+
+  // 2. GPS Field Location Sync
+  const btnGps = document.getElementById("btn-gps-sync");
+  if (btnGps) {
+    btnGps.addEventListener("click", () => {
+      triggerHaptic("light");
+      btnGps.classList.add("syncing");
+      btnGps.innerHTML = "<span>📡 Scanning GPS...</span>";
+
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            btnGps.classList.remove("syncing");
+            btnGps.innerHTML = "<span>📍 GPS Field Sync</span>";
+            const lat = pos.coords.latitude;
+            const lon = pos.coords.longitude;
+            triggerHaptic("heavy");
+
+            const lastTestedTime = document.getElementById("last-tested-time-val");
+            if (lastTestedTime) {
+              const now = new Date();
+              const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+              lastTestedTime.textContent = `Today at ${timeStr} • GPS Field Lock: ${lat.toFixed(4)}°N, ${lon.toFixed(4)}°E`;
+            }
+
+            const syncIndicator = document.getElementById("sync-status-indicator");
+            if (syncIndicator) {
+              syncIndicator.textContent = `📍 GPS Locked (${lat.toFixed(2)}°, ${lon.toFixed(2)}°)`;
+              syncIndicator.style.color = "#38bdf8";
+            }
+
+            showToast(`📍 Field Station Locked to GPS: ${lat.toFixed(4)}°N, ${lon.toFixed(4)}°E`, "success", 4000);
+          },
+          (err) => {
+            btnGps.classList.remove("syncing");
+            btnGps.innerHTML = "<span>📍 GPS Field Sync</span>";
+            console.warn("GPS Geolocation lookup error:", err);
+            showToast("📍 Field GPS fallback active: Palakkad IoT Field Station #04", "info", 4000);
+          },
+          { enableHighAccuracy: true, timeout: 8000, maximumAge: 60000 }
+        );
+      } else {
+        btnGps.classList.remove("syncing");
+        btnGps.innerHTML = "<span>📍 GPS Field Sync</span>";
+        showToast("📍 Geolocation not supported on this platform. Using station preset.", "info");
+      }
+    });
+  }
+
+  // 3. Camera Leaf Diagnosis Photo Upload
+  const btnCamera = document.getElementById("btn-camera-upload");
+  const cameraInput = document.getElementById("camera-file-input");
+
+  if (btnCamera && cameraInput) {
+    btnCamera.addEventListener("click", () => {
+      triggerHaptic("light");
+      cameraInput.click();
+    });
+
+    cameraInput.addEventListener("change", (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      triggerHaptic("heavy");
+      const reader = new FileReader();
+      reader.onload = (uploadEvent) => {
+        const dataUrl = uploadEvent.target.result;
+        // Make sure chat widget is visible
+        const chatBox = document.getElementById("kisan-chat");
+        if (chatBox && chatBox.classList.contains("hidden")) {
+          chatBox.classList.remove("hidden");
+        }
+
+        // Post leaf photo into chat thread
+        appendChatMessage({
+          role: "user",
+          text: `📸 <em>Attached leaf/soil sample photo:</em><br><img src="${dataUrl}" alt="Crop Sample" style="max-width: 100%; max-height: 220px; border-radius: 10px; margin-top: 8px; border: 1px solid rgba(52, 211, 153, 0.4); object-fit: cover;" />`,
+        });
+
+        // Trigger AI analysis query
+        handleChatSubmit("Please examine this attached crop leaf and soil image alongside current soil telemetry (N, P, K, pH) to diagnose visible chlorosis, necrosis, or pest symptoms and recommend ICAR-grounded treatment.");
+      };
+      reader.readAsDataURL(file);
+      // Reset input so same photo can be re-uploaded if desired
+      cameraInput.value = "";
+    });
+  }
+}
+

@@ -53,3 +53,13 @@ yarn-debug.log*
 *~
 .DS_Store
 Thumbs.db
+
+# Node & Mobile Dependencies / Builds
+node_modules/
+mobile/node_modules/
+mobile/android/.gradle/
+mobile/android/app/build/
+mobile/android/build/
+mobile/android/local.properties
+*.apk
+mobile/*.png

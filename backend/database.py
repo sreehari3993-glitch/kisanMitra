@@ -7,13 +7,22 @@ try:
 except ImportError:
     from .config import settings
 
-# SQLAlchemy 2.0 Engine with tuned connection pooling for MySQL
-engine = create_engine(
-    settings.DATABASE_URL,
-    pool_size=10,
-    max_overflow=20,
-    pool_pre_ping=True,
-)
+# Format connection URL for SQLAlchemy compatibility (Railway mysql:// to mysql+pymysql://)
+db_url = settings.DATABASE_URL
+if db_url.startswith("postgres://"):
+    db_url = db_url.replace("postgres://", "postgresql://", 1)
+elif db_url.startswith("mysql://"):
+    db_url = db_url.replace("mysql://", "mysql+pymysql://", 1)
+
+if "sqlite" in db_url:
+    engine = create_engine(db_url, connect_args={"check_same_thread": False})
+else:
+    engine = create_engine(
+        db_url,
+        pool_size=10,
+        max_overflow=20,
+        pool_pre_ping=True,
+    )
 
 # Session factory for DB interactions
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
